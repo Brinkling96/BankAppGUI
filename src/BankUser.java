@@ -5,13 +5,15 @@ public class BankUser {
     public static final int numMembersToDisplay= 2;
 
     private String username;
+    private char[] password;
 
     private Integer userID;
 
     private ArrayList<CheckingAccount> accounts;
 
-    public BankUser(String username, Integer userID) {
+    public BankUser(String username, char[] password, Integer userID) {
         this.username = username;
+        this.password = password;
         this.userID = userID;
         this.accounts = new ArrayList<>();
     }
@@ -32,6 +34,14 @@ public class BankUser {
         this.username = username;
     }
 
+    public char[] getPassword() {
+        return password;
+    }
+
+    public void setPassword(char[] password) {
+        this.password = password;
+    }
+
     public Integer getUserID() {
         return userID;
     }
@@ -47,6 +57,22 @@ public class BankUser {
             }
         }
         return null;
+    }
+
+    public boolean isPasswordCorrect(char[] inputpassword){
+        if(inputpassword == null){
+            return false;
+        }
+        else if(inputpassword.length != password.length){
+            return false;
+        }
+
+        for(int i=0; i<inputpassword.length; i++){
+            if(password[i] != inputpassword[i]){
+                return false;
+            }
+        }
+        return true;
     }
 
 }
