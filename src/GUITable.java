@@ -8,16 +8,24 @@ public class GUITable extends JScrollPane {
 
     public GUITable(Object[][] tableData, String[] tableHeaders) {
         this.table = new JTable();
+        Class[] tempTypes;
+        boolean[] tempEdits;
+        if(tableData.length >0) {
 
-        int tableLength = tableData[0].length;
+            int tableLength = tableData[0].length;
 
 
-        Class[] tempTypes = new Class[tableLength];
+           tempTypes = new Class[tableLength];
 
-        boolean[] tempEdits = new boolean[tableLength];
-        for(int i = 0; i<tableLength;i++){
-            tempTypes[i] = tableData[0][i].getClass();
-            tempEdits[i]= false;
+            tempEdits = new boolean[tableLength];
+            for (int i = 0; i < tableLength; i++) {
+                tempTypes[i] = tableData[0][i].getClass();
+                tempEdits[i] = false;
+            }
+        }
+        else{
+            tempTypes = new Class[0];
+            tempEdits = new boolean[0];
         }
 
         table.setModel(new DefaultTableModel(tableData,tableHeaders) {

@@ -5,7 +5,7 @@ public class TestingLoginTest {
     public static void main(String[]  args) {
         JFrame frame = new JFrame("Test");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        BankUser s = new BankUser("sdbrady","password".toCharArray(),1);
+        BankUser s = new BankUser("sdbrady","password".toCharArray());
         s.addCheckingAccount(new CheckingAccount(1000));
         ArrayList<BankUser> temp = new ArrayList<>();
         temp.add(s);

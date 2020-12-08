@@ -4,6 +4,8 @@ public class BankUser {
 
     public static final int numMembersToDisplay= 2;
 
+    public static int numUsers = 0;
+
     private String username;
     private char[] password;
 
@@ -11,10 +13,10 @@ public class BankUser {
 
     private ArrayList<CheckingAccount> accounts;
 
-    public BankUser(String username, char[] password, Integer userID) {
+    public BankUser(String username, char[] password) {
         this.username = username;
         this.password = password;
-        this.userID = userID;
+        this.userID = numUsers++;
         this.accounts = new ArrayList<>();
     }
 

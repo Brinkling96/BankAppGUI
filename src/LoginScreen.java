@@ -75,6 +75,7 @@ public class LoginScreen extends JPanel {
     }
 
     private void newUserButtonAction() {
+        UserCreationDialog d = new UserCreationDialog(host,true,bank);
     }
 
     private void submitButtonAction() {

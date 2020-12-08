@@ -17,4 +17,9 @@ public class Bank {
         }
         return null;
     }
+
+    public void addUser(BankUser user){
+        this.users.add(user);
+    }
+
 }
