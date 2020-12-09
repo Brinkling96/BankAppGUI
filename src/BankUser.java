@@ -11,7 +11,7 @@ public class BankUser {
 
     private Integer userID;
 
-    private ArrayList<CheckingAccount> accounts;
+    private ArrayList<Account> accounts;
 
     public BankUser(String username, char[] password) {
         this.username = username;
@@ -20,12 +20,12 @@ public class BankUser {
         this.accounts = new ArrayList<>();
     }
 
-    public ArrayList<CheckingAccount> getAccounts() {
+    public ArrayList<Account> getAccounts() {
         return accounts;
     }
 
-    public void addCheckingAccount(CheckingAccount checkingAccount){
-       this.accounts.add(checkingAccount);
+    public void addAccount(Account account){
+       this.accounts.add(account);
     }
 
     public String getUsername() {
@@ -52,8 +52,8 @@ public class BankUser {
         this.userID = userID;
     }
 
-    public CheckingAccount getAccount(int AccountID){
-        for(CheckingAccount acct: accounts){
+    public Account getAccount(int AccountID){
+        for(Account acct: accounts){
             if(acct.getAccountID() == AccountID){
                 return acct;
             }

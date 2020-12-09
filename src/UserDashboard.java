@@ -153,14 +153,12 @@ public class UserDashboard extends JPanel{
         //todo
     }
 
-    private void addAccountButtonAction(){
-        /*todo:
-        AddAccountDialong d= new AddAccountDialong(this, true, user);
-        if(d.getAccount() != null){
-            addAccountToTable(d.getAccount());
+    private void addAccountButtonAction() {
+        MoneyAccountTypeSelectionMenu d = new MoneyAccountTypeSelectionMenu(this.host, this.user);
+        Account act = d.account;
+        if (act != null) {
+            moneyAccountTable.addRowToTable(new Object[]{act.getAccountID(), act.getBalance()});
         }
-
-         */
     }
 
     public void removeAccountButtonActionPerformed(){

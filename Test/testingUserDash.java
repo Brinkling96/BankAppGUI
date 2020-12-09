@@ -5,7 +5,7 @@ public class testingUserDash {
         JFrame frame = new JFrame("Test");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         BankUser s = new BankUser("sdbrady","password".toCharArray());
-        s.addCheckingAccount(new CheckingAccount(1000));
+        s.addAccount(new CheckingAccount(1000));
 
         frame.add(new UserDashboard(frame,s));
         frame.pack();
