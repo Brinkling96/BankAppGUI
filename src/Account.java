@@ -1,8 +1,8 @@
-public abstract class Account {
+public abstract class Account implements AccountActions {
 
-    public static Integer numAccounts=0;
+    public static Integer numAccounts = 0;
 
-    public static final int numMemsToDisplay=2;
+    public static final int numMemsToDisplay = 2;
 
     protected Integer accountID;
     protected Integer balance;
@@ -23,5 +23,16 @@ public abstract class Account {
 
     public void setBalance(Integer balance) {
         this.balance = balance;
+    }
+
+
+    @Override
+    public void deposit(int amount, String currency) {
+
+    }
+
+    @Override
+    public void withdraw(int amount, String currency) {
+
     }
 }
