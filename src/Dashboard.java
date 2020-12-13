@@ -1,0 +1,77 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public abstract class Dashboard extends JPanel {
+
+
+    protected User user;
+    //protected transactions
+
+    protected JFrame host;
+
+    //Dashboard Generals
+    protected JLabel usernameLabel;
+    protected JPanel generalLabelsPanel;
+
+    //DashBoardOptions
+    protected JPanel generalActionsPanel;
+    protected JButton logoutButton;
+    protected JButton stockMarketButton;
+
+
+    public Dashboard(JFrame host, User user) {
+        super();
+        this.user = user;
+        this.host = host;
+        this.host.setMinimumSize(new Dimension(600, 800));
+        LayoutManager layoutManager = new BoxLayout(this, BoxLayout.Y_AXIS);
+        this.setLayout(layoutManager);
+        /////////////////////////////////////////////////////////////////////////////
+        //INFO PANEL SETUP
+
+        this.usernameLabel = new JLabel(user.getUsername());
+        this.generalLabelsPanel = new JPanel();
+
+        this.generalLabelsPanel.add(usernameLabel);
+
+        add(generalLabelsPanel);
+
+
+        ///////////////////////////////////////////////////////////////////////
+        //GENERAL ACTIONS BUTTONS PANEL
+
+        this.generalActionsPanel = new JPanel();
+        this.logoutButton = new JButton("Logout");
+
+        this.logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                logout();
+            }
+        });
+
+        this.stockMarketButton = new JButton("View Stock Market Section");
+        this.stockMarketButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                stockMarketAction();
+            }
+        });
+        this.generalActionsPanel.add(logoutButton);
+        this.generalActionsPanel.add(stockMarketButton);
+
+        add(Box.createVerticalBox());
+        add(generalActionsPanel);
+
+    }
+
+    protected void logout() {
+        //todo
+    }
+
+    protected abstract void stockMarketAction();
+
+    protected abstract void removeAccountButtonActionPerformed();
+}

@@ -84,7 +84,7 @@ public class UserCreationDialog extends JDialog {
         }
         String warnings = warningsBuilder.toString();
         if(warnings.isEmpty()){
-            bank.addUser(new BankUser(username,password));
+            bank.addUser(new CustomerUser(username,password));
             JOptionPane.showMessageDialog(this,"New User Created!","Success",JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }
