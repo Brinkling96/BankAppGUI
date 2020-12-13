@@ -156,7 +156,7 @@ public class UserDashboard extends Dashboard{
     public Account getSelectedAccount(int selectedRow){
         Account act = null;
         if (selectedRow >= 0) {
-            int actnum = (int) this.moneyAccountTable.table.getValueAt(selectedRow, 0);
+            String actnum = (String) this.moneyAccountTable.table.getValueAt(selectedRow, 0);
             act = ((CustomerUser) user).getAccount(actnum);
         }
         return act;

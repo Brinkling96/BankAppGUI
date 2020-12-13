@@ -28,7 +28,7 @@ public class AddCheckingAccountDialog extends AddAccountDialog {
             JOptionPane.showMessageDialog(this, returnString, "Input Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             if (balance > 100) {
-                this.account = new CheckingAccount(balance);
+                this.account = new CheckingAccount(balance, user);
                 user.addAccount(account);
                 this.dispose();
             } else {
