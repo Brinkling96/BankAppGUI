@@ -1,13 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class AddCheckingAccountDialog extends AddAccountDialog {
     private CheckingAccount account;
 
 
-    public AddCheckingAccountDialog(Frame owner, BankUser user) {
+    public AddCheckingAccountDialog(Frame owner, CustomerUser user) {
         super(owner, user);
     }
 

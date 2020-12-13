@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 
 public class Bank {
-    protected ArrayList<BankUser> users;
+    protected ArrayList<User> users;
 
-    public Bank(ArrayList<BankUser> users) {
+    public Bank(ArrayList<User> users) {
         this.users = users;
     }
 
-    public BankUser getUser(String username, char[] password){
-        for(BankUser user : users){
+    public User getUser(String username, char[] password){
+        for(User user : users){
             if(user.getUsername().equals(username)){
                 if(user.isPasswordCorrect(password)){
                     return user;
@@ -18,7 +18,7 @@ public class Bank {
         return null;
     }
 
-    public void addUser(BankUser user){
+    public void addUser(CustomerUser user){
         this.users.add(user);
     }
 

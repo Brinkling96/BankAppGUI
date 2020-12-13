@@ -16,13 +16,13 @@ public class MoneyAccountTypeSelectionMenu extends JDialog {
     protected JButton cancelButton = new JButton("Cancel");
 
 
-    protected BankUser user;
+    protected CustomerUser user;
 
     protected Frame host;
 
     protected Account account;
 
-    public MoneyAccountTypeSelectionMenu(Frame owner, BankUser user) {
+    public MoneyAccountTypeSelectionMenu(Frame owner, CustomerUser user) {
         super(owner, true);
         this.setLayout(new GridLayout(2,2));
 

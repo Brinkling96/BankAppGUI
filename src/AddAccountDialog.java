@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public abstract class AddAccountDialog extends JDialog{
-    protected BankUser user;
+    protected CustomerUser user;
 
     protected JLabel balanceLabel;
     protected JTextField balanceField;
@@ -13,7 +13,7 @@ public abstract class AddAccountDialog extends JDialog{
     protected JButton okButton;
     protected JButton cancelButton;
 
-    public AddAccountDialog(Frame owner, BankUser user) {
+    public AddAccountDialog(Frame owner, CustomerUser user) {
         super(owner, true);
         this.user = user;
         setLocationRelativeTo(owner);

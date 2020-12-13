@@ -79,12 +79,17 @@ public class LoginScreen extends JPanel {
     }
 
     private void submitButtonAction() {
-        BankUser bankUser= bank.getUser( usernamePanel.getTextInputted() ,passwordField.getPassword());
+        User user = bank.getUser( usernamePanel.getTextInputted() ,passwordField.getPassword());
 
-        if(bankUser != null) {
+        if(user != null) {
             this.host.setVisible(false);
             this.host.remove(this);
-            this.host.add(new UserDashboard(host, bankUser));
+            if(user instanceof CustomerUser) {
+                this.host.add(new UserDashboard(host,(CustomerUser) user));
+            }
+            else if(user instanceof Banker){
+                this.host.add(new BankerDashboard(host,(Banker) user,bank));
+            }
             this.host.setVisible(true);
         }
         else{

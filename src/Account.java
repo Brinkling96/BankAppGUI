@@ -2,7 +2,9 @@ public abstract class Account {
 
     public static Integer numAccounts=0;
 
-    public static final int numMemsToDisplay=2;
+    public static final int numMembersToDisplay= 2;
+
+
 
     protected Integer accountID;
     protected Integer balance;
