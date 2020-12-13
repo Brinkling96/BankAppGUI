@@ -9,9 +9,17 @@ public class Clock {
         return clock;
     }
 
-    public String getTime() {
-        LocalDateTime time = LocalDateTime.now();
+    public LocalDateTime getTime() {
+        return LocalDateTime.now();
+    }
+
+    public String getTimeAsString(LocalDateTime time) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
         return time.format(formatter);
+    }
+
+    public Long getTimeAsLong(LocalDateTime time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyyHHmmss");
+        return Long.parseLong(time.format(formatter));
     }
 }

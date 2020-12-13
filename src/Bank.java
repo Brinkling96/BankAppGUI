@@ -7,8 +7,6 @@ public class Bank {
     private ArrayList<Transaction> transactions;
     protected ArrayList<User> users;
 
-
-
     public Bank(ArrayList<User> users) {
         this.users = users;
         this.creationFee = 0;

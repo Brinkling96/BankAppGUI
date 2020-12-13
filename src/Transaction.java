@@ -1,21 +1,30 @@
+import java.time.LocalDateTime;
+
 public class Transaction {
     private final Account account;
-    private final String transactionType;
+    private final LocalDateTime time;
+    private final String transactionType, currency, ID;
     private final int amount;
-    private final String currency;
-    public Transaction(Account account, String transactionType,
+    public Transaction(Account account, String type,
                        int amount, String curr) {
+        this.time = Clock.getClock().getTime();
         this.account = account;
-        this.transactionType = transactionType;
+        this.transactionType = type;
         this.amount = amount;
         this.currency = curr;
+        this.ID = account.getAccountID().toString() + this.time.toString();
     }
 
     public boolean process() {
         boolean success = false;
-
-        // TODO
-
+        switch(transactionType) {
+            case "deposit":
+                success = account.deposit(amount, currency);
+                break;
+            case "withdraw":
+                success = account.withdraw(amount, currency);
+                break;
+        }
         return success;
     }
 

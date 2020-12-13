@@ -27,12 +27,14 @@ public abstract class Account implements AccountActions {
 
 
     @Override
-    public void deposit(int amount, String currency) {
-
+    public boolean deposit(int amount, String currency) {
+        // TODO: Deposit correct amount depending on currency
+        return false;
     }
 
     @Override
-    public void withdraw(int amount, String currency) {
-
+    public boolean withdraw(int amount, String currency) {
+        // TODO: Withdraw correct amount depending on currency
+        return false;
     }
 }
