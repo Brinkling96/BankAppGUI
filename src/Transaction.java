@@ -1,6 +1,8 @@
 import java.time.LocalDateTime;
 
 public class Transaction {
+    public static final int numMemsToDisplay = 6;
+
     private final Account account;
     private final LocalDateTime time;
     private final String transactionType, currency, ID;
@@ -38,6 +40,22 @@ public class Transaction {
 
     public int getAmount() {
         return this.amount;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public String getTransactionType() {
+        return transactionType;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
     }
 
     public String toString() {

@@ -25,7 +25,7 @@ public abstract class Dashboard extends JPanel {
         super();
         this.user = user;
         this.host = host;
-        this.host.setMinimumSize(new Dimension(600, 800));
+        this.host.setMinimumSize(new Dimension(1200, 800));
         LayoutManager layoutManager = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(layoutManager);
         /////////////////////////////////////////////////////////////////////////////

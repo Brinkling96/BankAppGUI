@@ -13,8 +13,10 @@ public class TestingBankerDash {
 
         Banker d = new Banker("banker","pass".toCharArray());
 
+
         temp.add(d);
         Bank bank = new Bank(temp);
+        bank.createTransaction(s.getAccount(0), "CheckingDeposit",1000,"USD");
         frame.add(new BankerDashboard(frame,s,bank));
         frame.pack();
         frame.setVisible(true);

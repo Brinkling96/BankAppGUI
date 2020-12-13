@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class BankerDashboard extends Dashboard{
 
@@ -29,7 +30,7 @@ public class BankerDashboard extends Dashboard{
             }
         });
         this.generalActionsPanel.add(setTimeButton);
-        
+
         //////////////////////////////////////////////////////////////////
         //User Account table
         Object[][] tableData = new Object[bank.users.size()-1][CustomerUser.numMembersToDisplay];
@@ -82,10 +83,32 @@ public class BankerDashboard extends Dashboard{
         ///////////////////////////////////////////////////
         //Transcations
 
-        this.transcationTable = new GUITable(new Object[][]{{1, "test", "Jello"}},new String[]{"Integer","String","String"});
+        ArrayList<Transaction> tds = bank.getTransactions();
+
+
+        this.transcationTable = new GUITable(createTDTable(tds),new String[]{"TransactionID","TranscationType","UserID","AccountID","Date","Amount"});
+
         add(Box.createVerticalBox());
         add(transcationTable);
     }
+    private Object[][] createTDTable(ArrayList<Transaction> tds){
+        Object[][] returnlist = new Object[tds.size()][Transaction.numMemsToDisplay];
+
+        for(int i =0; i < returnlist.length; i++){
+            Object[] returnRow = returnlist[i];
+            Transaction transaction = tds.get(i);
+            int j =0;
+            returnRow[j++] = transaction.getID();
+            returnRow[j++] = transaction.getTransactionType();
+            returnRow[j++] = "null for now"; //todo
+            returnRow[j++] = transaction.getAccount().getAccountID();
+            returnRow[j++] = transaction.getTime().toString();
+            returnRow[j++] = transaction.getAmount();
+        }
+
+        return returnlist;
+    }
+
 
     private void setTimeButtonAction() {
         //todo

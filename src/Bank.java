@@ -32,4 +32,8 @@ public class Bank {
     public void createTransaction(Account account, String type, int amount, String currency) {
         this.transactions.add(new Transaction(account, type, amount, currency));
     }
+
+    public ArrayList<Transaction> getTransactions() {
+        return transactions;
+    }
 }
