@@ -24,6 +24,9 @@ public class Bank {
         }
         return null;
     }
+    public User getUser(String accountID){
+
+    }
 
     public void addUser(CustomerUser user){
         this.users.add(user);

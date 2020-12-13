@@ -116,7 +116,11 @@ public class BankerDashboard extends Dashboard{
     }
 
     private void viewAccountAction() {
-        //todo
+        int selectedRow = this.userAccountTable.table.getSelectedRow();
+        if(selectedRow >= 0) {
+            String accountID = (String) this.userAccountTable.table.getValueAt(selectedRow, 0);
+            JDialog dialog = new JDialog(new UserDashboard(null,bank.get));
+        }
     }
 
     @Override
