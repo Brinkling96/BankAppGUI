@@ -1,22 +1,28 @@
 public class Transaction {
-    private final Account source, target;
+    private final Account account;
+    private final String transactionType;
     private final int amount;
     private final String currency;
-    public Transaction(Account source, Account target, int amount, String curr) {
-        this.source = source;
-        this.target = target;
+    public Transaction(Account account, String transactionType,
+                       int amount, String curr) {
+        this.account = account;
+        this.transactionType = transactionType;
         this.amount = amount;
         this.currency = curr;
     }
 
-    public Account getSource() {
-        return this.source;
+    public boolean process() {
+        boolean success = false;
+
+        // TODO
+
+        return success;
     }
 
-    public Account getTarget() {
-        return this.target;
-    }
-
+    /**
+     * Getter methods
+     * @return
+     */
     public String getCurrency() {
         return this.currency;
     }

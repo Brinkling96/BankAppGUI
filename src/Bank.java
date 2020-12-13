@@ -6,7 +6,7 @@ public class Bank {
     private final String name;
     private ArrayList<Transaction> transactions;
     protected ArrayList<BankUser> users;
-    
+
 
     public Bank(ArrayList<BankUser> users) {
         this.users = users;
@@ -15,10 +15,10 @@ public class Bank {
         this.transactions = new ArrayList<Transaction>();
     }
 
-    public BankUser getUser(String username, char[] password){
-        for(BankUser user : users){
-            if(user.getUsername().equals(username)){
-                if(user.isPasswordCorrect(password)){
+    public BankUser getUser(String username, char[] password) {
+        for (BankUser user : users) {
+            if (user.getUsername().equals(username)) {
+                if (user.isPasswordCorrect(password)) {
                     return user;
                 }
             }
@@ -26,13 +26,14 @@ public class Bank {
         return null;
     }
 
-    public void addUser(BankUser user){
+    public void addUser(BankUser user) {
         this.users.add(user);
     }
 
-    public void createTransaction(Account source, Account target, int amount, String currency) {
-        this.transactions.add(new Transaction(source, target, amount, currency))
+    public void createTransaction(Account account, String type, int amount, String currency) {
+        this.transactions.add(new Transaction(account, type, amount, currency));
+        
     }
-
-
 }
+
+
