@@ -22,9 +22,9 @@ public class CustomerUser extends User{
 
 
 
-    public Account getAccount(int AccountID){
+    public Account getAccount(String AccountID){
         for(Account acct: accounts){
-            if(acct.getAccountID() == AccountID){
+            if(acct.getAccountID().equals(AccountID)){
                 return acct;
             }
         }

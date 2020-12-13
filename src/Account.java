@@ -4,16 +4,17 @@ public abstract class Account implements AccountActions {
 
     public static final int numMemsToDisplay = 2;
 
-    protected Integer accountID;
+    protected String accountID;
     protected Integer balance;
 
-    public Account(Integer balance) {
-        this.accountID = numAccounts;
+    public Account(Integer balance, User user) {
+        this.accountID = String.format("%04d",numAccounts);
+        this.accountID = user.getUserID() + this.accountID;
         numAccounts++;
         this.balance = balance;
     }
 
-    public Integer getAccountID() {
+    public String getAccountID() {
         return accountID;
     }
 
