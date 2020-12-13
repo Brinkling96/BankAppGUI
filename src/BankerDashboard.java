@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class BankerDashboard extends Dashboard{
 
-    protected Bank bank;
+
 
     protected GUITable userAccountTable;
 
@@ -19,8 +19,8 @@ public class BankerDashboard extends Dashboard{
     protected GUITable transcationTable;
 
     public BankerDashboard(JFrame host, User user, Bank bank) {
-        super(host, user);
-        this.bank = bank;
+        super(host, user,bank);
+
 
         this.setTimeButton = new JButton("Set Time");
         this.setTimeButton.addActionListener(new ActionListener() {

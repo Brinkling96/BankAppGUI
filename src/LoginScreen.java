@@ -85,7 +85,7 @@ public class LoginScreen extends JPanel {
             this.host.setVisible(false);
             this.host.remove(this);
             if(user instanceof CustomerUser) {
-                this.host.add(new UserDashboard(host,(CustomerUser) user));
+                this.host.add(new UserDashboard(host,(CustomerUser) user,bank));
             }
             else if(user instanceof Banker){
                 this.host.add(new BankerDashboard(host,(Banker) user,bank));
