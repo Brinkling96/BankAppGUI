@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class Bank {
     private int creationFee, closureFee, transactionFee;
+    //Equivalent to 1 USD
+    public double yenConversionRate, euroConversionRate;
     private double interestRate;
     private final String name;
     private ArrayList<Transaction> transactions;
@@ -9,6 +11,8 @@ public class Bank {
 
     public Bank(ArrayList<User> users) {
         this.users = users;
+        this.yenConversionRate = 103.97;
+        this.euroConversionRate = .82;
         this.creationFee = 0;
         this.name = "";
         this.transactions = new ArrayList<Transaction>();
