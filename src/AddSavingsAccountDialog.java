@@ -4,9 +4,7 @@ import java.awt.event.ActionEvent;
 
 public class AddSavingsAccountDialog extends AddAccountDialog {
 
-    protected SavingsAccount account;
-
-    public AddSavingsAccountDialog(Frame owner, BankUser user) {
+    public AddSavingsAccountDialog(Frame owner, CustomerUser user) {
         super(owner, user);
     }
 
@@ -43,7 +41,5 @@ public class AddSavingsAccountDialog extends AddAccountDialog {
         }
 
     }
-    public SavingsAccount getAccount(){
-        return account;
-    }
+
 }

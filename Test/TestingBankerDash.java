@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class TestingLoginTest {
+public class TestingBankerDash {
     public static void main(String[]  args) {
         JFrame frame = BankingFrame.getInstance();
         CustomerUser s = new CustomerUser("sdbrady","password".toCharArray());
@@ -9,13 +9,13 @@ public class TestingLoginTest {
         ArrayList<User> temp = new ArrayList<>();
         temp.add(s);
 
-        Bank bank = new Bank(temp);
+
 
         Banker d = new Banker("banker","pass".toCharArray());
 
         temp.add(d);
-
-        frame.add(new LoginScreen(frame,bank));
+        Bank bank = new Bank(temp);
+        frame.add(new BankerDashboard(frame,s,bank));
         frame.pack();
         frame.setVisible(true);
     }

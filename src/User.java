@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 
-public class BankUser {
-
-    public static final int numMembersToDisplay= 2;
+public abstract class User {
 
     public static int numUsers = 0;
 
@@ -11,21 +9,10 @@ public class BankUser {
 
     private Integer userID;
 
-    private ArrayList<Account> accounts;
-
-    public BankUser(String username, char[] password) {
+    public User(String username, char[] password) {
         this.username = username;
         this.password = password;
         this.userID = numUsers++;
-        this.accounts = new ArrayList<>();
-    }
-
-    public ArrayList<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void addAccount(Account account){
-       this.accounts.add(account);
     }
 
     public String getUsername() {
@@ -50,15 +37,6 @@ public class BankUser {
 
     public void setUserID(Integer userID) {
         this.userID = userID;
-    }
-
-    public Account getAccount(int AccountID){
-        for(Account acct: accounts){
-            if(acct.getAccountID() == AccountID){
-                return acct;
-            }
-        }
-        return null;
     }
 
     public boolean isPasswordCorrect(char[] inputpassword){

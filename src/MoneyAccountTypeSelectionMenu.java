@@ -16,13 +16,13 @@ public class MoneyAccountTypeSelectionMenu extends JDialog {
     protected JButton cancelButton = new JButton("Cancel");
 
 
-    protected BankUser user;
+    protected CustomerUser user;
 
     protected Frame host;
 
     protected Account account;
 
-    public MoneyAccountTypeSelectionMenu(Frame owner, BankUser user) {
+    public MoneyAccountTypeSelectionMenu(Frame owner, CustomerUser user) {
         super(owner, true);
         this.setLayout(new GridLayout(2,2));
 
@@ -57,14 +57,14 @@ public class MoneyAccountTypeSelectionMenu extends JDialog {
     private void submitActionButton() {
         if(this.dropDownBox.getSelectedItem().toString() == this.accountTypes[0]){
             this.setVisible(false);
-            AddCheckingAccountDialog d = new AddCheckingAccountDialog(this.host,this.user);
+            AddAccountDialog d = new AddCheckingAccountDialog(this.host,this.user);
             if(d.getAccount() != null){
                 this.account = d.getAccount();
             }
         }
-        else{
+        else if(this.dropDownBox.getSelectedItem().toString()== this.accountTypes[1]){
             this.setVisible(false);
-            AddSavingsAccountDialog d = new AddSavingsAccountDialog(this.host,this.user);
+            AddAccountDialog d = new AddSavingsAccountDialog(this.host,this.user);
             if(d.getAccount() != null){
                 this.account = d.getAccount();
             }
