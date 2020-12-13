@@ -5,7 +5,7 @@ public class Bank {
     private double interestRate;
     private final String name;
     private ArrayList<Transaction> transactions;
-    protected ArrayList<BankUser> users;
+    protected ArrayList<User> users;
 
 
     public Bank(ArrayList<User> users) {
@@ -31,7 +31,7 @@ public class Bank {
     }
 
     public void createTransaction(Account source, Account target, int amount, String currency) {
-        this.transactions.add(new Transaction(source, target, amount, currency))
+        this.transactions.add(new Transaction(source, target, amount, currency));
     }
 
 

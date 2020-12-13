@@ -26,7 +26,7 @@ public class UserDashboard extends Dashboard{
 
         ////////////////////////////////////////////////////////////////////////////
         //Accounts Table
-        Object[][] tableData = new Object[user.getAccounts().size()][Account.numMembersToDisplay];
+        Object[][] tableData = new Object[user.getAccounts().size()][Account.numMemsToDisplay];
 
 
         for(int i = 0; i<user.getAccounts().size(); i++){

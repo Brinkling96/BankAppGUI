@@ -28,7 +28,7 @@ public class WithdrawMenu extends InputIntMenu {
                 if(amount> 0 && account.getBalance()> amount) {
                     int result = JOptionPane.showConfirmDialog(this, "Withdraw $" + Integer.toString(amount) + " ?");
                     if (result == JOptionPane.OK_OPTION) {
-                        account.setBalance(account.getBalance() - amount);
+                        account.setBalance(account.getBalance() - amount); //todo: Account Actions
                         this.dispose();
                     }
                 }
