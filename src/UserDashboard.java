@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class UserDashboard extends Dashboard{
 
@@ -20,9 +21,9 @@ public class UserDashboard extends Dashboard{
     //Transcation tables
     protected GUITable transcationTable;
 
-    public UserDashboard(JFrame host, CustomerUser user) {
+    public UserDashboard(JFrame host, CustomerUser user,Bank bank) {
         //HOST PANEL SETUP
-        super(host,user);
+        super(host,user,bank);
 
         ////////////////////////////////////////////////////////////////////////////
         //Accounts Table
@@ -87,7 +88,7 @@ public class UserDashboard extends Dashboard{
         /////////////////////////////////////////////////////////////////////////////////////////
         //Transcation table
 
-        this.transcationTable = new GUITable(new Object[][]{{1, "test", "Jello"}},new String[]{"Integer","String","String"});
+        this.transcationTable = new GUITable(createTDTable(bank.getTransactions()),new String[]{"TransactionID","TranscationType","AccountID","Date","Amount"});
         add(Box.createVerticalBox());
         add(transcationTable);
 
@@ -95,6 +96,33 @@ public class UserDashboard extends Dashboard{
         /////////////////////////////////////////////////////////////////////
     }
 
+    private Object[][] createTDTable(ArrayList<Transaction> tds){
+        ArrayList<Transaction> userTds = new ArrayList<>();
+
+        for(Transaction t: tds){
+            for(Account a: ((CustomerUser) user).getAccounts()){
+                if(t.getAccount().getAccountID() == a.getAccountID()){
+                    userTds.add(t);
+                }
+            }
+        }
+
+
+        Object[][] returnlist = new Object[userTds.size()][Transaction.numMemsToDisplay-1];
+
+        for(int i =0; i < returnlist.length; i++){
+            Object[] returnRow = returnlist[i];
+            Transaction transaction = tds.get(i);
+            int j =0;
+            returnRow[j++] = transaction.getID();
+            returnRow[j++] = transaction.getTransactionType();
+            returnRow[j++] = transaction.getAccount().getAccountID();
+            returnRow[j++] = transaction.getTime().toString();
+            returnRow[j++] = transaction.getAmount();
+        }
+
+        return returnlist;
+    }
 
     protected void stockMarketAction(){
         //todo

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 public abstract class Dashboard extends JPanel {
 
+    protected Bank bank;
 
     protected User user;
     //protected transactions
@@ -21,9 +22,10 @@ public abstract class Dashboard extends JPanel {
     protected JButton stockMarketButton;
 
 
-    public Dashboard(JFrame host, User user) {
+    public Dashboard(JFrame host, User user, Bank bank) {
         super();
         this.user = user;
+        this.bank = bank;
         this.host = host;
         this.host.setMinimumSize(new Dimension(1200, 800));
         LayoutManager layoutManager = new BoxLayout(this, BoxLayout.Y_AXIS);
