@@ -7,12 +7,13 @@ public abstract class User {
     private String username;
     private char[] password;
 
-    private Integer userID;
+    private String userID;
 
     public User(String username, char[] password) {
         this.username = username;
         this.password = password;
-        this.userID = numUsers++;
+        this.userID = String.format("%04d", numUsers);
+        numUsers++;
     }
 
     public String getUsername() {
@@ -31,11 +32,11 @@ public abstract class User {
         this.password = password;
     }
 
-    public Integer getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(Integer userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 

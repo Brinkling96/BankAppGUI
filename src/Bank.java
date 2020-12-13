@@ -28,6 +28,17 @@ public class Bank {
 
     }
 
+    public User getUser(String accountID) {
+        for (User user : users) {
+            String uid = accountID.substring(0,4);
+            if (uid.equals(user.getUserID())) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+
     public void addUser(CustomerUser user){
         this.users.add(user);
     }
