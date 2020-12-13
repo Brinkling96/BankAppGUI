@@ -11,6 +11,7 @@ public class BankerDashboard extends Dashboard{
     //Account Table Options
     protected JButton viewAccountButton;
     protected JButton removeAccountButton;
+    protected JButton setTimeButton;
     protected JPanel userTableActionPanel;
 
     //
@@ -20,6 +21,15 @@ public class BankerDashboard extends Dashboard{
         super(host, user);
         this.bank = bank;
 
+        this.setTimeButton = new JButton("Set Time");
+        this.setTimeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setTimeButtonAction();
+            }
+        });
+        this.generalActionsPanel.add(setTimeButton);
+        
         //////////////////////////////////////////////////////////////////
         //User Account table
         Object[][] tableData = new Object[bank.users.size()-1][CustomerUser.numMembersToDisplay];
@@ -53,6 +63,8 @@ public class BankerDashboard extends Dashboard{
             }
         });
 
+        this.userTableActionPanel.add(viewAccountButton);
+
         this.removeAccountButton = new JButton("Remove Account");
         this.removeAccountButton.addActionListener(new ActionListener() {
             @Override
@@ -63,6 +75,8 @@ public class BankerDashboard extends Dashboard{
 
         this.userTableActionPanel.add(removeAccountButton);
 
+
+
         add(Box.createVerticalBox());
         add(userTableActionPanel);
         ///////////////////////////////////////////////////
@@ -71,6 +85,11 @@ public class BankerDashboard extends Dashboard{
         this.transcationTable = new GUITable(new Object[][]{{1, "test", "Jello"}},new String[]{"Integer","String","String"});
         add(Box.createVerticalBox());
         add(transcationTable);
+    }
+
+    private void setTimeButtonAction() {
+        //todo
+        JDialog dialog = new BankTimeSetter(this.host,true);
     }
 
     private void viewAccountAction() {

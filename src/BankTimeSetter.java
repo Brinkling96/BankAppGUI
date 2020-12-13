@@ -29,8 +29,8 @@ public class BankTimeSetter extends JDialog {
         day = new LabelDropDownCombo("Day: ", comboBoxIntBuilder(1,31,1));
         year = new LabelDropDownCombo("Year: ",comboBoxIntBuilder(2010,2030,1));
         hour = new LabelDropDownCombo("Hour: ", comboBoxIntBuilder(0,23,1));
-        minute = new LabelDropDownCombo("Minute :", comboBoxIntBuilder(0,59,5));
-        second = new LabelDropDownCombo("Seconds: ", comboBoxIntBuilder(0,59,5));
+        minute = new LabelDropDownCombo("Minute :", comboBoxIntBuilder(0,55,5));
+        second = new LabelDropDownCombo("Seconds: ", comboBoxIntBuilder(0,55,5));
         comboBoxes = new JPanel();
         comboBoxes.setLayout(new BoxLayout(comboBoxes, BoxLayout.X_AXIS));
 
