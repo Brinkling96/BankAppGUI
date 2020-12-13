@@ -28,7 +28,7 @@ public class BankTimeSetter extends JDialog {
         month = new LabelDropDownCombo("Month: ", new String[]{"Jan","Feb","March","April","May","June","July","August","September","October","November","December"});
         day = new LabelDropDownCombo("Day: ", comboBoxIntBuilder(1,31,1));
         year = new LabelDropDownCombo("Year: ",comboBoxIntBuilder(2010,2030,1));
-        hour = new LabelDropDownCombo("Hour: ", comboBoxIntBuilder(2010,2030,1));
+        hour = new LabelDropDownCombo("Hour: ", comboBoxIntBuilder(0,23,1));
         minute = new LabelDropDownCombo("Minute :", comboBoxIntBuilder(0,59,5));
         second = new LabelDropDownCombo("Seconds: ", comboBoxIntBuilder(0,59,5));
         comboBoxes = new JPanel();
@@ -85,7 +85,7 @@ public class BankTimeSetter extends JDialog {
     private String[] comboBoxIntBuilder(Integer start, Integer end, int increments){
         String[] returnlist= new String[((end-start)/increments)+1];
 
-        for(int i=0; start<end; i++){
+        for(int i=0; start<=end; i++){
             returnlist[i] =start.toString();
             start += increments;
         }
