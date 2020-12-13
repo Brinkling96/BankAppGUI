@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 public abstract class AddAccountDialog extends JDialog{
     protected CustomerUser user;
+    protected Account account;
+
 
     protected JLabel balanceLabel;
     protected JTextField balanceField;
@@ -65,6 +67,9 @@ public abstract class AddAccountDialog extends JDialog{
     }
 
     protected abstract void okButtonAction(ActionEvent e);
+    public Account getAccount(){
+        return account;
+    }
 
 
 }

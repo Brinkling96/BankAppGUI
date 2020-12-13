@@ -3,8 +3,7 @@ import java.util.ArrayList;
 
 public class TestingBankerDash {
     public static void main(String[]  args) {
-        JFrame frame = new JFrame("BankerDash Test");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        JFrame frame = BankingFrame.getInstance();
         CustomerUser s = new CustomerUser("sdbrady","password".toCharArray());
         s.addAccount(new CheckingAccount(1000));
         ArrayList<User> temp = new ArrayList<>();
@@ -12,7 +11,7 @@ public class TestingBankerDash {
 
 
 
-        Banker d = new Banker("sdbrady","password".toCharArray());
+        Banker d = new Banker("banker","pass".toCharArray());
 
         temp.add(d);
         Bank bank = new Bank(temp);
