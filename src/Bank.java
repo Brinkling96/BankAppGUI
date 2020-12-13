@@ -7,7 +7,6 @@ public class Bank {
     private ArrayList<Transaction> transactions;
     protected ArrayList<User> users;
 
-
     public Bank(ArrayList<User> users) {
         this.users = users;
         this.creationFee = 0;
@@ -30,9 +29,7 @@ public class Bank {
         this.users.add(user);
     }
 
-    public void createTransaction(Account source, Account target, int amount, String currency) {
-        this.transactions.add(new Transaction(source, target, amount, currency));
+    public void createTransaction(Account account, String type, int amount, String currency) {
+        this.transactions.add(new Transaction(account, type, amount, currency));
     }
-
-
 }
