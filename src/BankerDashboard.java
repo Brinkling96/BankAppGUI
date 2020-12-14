@@ -125,7 +125,6 @@ public class BankerDashboard extends Dashboard{
                 JDialog dialog = new JDialog();
                 Dashboard dash = new UserDashboard(dialog , ((CustomerUser) bank.getUser(accountID)) , bank);//todo
                 dialog.add(dash);
-                dialog.remove(dash.)
                 dialog.pack();
                 dialog.setVisible(true);
             }
