@@ -90,7 +90,7 @@ public class DataKeeper {
                     String username = userInfo[1];
                     String password = userInfo[2];
                     String status = userInfo[3];
-                    users.add(new CustomerUser(username, password, username, status));
+                    users.add(new CustomerUser(username, password, userID, status));
                 }
                 bank = new Bank(users);
             } catch (IOException e) {
