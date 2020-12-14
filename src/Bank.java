@@ -45,11 +45,9 @@ public class Bank {
         this.users.add(user);
     }
 
+    //The transaction serves as a receipt. Will have already been processed before this method is called.
     public void createTransaction(Account account, String type, int amount, String currency) {
-        Transaction t = new Transaction(account, type, amount, currency);
-        if (t.process(this)) {
-            transactions.add(t);
-        }
+        transactions.add(new Transaction(account, type, amount, currency));
     }
 
     public ArrayList<Transaction> getTransactions() {

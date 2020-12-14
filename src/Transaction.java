@@ -18,6 +18,8 @@ public class Transaction {
                 + Clock.getClock().getTimeAsLong(this.time);
     }
 
+    // Leaving for now in case needed in the future
+    // Right now all transactions are already validated and processed before they are created
     public boolean process(Bank bank) {
         boolean success = false;
         switch(transactionType) {
