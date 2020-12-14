@@ -14,7 +14,8 @@ public class Transaction {
         this.transactionType = type;
         this.amount = amount;
         this.currency = curr;
-        this.ID = account.getAccountID().toString() + this.time.toString();
+        this.ID = account.getAccountID().toString()
+                + Clock.getClock().getTimeAsLong(this.time);
     }
 
     public boolean process() {
