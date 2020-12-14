@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class Bank {
     private int creationFee, closureFee, transactionFee;
+    //Equivalent to 1 USD
+    private double yenConversionRate, euroConversionRate;
     private double interestRate;
     private final String name;
     private ArrayList<Transaction> transactions;
@@ -10,6 +12,9 @@ public class Bank {
     public Bank(ArrayList<User> users) {
         this.users = users;
         this.creationFee = 0;
+        this.transactionFee = 3;
+    	this.yenConversionRate = 103.96;
+    	this.euroConversionRate = .82;
         this.name = "";
         this.transactions = new ArrayList<Transaction>();
     }
@@ -40,14 +45,25 @@ public class Bank {
         this.users.add(user);
     }
 
+    //The transaction serves as a receipt. Will have already been processed before this method is called.
     public void createTransaction(Account account, String type, int amount, String currency) {
-        Transaction t = new Transaction(account, type, amount, currency);
-        if (t.process()) {
-            transactions.add(t);
-        }
+        transactions.add(new Transaction(account, type, amount, currency));
     }
 
     public ArrayList<Transaction> getTransactions() {
         return transactions;
+    }
+    
+    
+    public int getTransactionFee() {
+    	return this.transactionFee;
+    }
+    
+    public double getYenConversionRate() {
+    	return this.yenConversionRate;
+    }
+    
+    public double getEuroConversionRate() {
+    	return this.euroConversionRate;
     }
 }
