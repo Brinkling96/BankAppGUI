@@ -15,8 +15,8 @@ public abstract class AddAccountDialog extends JDialog{
     protected JButton okButton;
     protected JButton cancelButton;
 
-    public AddAccountDialog(Frame owner, CustomerUser user) {
-        super(owner, true);
+    public AddAccountDialog(Window owner, CustomerUser user) {
+        super(owner);
         this.user = user;
         setLocationRelativeTo(owner);
         initComponents();

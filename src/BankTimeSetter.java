@@ -13,14 +13,14 @@ public class BankTimeSetter extends JDialog {
     private JButton submitButton, cancelButton;
     private JPanel buttonPanel;
 
-    public BankTimeSetter(Frame owner, boolean modal) {
-        super(owner, modal);
+    public BankTimeSetter(Window window) {
+        super(window);
         setTitle("Set time");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLayout(new GridLayout(2, 1));
         this.setMinimumSize(new Dimension(900,200));
         initComponents();
-        this.setLocationRelativeTo(owner);
+        this.setLocationRelativeTo(window);
         setVisible(true);
     }
 

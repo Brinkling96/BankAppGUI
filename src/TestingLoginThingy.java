@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class TestingLoginThingy {
     public static void main(String[]  args) {
-        JFrame frame = new JFrame("Test");
+        JFrame frame = BankingFrame.getInstance();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         CustomerUser s = new CustomerUser("sdbrady","password".toCharArray());
         s.addAccount(new CheckingAccount(1000,s));

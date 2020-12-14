@@ -17,7 +17,7 @@ public class TestingBankerDash {
         temp.add(d);
         Bank bank = new Bank(temp);
         bank.createTransaction(s.getAccount(s.getAccounts().get(0).accountID), "CheckingDeposit",1000,"USD");
-        frame.add(new BankerDashboard(frame,s,bank));
+        frame.add(new BankerDashboard(frame,d,bank));
         frame.pack();
         frame.setVisible(true);
     }

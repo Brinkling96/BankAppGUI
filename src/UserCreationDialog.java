@@ -22,8 +22,8 @@ public class UserCreationDialog extends JDialog {
 
 
 
-    public UserCreationDialog(Frame owner, boolean modal, Bank bank) {
-        super(owner, modal);
+    public UserCreationDialog(Window window, Bank bank) {
+        super(window);
         this.bank = bank;
 
         this.setLayout(new GridLayout(3,1));

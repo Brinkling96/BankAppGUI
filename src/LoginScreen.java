@@ -5,8 +5,9 @@ import java.awt.event.ActionListener;
 
 public class LoginScreen extends JPanel {
 
-    protected JFrame host;
     protected Bank bank;
+
+    protected Window window;
 
     protected FieldInputTextCombo usernamePanel;
 
@@ -19,10 +20,10 @@ public class LoginScreen extends JPanel {
     protected JButton newUserButton;
     protected JButton cancelButton;
 
-    public LoginScreen(JFrame host, Bank bank) {
+    public LoginScreen(Window window, Bank bank) {
         super();
-        this.host = host;
         this.bank = bank;
+        this.window = window;
         this.setLayout(new GridLayout(3,1));
         this.usernamePanel = new FieldInputTextCombo("Username: ");
 
@@ -71,29 +72,29 @@ public class LoginScreen extends JPanel {
     }
 
     private void cancelButtonAction() {
-        host.dispose();
+        window.dispose();
     }
 
     private void newUserButtonAction() {
-        UserCreationDialog d = new UserCreationDialog(host,true,bank);
+        UserCreationDialog d = new UserCreationDialog(window,bank);
     }
 
     private void submitButtonAction() {
         User user = bank.getUser( usernamePanel.getTextInputted() ,passwordField.getPassword());
 
         if(user != null) {
-            this.host.setVisible(false);
-            this.host.remove(this);
+            this.window.setVisible(false);
+            this.window.remove(this);
             if(user instanceof CustomerUser) {
-                this.host.add(new UserDashboard(host,(CustomerUser) user,bank));
+                this.window.add(new UserDashboard(window,(CustomerUser) user,bank));
             }
             else if(user instanceof Banker){
-                this.host.add(new BankerDashboard(host,(Banker) user,bank));
+                this.window.add(new BankerDashboard(window,(Banker) user,bank));
             }
-            this.host.setVisible(true);
+            this.window.setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(host,"User not found","Login Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(window,"User not found","Login Error",JOptionPane.ERROR_MESSAGE);
         }
     }
 

@@ -6,8 +6,8 @@ public class WithdrawMenu extends InputIntMenu {
 
     private Account account;
 
-    public WithdrawMenu(Frame owner, boolean modal, Account account) {
-        super(owner, modal, "Withdraw","Withdraw Amount");
+    public WithdrawMenu(Window window, Account account) {
+        super(window, "Withdraw","Withdraw Amount");
 
         this.account = account;
 

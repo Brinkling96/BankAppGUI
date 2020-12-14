@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ public class UserDashboard extends Dashboard{
     //Transcation tables
     protected GUITable transcationTable;
 
-    public UserDashboard(JFrame host, CustomerUser user,Bank bank) {
+    public UserDashboard(Window window, CustomerUser user, Bank bank) {
         //HOST PANEL SETUP
-        super(host,user,bank);
+        super(window, user,bank);
 
         ////////////////////////////////////////////////////////////////////////////
         //Accounts Table
@@ -131,7 +132,7 @@ public class UserDashboard extends Dashboard{
     }
 
     private void addAccountButtonAction() {
-        MoneyAccountTypeSelectionMenu d = new MoneyAccountTypeSelectionMenu(this.host, ((CustomerUser) user));
+        MoneyAccountTypeSelectionMenu d = new MoneyAccountTypeSelectionMenu(window, ((CustomerUser) user));
         Account act = d.account;
         if (act != null) {
             moneyAccountTable.addRowToTable(new Object[]{act.getAccountID(), act.getBalance()});
@@ -170,7 +171,7 @@ public class UserDashboard extends Dashboard{
         int selectedRow = this.moneyAccountTable.table.getSelectedRow();
         Account account = getSelectedAccount(selectedRow);
         if(account != null){
-             JDialog dWindow = new DepositMenu(host,true,account);
+             JDialog dWindow = new DepositMenu(window,account);
         }
         Object[] input = new Object[]{account.accountID, account.balance};
         this.moneyAccountTable.reloadRowData(selectedRow,input);
@@ -182,7 +183,7 @@ public class UserDashboard extends Dashboard{
 
         Account account = getSelectedAccount(selectedRow);
         if(account != null){
-            JDialog wWindow = new WithdrawMenu(host,true,account);
+            JDialog wWindow = new WithdrawMenu(window,account);
 
         }
         Object[] input = new Object[]{account.accountID, account.balance};

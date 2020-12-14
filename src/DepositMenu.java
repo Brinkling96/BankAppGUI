@@ -7,8 +7,8 @@ public class DepositMenu extends InputIntMenu {
     private Account account;
 
 
-    public DepositMenu(Frame owner, boolean modal, Account account) {
-        super(owner, modal, "Deposit Menu", "Deposit Amount");
+    public DepositMenu(Window owner, Account account) {
+        super(owner, "Deposit Menu", "Deposit Amount");
 
         this.account = account;
 

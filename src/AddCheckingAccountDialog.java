@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 public class AddCheckingAccountDialog extends AddAccountDialog {
 
 
-    public AddCheckingAccountDialog(Frame owner, CustomerUser user) {
+    public AddCheckingAccountDialog(Window owner, CustomerUser user) {
         super(owner, user);
     }
 

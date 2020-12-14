@@ -7,10 +7,10 @@ public abstract class Dashboard extends JPanel {
 
     protected Bank bank;
 
+    protected Window window;
     protected User user;
     //protected transactions
 
-    protected JFrame host;
 
     //Dashboard Generals
     protected JLabel usernameLabel;
@@ -22,14 +22,12 @@ public abstract class Dashboard extends JPanel {
     protected JButton stockMarketButton;
 
 
-    public Dashboard(JFrame host, User user, Bank bank) {
+    public Dashboard(Window window, User user, Bank bank) {
         super();
         this.user = user;
         this.bank = bank;
-        if(host !=null) {
-            this.host = host;
-            this.host.setMinimumSize(new Dimension(1200, 800));
-        }
+        this.window= window;
+        window.setMinimumSize(new Dimension(1200, 800));
         LayoutManager layoutManager = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(layoutManager);
         /////////////////////////////////////////////////////////////////////////////

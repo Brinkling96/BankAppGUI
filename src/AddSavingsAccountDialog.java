@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 public class AddSavingsAccountDialog extends AddAccountDialog {
 
-    public AddSavingsAccountDialog(Frame owner, CustomerUser user) {
+    public AddSavingsAccountDialog(Window owner, CustomerUser user) {
         super(owner, user);
     }
 

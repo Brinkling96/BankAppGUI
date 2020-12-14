@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ public class BankerDashboard extends Dashboard{
     //
     protected GUITable transcationTable;
 
-    public BankerDashboard(JFrame host, User user, Bank bank) {
-        super(host, user,bank);
+    public BankerDashboard(Window window, User user, Bank bank) {
+        super(window,user,bank);
 
 
         this.setTimeButton = new JButton("Set Time");
@@ -33,7 +34,7 @@ public class BankerDashboard extends Dashboard{
 
         //////////////////////////////////////////////////////////////////
         //User Account table
-        Object[][] tableData = new Object[bank.users.size()-1][CustomerUser.numMembersToDisplay];
+        Object[][] tableData = new Object[bank.users.size()][CustomerUser.numMembersToDisplay];
 
 
         for(int i = 0; i<bank.users.size(); i++){
@@ -112,7 +113,7 @@ public class BankerDashboard extends Dashboard{
 
     private void setTimeButtonAction() {
         //todo
-        JDialog dialog = new BankTimeSetter(this.host,true);
+        JDialog dialog = new BankTimeSetter(window);
     }
 
     private void viewAccountAction() {
@@ -120,9 +121,11 @@ public class BankerDashboard extends Dashboard{
         if(selectedRow >= 0) {
             String accountID = (String) this.userAccountTable.table.getValueAt(selectedRow, 0);
             if(accountID != null) {
-                Dashboard dash = new UserDashboard(null, ((CustomerUser) bank.getUser(accountID)), bank);
+
                 JDialog dialog = new JDialog();
+                Dashboard dash = new UserDashboard(dialog , ((CustomerUser) bank.getUser(accountID)) , bank);//todo
                 dialog.add(dash);
+                dialog.remove(dash.)
                 dialog.pack();
                 dialog.setVisible(true);
             }

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public class MoneyAccountTypeSelectionMenu extends JDialog {
 
     protected static final String[] accountTypes = new String[]{"Checking","Savings"};
+    private Window window;
 
     protected JLabel label = new JLabel("Select AccountType to create: ");
 
@@ -18,16 +19,14 @@ public class MoneyAccountTypeSelectionMenu extends JDialog {
 
     protected CustomerUser user;
 
-    protected Frame host;
-
     protected Account account;
 
-    public MoneyAccountTypeSelectionMenu(Frame owner, CustomerUser user) {
-        super(owner, true);
+    public MoneyAccountTypeSelectionMenu(Window owner, CustomerUser user) {
+        super(owner);
         this.setLayout(new GridLayout(2,2));
+        this.window = owner;
 
         this.user = user;
-        this.host = owner;
 
         this.add(label);
         this.add(dropDownBox);
@@ -57,14 +56,14 @@ public class MoneyAccountTypeSelectionMenu extends JDialog {
     private void submitActionButton() {
         if(this.dropDownBox.getSelectedItem().toString() == this.accountTypes[0]){
             this.setVisible(false);
-            AddAccountDialog d = new AddCheckingAccountDialog(this.host,this.user);
+            AddAccountDialog d = new AddCheckingAccountDialog(this.window,this.user);
             if(d.getAccount() != null){
                 this.account = d.getAccount();
             }
         }
         else if(this.dropDownBox.getSelectedItem().toString()== this.accountTypes[1]){
             this.setVisible(false);
-            AddAccountDialog d = new AddSavingsAccountDialog(this.host,this.user);
+            AddAccountDialog d = new AddSavingsAccountDialog(this.window,this.user);
             if(d.getAccount() != null){
                 this.account = d.getAccount();
             }

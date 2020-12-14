@@ -10,8 +10,8 @@ public abstract class InputIntMenu extends JDialog {
     protected JButton cancelButton;
 
 
-    public InputIntMenu(Frame owner, boolean modal, String title, String label) {
-        super(owner, modal);
+    public InputIntMenu(Window owner, String title, String label) {
+        super(owner);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle(title);
 
