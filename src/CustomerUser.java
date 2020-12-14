@@ -20,6 +20,10 @@ public class CustomerUser extends User{
        this.accounts.add(account);
     }
 
+    public void removeAccount(Account account){
+        this.accounts.remove(account);
+    }
+
 
 
     public Account getAccount(String AccountID){
