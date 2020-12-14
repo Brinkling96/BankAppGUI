@@ -5,7 +5,7 @@ public class TestingLoginTest {
     public static void main(String[]  args) {
         JFrame frame = BankingFrame.getInstance();
         CustomerUser s = new CustomerUser("sdbrady","password".toCharArray());
-        s.addAccount(new CheckingAccount(1000, s));
+        s.addAccount(new CheckingAccount(1000,s));
         ArrayList<User> temp = new ArrayList<>();
         temp.add(s);
 

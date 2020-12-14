@@ -30,7 +30,6 @@ public abstract class Account implements AccountActions {
     @Override
     public boolean deposit(int amount, String currency, Bank bank) {
         // TODO: Deposit correct amount depending on currency
-    	// Create a Transaction
     	if(currency.equals("usd")) {
     		this.setBalance(this.getBalance() + amount);
     	}else if(currency.equals("yen")) {
@@ -42,7 +41,6 @@ public abstract class Account implements AccountActions {
             return false;
     	}
         
-    	bank.createTransaction(this, "deposit", amount, currency);
 		return true;
 
     }
@@ -51,7 +49,6 @@ public abstract class Account implements AccountActions {
     public boolean withdraw(int amount, String currency, Bank bank) {
         // TODO: Withdraw correct amount depending on currency
     	// Charge fee
-    	// Create a Transaction
     	int balanceAfterWithdraw = 0;
     	if(currency.equals("usd")) {
     		balanceAfterWithdraw = this.getBalance() - amount - bank.getTransactionFee();
@@ -70,8 +67,6 @@ public abstract class Account implements AccountActions {
     	}else {
     		this.setBalance(balanceAfterWithdraw);
     	}
-    	
-    	bank.createTransaction(this, "withdraw", amount, currency);
     	return true;
 
     }

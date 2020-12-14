@@ -5,10 +5,10 @@ public class testingUserDash {
     public static void main(String[]  args) {
         JFrame frame = BankingFrame.getInstance();
         CustomerUser s = new CustomerUser("sdbrady","password".toCharArray());
-        s.addAccount(new CheckingAccount(1000, s));
+        s.addAccount(new CheckingAccount(1000,s));
 
         CustomerUser d = new CustomerUser("Barack","1776".toCharArray());
-        d.addAccount(new CheckingAccount(2000, d));
+        d.addAccount(new CheckingAccount(2000,d));
 
         ArrayList<User> temp = new ArrayList<>();
 
@@ -18,7 +18,7 @@ public class testingUserDash {
 
         Bank bank = new Bank(temp);
 
-        bank.createTransaction(s.getAccount("0"),"Checking", 1000,"USD");
+        bank.createTransaction(s.getAccount(s.getAccounts().get(0).accountID),"Checking", 1000,"USD");
 
 
         frame.add(new UserDashboard(frame,d,bank));

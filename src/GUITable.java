@@ -1,50 +1,23 @@
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class GUITable extends JScrollPane {
     protected  JTable table;
-    protected DefaultTableModel tableModel;
+    protected BankingGUITableModel tableModel;
 
 
     public GUITable(Object[][] tableData, String[] tableHeaders) {
         this.table = new JTable();
-        Class[] tempTypes;
-        boolean[] tempEdits;
-        if(tableData.length >0) {
 
-            int tableLength = tableData[0].length;
+        TableModel tableModel1 =  new BankingGUITableModel(tableData,tableHeaders);
 
-
-           tempTypes = new Class[tableLength];
-
-            tempEdits = new boolean[tableLength];
-            for (int i = 0; i < tableLength; i++) {
-                tempTypes[i] = tableData[0][i].getClass();
-                tempEdits[i] = false;
-            }
-        }
-        else{
-            tempTypes = new Class[0];
-            tempEdits = new boolean[0];
-        }
-
-        table.setModel(new DefaultTableModel(tableData,tableHeaders) {
-            Class[] types = tempTypes;
-            boolean[] canEdit = tempEdits;
-            public Class getColumnClass(int column_index){
-                return types[column_index];
-            }
-
-            public boolean isCellEditalbe(int row_index, int column_index){
-                return canEdit [column_index];
-            }
-        });
+        table.setModel(tableModel1);
 
         table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         table.getTableHeader().setReorderingAllowed(false);
 
 
-        tableModel = (DefaultTableModel) this.table.getModel();
+        tableModel = (BankingGUITableModel) this.table.getModel();
         this.add(table);
 
         this.setViewportView(table);
@@ -57,11 +30,11 @@ public class GUITable extends JScrollPane {
 
     }
 
-    public DefaultTableModel getTableModel() {
+    public BankingGUITableModel getTableModel() {
         return tableModel;
     }
 
-    public void setTableModel(DefaultTableModel tableModel) {
+    public void setTableModel(BankingGUITableModel tableModel) {
         this.tableModel = tableModel;
     }
 

@@ -46,7 +46,10 @@ public class Bank {
     }
 
     public void createTransaction(Account account, String type, int amount, String currency) {
-        this.transactions.add(new Transaction(account, type, amount, currency));
+        Transaction t = new Transaction(account, type, amount, currency);
+        if (t.process(this)) {
+            transactions.add(t);
+        }
     }
 
     public ArrayList<Transaction> getTransactions() {

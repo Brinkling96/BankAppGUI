@@ -6,7 +6,7 @@ public class TestingLoginThingy {
         JFrame frame = new JFrame("Test");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         CustomerUser s = new CustomerUser("sdbrady","password".toCharArray());
-        s.addAccount(new CheckingAccount(1000, s));
+        s.addAccount(new CheckingAccount(1000,s));
         ArrayList<User> temp = new ArrayList<>();
         temp.add(s);
 
