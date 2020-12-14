@@ -18,14 +18,16 @@ public class Transaction {
                 + Clock.getClock().getTimeAsLong(this.time);
     }
 
-    public boolean process() {
+    // Leaving for now in case needed in the future
+    // Right now all transactions are already validated and processed before they are created
+    public boolean process(Bank bank) {
         boolean success = false;
         switch(transactionType) {
             case "deposit":
-                success = account.deposit(amount, currency);
+                success = account.deposit(amount, currency, bank);
                 break;
             case "withdraw":
-                success = account.withdraw(amount, currency);
+                success = account.withdraw(amount, currency, bank);
                 break;
         }
         return success;
