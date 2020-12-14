@@ -70,7 +70,10 @@ public abstract class Dashboard extends JPanel {
     }
 
     protected void logout() {
-        //todo
+        this.window.setVisible(false);
+        this.window.remove(this);
+        this.window.add(new LoginScreen(window,bank));
+        this.window.setVisible(true);
     }
 
     protected abstract void stockMarketAction();

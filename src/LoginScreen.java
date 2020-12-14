@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Dimension2D;
 
 public class LoginScreen extends JPanel {
 
@@ -25,6 +26,9 @@ public class LoginScreen extends JPanel {
         this.bank = bank;
         this.window = window;
         this.setLayout(new GridLayout(3,1));
+        Dimension xy = new Dimension(800,100);
+        this.window.setMinimumSize(xy);
+        this.window.setSize(xy);
         this.usernamePanel = new FieldInputTextCombo("Username: ");
 
         this.passwordPanel = new JPanel(new GridLayout(1,2));
