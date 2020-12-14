@@ -8,10 +8,19 @@ public abstract class Account implements AccountActions {
     protected Integer balance;
 
     public Account(Integer balance, User user) {
+        this.balance = balance;
+        this.setAccountID(user);
+        DataKeeper.newAccount(self);
+    }
+
+    private void setAccountID(User user) {
         this.accountID = String.format("%04d",numAccounts);
         this.accountID = user.getUserID() + this.accountID;
         numAccounts++;
-        this.balance = balance;
+        if (this instanceof CheckingAccount)
+            this.accountID += "ck";
+        else if (this instanceof SavingsAccount)
+            this.accountID += "sv";
     }
 
     public String getAccountID() {
