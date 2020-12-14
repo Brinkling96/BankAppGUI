@@ -56,5 +56,12 @@ public abstract class User {
         }
         return true;
     }
+    public String toString() {
+        String out = "";
+        out += getUserID() + ",";
+        out += getUsername() + ",";
+        out += getPassword().toString() + "\n";
+        return out;
+    }
 
 }

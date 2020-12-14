@@ -89,6 +89,7 @@ public abstract class Account implements AccountActions {
     public String toString() {
         String out = "";
         out += getAccountID() + ",";
-        out += getBalance();
+        out += getBalance() + "\n";
+        return out;
     }
 }

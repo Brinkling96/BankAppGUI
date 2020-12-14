@@ -58,11 +58,18 @@ public class Transaction {
         return account;
     }
 
-    public LocalDateTime getTime() {
-        return time;
+    public String getTime() {
+        return Clock.getClock().getTimeAsString(time);
     }
 
     public String toString() {
-        return null;
+
+        String out = "";
+        out += this.getID() + ",";
+        out += this.getTransactionType() + ",";
+        out += this.getAmount() + ",";
+        out += this.getCurrency() + ",";
+        out += this.getTime() + ",\n";
+        return out;
     }
 }

@@ -56,6 +56,7 @@ public class DataKeeper {
             PrintWriter out = new PrintWriter(bw)) {
             out.println(transaction.toString());
         } catch (IOException e) {
+            System.err.println("Transaction could not be created");
 
         }
     }
