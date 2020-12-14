@@ -14,6 +14,7 @@ public abstract class User {
         this.password = password;
         this.userID = String.format("%04d", numUsers);
         numUsers++;
+        DataKeeper.newUser(this);
     }
 
     public String getUsername() {
