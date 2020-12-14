@@ -49,6 +49,9 @@ public class Bank {
         this.users.remove(user);
     }
 
+    public int getNumUsers() { return this.users.size(); }
+
+
     //The transaction serves as a receipt. Will have already been processed before this method is called.
     public void createTransaction(Account account, String type, int amount, String currency) {
         transactions.add(new Transaction(account, type, amount, currency));

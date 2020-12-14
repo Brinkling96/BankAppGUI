@@ -1,8 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 
 public class DataKeeper {
@@ -11,18 +7,18 @@ public class DataKeeper {
     public static void newUser(User user) {
         String uid = user.getUserID();
         String directoryName = USER_PATH.concat(uid);
-        String fileName = "user_detail.txt";
+        String fileName = "user_details.txt";
+
+        // create a directory for every user
         File directory = new File(directoryName);
         directory.mkdirs();
-        File file = new File(directoryName + "/" + fileName);
-        try {
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+        File file = new File(USER_PATH + fileName);
+        try(FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(user.toString());
-            bw.close();
-        }
-        catch (IOException e){
-            System.err.println("Directory could not be created");
+            PrintWriter out = new PrintWriter(bw)) {
+            out.print(user.toString());
+        } catch (IOException e) {
+            System.err.println("User could not be recorded");
         }
     }
 
@@ -35,14 +31,12 @@ public class DataKeeper {
         File directory = new File(directoryName + "/" + aid);
         directory.mkdir();
         File file = new File(directoryName + "/" + fileName);
-        try {
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+        try(FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(account.toString());
-            bw.close();
-        }
-        catch (IOException e){
-            System.err.println("Directory could not be created");
+            PrintWriter out = new PrintWriter(bw)) {
+            out.print(account.toString());
+        } catch (IOException e) {
+            System.err.println("Transaction could not be created");
         }
     }
 
@@ -83,11 +77,75 @@ public class DataKeeper {
         }
     }
 
-    public static ArrayList<Account> getAccounts(User user) {
-        return null;
+    public static Bank initBank() {
+        File file = new File(USER_PATH + "user_details.txt");
+        Bank bank = null;
+        if (file.exists()) {
+            ArrayList<User> users = new ArrayList<User>();
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] userInfo = line.split(",");
+                    String userID = userInfo[0];
+                    String username = userInfo[1];
+                    String password = userInfo[2];
+                    String status = userInfo[3];
+                    users.add(new CustomerUser(username, password, username, status));
+                }
+                bank = new Bank(users);
+            } catch (IOException e) {
+                System.err.println("File not found");
+            }
+        }
+        return bank;
     }
 
-    public static ArrayList<Transaction> getTransactions(Account account) {
-        return null;
+    public static ArrayList<Account> loadAccounts(User user) {
+        String uid = user.getUserID();
+        ArrayList<Account> accounts = new ArrayList<>();
+        File file = new File(USER_PATH + uid + "/" + "account_details.txt");
+        if (file.exists()) {
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] accountInfo = line.split(",");
+                    String aid = accountInfo[0];
+                    String balance = accountInfo[1];
+                    String type = aid.substring(aid.length()-1, aid.length()+1);
+                    if (type.equals("ck"))
+                        accounts.add(new CheckingAccount(aid, balance));
+                    else if (type.equals("sv"))
+                        accounts.add(new SavingsAccount(aid, balance));
+
+                }
+            } catch (IOException e) {
+                System.err.println("File not found");
+            }
+        }
+        return accounts;
+    }
+
+    public static ArrayList<Transaction> loadTransactions(Account account) {
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        String uid = account.getAccountID().substring(0,4);
+        String aid = account.getAccountID().substring(4,10);
+        File file = new File(USER_PATH + uid + "/" + aid + "/" + "transactions.txt");
+        if (file.exists()) {
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] transaction = line.split(",");
+                    String tid = transaction[0];
+                    String type = transaction[1];
+                    String amount = transaction[2];
+                    String currency = transaction[3];
+                    String time = transaction[4];
+                    transactions.add(new Transaction(tid, type, amount, currency, time));
+                }
+            } catch (IOException e) {
+                System.err.println("File not found");
+            }
+        }
+        return transactions;
     }
 }
