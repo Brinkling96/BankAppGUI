@@ -16,6 +16,8 @@ public class CustomerUser extends User{
         return accounts;
     }
 
+
+    // Need to charge fees to add and remove accounts
     public void addAccount(Account account){
        this.accounts.add(account);
     }
