@@ -17,6 +17,7 @@ public class Transaction {
         this.ID = account.getAccountID().toString()
                 + Clock.getClock().getTimeAsLong(this.time);
         DataKeeper.newTransaction(this);
+        DataKeeper.updateDailyReports(this);
     }
 
     // Leaving for now in case needed in the future
