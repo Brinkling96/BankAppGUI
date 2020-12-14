@@ -5,7 +5,7 @@ public class TestingBankerDash {
     public static void main(String[]  args) {
         JFrame frame = BankingFrame.getInstance();
         CustomerUser s = new CustomerUser("sdbrady","password".toCharArray());
-        s.addAccount(new CheckingAccount(1000));
+        s.addAccount(new CheckingAccount(1000, s));
         ArrayList<User> temp = new ArrayList<>();
         temp.add(s);
 
@@ -16,7 +16,7 @@ public class TestingBankerDash {
 
         temp.add(d);
         Bank bank = new Bank(temp);
-        bank.createTransaction(s.getAccount(0), "CheckingDeposit",1000,"USD");
+        bank.createTransaction(s.getAccount("0"), "CheckingDeposit",1000,"USD");
         frame.add(new BankerDashboard(frame,s,bank));
         frame.pack();
         frame.setVisible(true);

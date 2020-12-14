@@ -17,14 +17,14 @@ public class Transaction {
         this.ID = account.getAccountID().toString() + this.time.toString();
     }
 
-    public boolean process() {
+    public boolean process(Bank bank) {
         boolean success = false;
         switch(transactionType) {
             case "deposit":
-                success = account.deposit(amount, currency);
+                success = account.deposit(amount, currency, bank);
                 break;
             case "withdraw":
-                success = account.withdraw(amount, currency);
+                success = account.withdraw(amount, currency, bank);
                 break;
         }
         return success;
