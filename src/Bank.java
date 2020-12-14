@@ -24,9 +24,6 @@ public class Bank {
         }
         return null;
     }
-    public User getUser(String accountID){
-
-    }
 
     public User getUser(String accountID) {
         for (User user : users) {

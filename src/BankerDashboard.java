@@ -119,7 +119,16 @@ public class BankerDashboard extends Dashboard{
         int selectedRow = this.userAccountTable.table.getSelectedRow();
         if(selectedRow >= 0) {
             String accountID = (String) this.userAccountTable.table.getValueAt(selectedRow, 0);
-            JDialog dialog = new JDialog(new UserDashboard(null,bank.get));
+            if(accountID != null) {
+                Dashboard dash = new UserDashboard(null, ((CustomerUser) bank.getUser(accountID)), bank);
+                JDialog dialog = new JDialog();
+                dialog.add(dash);
+                dialog.pack();
+                dialog.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "UserID Not Found","User Dash pull", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
