@@ -30,7 +30,7 @@ public class AddSavingsAccountDialog extends AddAccountDialog {
         }
         else{
             if(balance >100){
-                this.account = new SavingsAccount(balance, user, user.getNumAccounts()+1);
+                this.account = new SavingsAccount(balance, user, user.getNumAccounts());
                 user.addAccount(account);
                 this.dispose();
             }

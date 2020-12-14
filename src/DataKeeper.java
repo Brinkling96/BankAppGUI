@@ -111,7 +111,7 @@ public class DataKeeper {
                     String[] accountInfo = line.split(",");
                     String aid = accountInfo[0];
                     String balance = accountInfo[1];
-                    String type = aid.substring(aid.length()-1, aid.length()+1);
+                    String type = aid.substring(aid.length()-2, aid.length());
                     if (type.equals("ck"))
                         accounts.add(new CheckingAccount(aid, balance));
                     else if (type.equals("sv"))
@@ -140,7 +140,7 @@ public class DataKeeper {
                     String amount = transaction[2];
                     String currency = transaction[3];
                     String time = transaction[4];
-                    transactions.add(new Transaction(tid, type, amount, currency, time));
+                    transactions.add(new Transaction(tid, type, currency, amount, time));
                 }
             } catch (IOException e) {
                 System.err.println("File not found");
