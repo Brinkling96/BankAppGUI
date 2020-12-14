@@ -139,19 +139,17 @@ public class UserDashboard extends Dashboard{
         }
     }
 
-    public void removeAccountButtonActionPerformed(){
-        int result = JOptionPane.showConfirmDialog(this, "Are you sure?", "Confirm Account Deletion", JOptionPane.YES_NO_OPTION);
-        if(result == JOptionPane.OK_OPTION){
-            int selectedRow = this.moneyAccountTable.table.getSelectedRow();
-            if(selectedRow >= 0){
+    public void removeAccountButtonActionPerformed() {
+        int selectedRow = this.moneyAccountTable.table.getSelectedRow();
+        if (selectedRow >= 0) {
+            int result = JOptionPane.showConfirmDialog(this, "Are you sure?", "Confirm Account Deletion", JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.OK_OPTION) {
                 //todo
-                /*
-                CheckingAccount account = getSelectedAccount(selectedRow);
-                if(account != null){
-                    user.getAccounts().remove(account);
+                Account account = getSelectedAccount(selectedRow);
+                if (account != null) {
+                    ((CustomerUser) user).removeAccount(account);
+                    this.moneyAccountTable.tableModel.removeRow(selectedRow);
                 }
-
-                 */
             }
         }
     }
