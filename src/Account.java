@@ -10,7 +10,7 @@ public abstract class Account implements AccountActions {
     public Account(Integer balance, User user) {
         this.balance = balance;
         this.setAccountID(user);
-        DataKeeper.newAccount(self);
+        DataKeeper.newAccount(this);
     }
 
     private void setAccountID(User user) {
@@ -84,5 +84,11 @@ public abstract class Account implements AccountActions {
     	bank.createTransaction(this, "withdraw", amount, currency);
     	return true;
 
+    }
+
+    public String toString() {
+        String out = "";
+        out += getAccountID() + ",";
+        out += getBalance();
     }
 }
