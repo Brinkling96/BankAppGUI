@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class BankerDashboard extends Dashboard {
+public class BankerBankDashboard extends MainBankDashboard {
 
 
     protected GUITable userAccountTable;
@@ -18,8 +18,9 @@ public class BankerDashboard extends Dashboard {
     //
     protected GUITable transcationTable;
 
-    public BankerDashboard(Window window, User user, Bank bank) {
+    public BankerBankDashboard(Window window, User user, Bank bank) {
         super(window, user, bank);
+
 
 
         this.setTimeButton = new JButton("Set Time");
@@ -121,7 +122,7 @@ public class BankerDashboard extends Dashboard {
             String accountID = (String) this.userAccountTable.table.getValueAt(selectedRow, 0);
             if (accountID != null) {
                 JDialog dialog = new JDialog();
-                Dashboard dash = new UserDashboard(dialog, ((CustomerUser) bank.getUser(accountID)), bank);//todo
+                BankDashboard dash = new UserBankDashboard(dialog, ((CustomerUser) bank.getUser(accountID)), bank);//todo
                 dialog.add(dash);
                 dialog.pack();
                 dialog.setVisible(true);
@@ -133,10 +134,12 @@ public class BankerDashboard extends Dashboard {
 
     @Override
     protected void stockMarketAction() {
-        //todo
+        this.window.setVisible(false);
+        this.window.remove(this);
+        this.window.add(new BankerStockMarketBankDashboard(window,bank));
+        this.window.setVisible(true);
     }
 
-    @Override
     protected void removeAccountButtonActionPerformed() {
         int result = JOptionPane.showConfirmDialog(this, "Are you sure?", "Confirm Account Deletion", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.OK_OPTION) {

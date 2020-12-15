@@ -3,40 +3,34 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public abstract class Dashboard extends JPanel {
+public abstract class BankDashboard extends JPanel {
+
+    protected Window window;
 
     protected Bank bank;
 
-    protected Window window;
-    protected User user;
-    //protected transactions
-
 
     //Dashboard Generals
-    protected JLabel usernameLabel;
+
     protected JPanel generalLabelsPanel;
 
     //DashBoardOptions
     protected JPanel generalActionsPanel;
     protected JButton logoutButton;
-    protected JButton stockMarketButton;
 
 
-    public Dashboard(Window window, User user, Bank bank) {
+
+    public BankDashboard(Window window,Bank bank) {
         super();
-        this.user = user;
-        this.bank = bank;
         this.window= window;
+        this.bank = bank;
         window.setMinimumSize(new Dimension(1200, 800));
         LayoutManager layoutManager = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(layoutManager);
         /////////////////////////////////////////////////////////////////////////////
         //INFO PANEL SETUP
 
-        this.usernameLabel = new JLabel(user.getUsername());
         this.generalLabelsPanel = new JPanel();
-
-        this.generalLabelsPanel.add(usernameLabel);
 
         add(generalLabelsPanel);
 
@@ -54,15 +48,7 @@ public abstract class Dashboard extends JPanel {
             }
         });
 
-        this.stockMarketButton = new JButton("View Stock Market Section");
-        this.stockMarketButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                stockMarketAction();
-            }
-        });
         this.generalActionsPanel.add(logoutButton);
-        this.generalActionsPanel.add(stockMarketButton);
 
         add(Box.createVerticalBox());
         add(generalActionsPanel);
@@ -76,7 +62,4 @@ public abstract class Dashboard extends JPanel {
         this.window.setVisible(true);
     }
 
-    protected abstract void stockMarketAction();
-
-    protected abstract void removeAccountButtonActionPerformed();
 }

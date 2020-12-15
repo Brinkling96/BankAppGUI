@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Dimension2D;
 
 public class LoginScreen extends JPanel {
 
@@ -90,10 +89,10 @@ public class LoginScreen extends JPanel {
             this.window.setVisible(false);
             this.window.remove(this);
             if(user instanceof CustomerUser) {
-                this.window.add(new UserDashboard(window,(CustomerUser) user,bank));
+                this.window.add(new UserBankDashboard(window,(CustomerUser) user,bank));
             }
             else if(user instanceof Banker){
-                this.window.add(new BankerDashboard(window,(Banker) user,bank));
+                this.window.add(new BankerBankDashboard(window,(Banker) user,bank));
             }
             this.window.setVisible(true);
         }

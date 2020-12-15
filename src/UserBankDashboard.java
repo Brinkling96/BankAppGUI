@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class UserDashboard extends Dashboard{
+public class UserBankDashboard extends MainBankDashboard {
 
 
 
@@ -22,7 +22,7 @@ public class UserDashboard extends Dashboard{
     //Transcation tables
     protected GUITable transcationTable;
 
-    public UserDashboard(Window window, CustomerUser user, Bank bank) {
+    public UserBankDashboard(Window window, CustomerUser user, Bank bank) {
         //HOST PANEL SETUP
         super(window, user,bank);
 
@@ -128,7 +128,10 @@ public class UserDashboard extends Dashboard{
     }
 
     protected void stockMarketAction(){
-        //todo
+        this.window.setVisible(false);
+        this.window.remove(this);
+        this.window.add(new UserStockMarketBankDashboard(window,new CheckingAccount(500,user),bank));
+        this.window.setVisible(true);
     }
 
     private void addAccountButtonAction() {

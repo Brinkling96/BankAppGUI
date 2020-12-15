@@ -21,7 +21,7 @@ public class testingUserDash {
         bank.createTransaction(s.getAccount(s.getAccounts().get(0).accountID),"Checking", 1000,"USD");
 
 
-        frame.add(new UserDashboard(frame,d,bank));
+        frame.add(new UserBankDashboard(frame,d,bank));
         frame.pack();
         frame.setVisible(true);
     }
