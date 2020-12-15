@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 public class AddSavingsAccountDialog extends AddAccountDialog {
 
     public AddSavingsAccountDialog(Window owner, CustomerUser user) {
-        super(owner, user);
+        super(owner, user, "Input Balance: ");
     }
 
     @Override
@@ -30,7 +30,7 @@ public class AddSavingsAccountDialog extends AddAccountDialog {
         }
         else{
             if(balance >100){
-                this.account = new SavingsAccount(balance, user);
+                this.account = new SavingsAccount(balance, user, user.getNumAccounts());
                 user.addAccount(account);
                 this.dispose();
             }

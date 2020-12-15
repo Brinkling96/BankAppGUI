@@ -1,16 +1,22 @@
 public abstract class Account implements AccountActions {
 
-    public static Integer numAccounts = 0;
 
     public static final int numMemsToDisplay = 2;
 
     protected String accountID;
     protected Integer balance;
+    private int numAccounts;
 
-    public Account(Integer balance, User user) {
+    public Account(Integer balance, User user, int numAccounts) {
         this.balance = balance;
+        this.numAccounts = numAccounts;
         this.setAccountID(user);
         DataKeeper.newAccount(this);
+    }
+
+    public Account(String accountID, String balance) {
+        this.accountID = accountID;
+        this.balance = Integer.parseInt(balance);
     }
 
     private void setAccountID(User user) {

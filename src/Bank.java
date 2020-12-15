@@ -25,6 +25,7 @@ public class Bank {
         for(User user : users){
             if(user.getUsername().equals(username)){
                 if(user.isPasswordCorrect(password)){
+                    System.out.println("user found");
                     return user;
                 }
             }
@@ -51,9 +52,16 @@ public class Bank {
         this.users.remove(user);
     }
 
+    public int getNumUsers() { return this.users.size(); }
+
+
     //The transaction serves as a receipt. Will have already been processed before this method is called.
     public void createTransaction(Account account, String type, int amount, String currency) {
-        transactions.add(new Transaction(account, type, amount, currency));
+        Transaction t = new Transaction(account, type, amount, currency);
+        transactions.add(t);
+        DataKeeper.newTransaction(t);
+        DataKeeper.updateAccount(account);
+        DataKeeper.updateDailyReports(t);
     }
 
     // Getters and setters

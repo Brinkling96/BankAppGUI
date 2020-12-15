@@ -23,7 +23,7 @@ public class UserCreationDialog extends JDialog {
 
 
     public UserCreationDialog(Window window, Bank bank) {
-        super(window);
+        super(window,Dialog.DEFAULT_MODALITY_TYPE);
         this.bank = bank;
 
         this.setLayout(new GridLayout(3,1));
@@ -84,7 +84,7 @@ public class UserCreationDialog extends JDialog {
         }
         String warnings = warningsBuilder.toString();
         if(warnings.isEmpty()){
-            bank.addUser(new CustomerUser(username,password));
+            bank.addUser(new CustomerUser(username,password,bank.getNumUsers()));
             JOptionPane.showMessageDialog(this,"New User Created!","Success",JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }
