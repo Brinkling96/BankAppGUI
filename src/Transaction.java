@@ -3,21 +3,27 @@ import java.time.LocalDateTime;
 public class Transaction {
     public static final int numMemsToDisplay = 6;
 
-    private final Account account;
-    private final LocalDateTime time;
-    private final String transactionType, currency, ID;
+    private Account account;
+    private final String transactionType, currency, ID, time;
     private final int amount;
     public Transaction(Account account, String type,
                        int amount, String curr) {
-        this.time = Clock.getClock().getTime();
+        LocalDateTime currTime = Clock.getClock().getTime();
+        this.time = Clock.getClock().getTimeAsString(currTime);
         this.account = account;
         this.transactionType = type;
         this.amount = amount;
         this.currency = curr;
         this.ID = account.getAccountID().toString()
-                + Clock.getClock().getTimeAsLong(this.time);
-        DataKeeper.newTransaction(this);
-        DataKeeper.updateDailyReports(this);
+                + Clock.getClock().getTimeAsLong(currTime);
+    }
+
+    public Transaction(String id, String type, String currency, String amount, String time) {
+        this.ID = id;
+        this.transactionType = type;
+        this.currency = currency;
+        this.amount = Integer.parseInt(amount);
+        this.time = time;
     }
 
     // Leaving for now in case needed in the future
@@ -60,7 +66,7 @@ public class Transaction {
     }
 
     public String getTime() {
-        return Clock.getClock().getTimeAsString(time);
+        return this.time;
     }
 
     public String toString() {
