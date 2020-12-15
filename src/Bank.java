@@ -53,7 +53,7 @@ public class Bank {
         this.users.remove(user);
     }
 
-    public int getUserNumber() { return this.userNumber; }
+    public int getUserNumber() { return this.userNumber + 1; }
 
 
     //The transaction serves as a receipt. Will have already been processed before this method is called.

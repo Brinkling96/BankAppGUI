@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class BankerDashboard extends Dashboard {
@@ -88,6 +87,7 @@ public class BankerDashboard extends Dashboard {
             }
         });
 
+        
         this.userTableActionPanel.add(removeAccountButton);
 
 
@@ -101,10 +101,9 @@ public class BankerDashboard extends Dashboard {
         tclasses[0] = String.class;
         tclasses[1] = String.class;
         tclasses[2] = String.class;
-        tclasses[3] = String.class;
-        tclasses[4] = Integer.class;
-        tclasses[5] = String.class;
-        this.transactionTable = new GUITable(createTDTable(tds), new String[]{"TransactionID", "TranscationType", "UserID", "Date", "Amount", "Currency"}, tclasses);
+        tclasses[3] = Integer.class;
+        tclasses[4] = String.class;
+        this.transactionTable = new GUITable(createTDTable(tds), new String[]{"TransactionID", "TranscationType", "Date", "Amount", "Currency"}, tclasses);
 
         add(Box.createVerticalBox());
         add(transactionTable);
@@ -134,6 +133,7 @@ public class BankerDashboard extends Dashboard {
     }
 
     private void viewAccountAction() {
+        System.out.println("Viewing accounts");
         int selectedRow = this.userAccountTable.table.getSelectedRow();
         if (selectedRow >= 0) {
             String accountID = (String) this.userAccountTable.table.getValueAt(selectedRow, 0);
