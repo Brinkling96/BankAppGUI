@@ -38,6 +38,14 @@ public class CustomerUser extends User{
 
     public void loadAccounts(ArrayList<Account> accounts) {
         this.accounts = accounts;
+        int num = 0;
+        for (Account a : accounts) {
+            String id = a.getAccountID().replaceAll("[^\\d.]", "");
+            if (Integer.parseInt(id) >= num) {
+                num = Integer.parseInt(id);
+            }
+        }
+        this.accountNumber = num;
     }
 
     // todo charge fees to add and remove accounts, I think I did it correctly, but we can never be too sure

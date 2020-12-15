@@ -141,7 +141,6 @@ public class UserDashboard extends Dashboard{
     private void addAccountButtonAction() {
         MoneyAccountTypeSelectionMenu d = new MoneyAccountTypeSelectionMenu(window, ((CustomerUser) user), this.bank);
         Account act = d.account;
-        System.out.println(act);
         if (act != null) {
             moneyAccountTable.addRowToTable(new Object[]{act.getAccountID(), act.getBalance()});
         }

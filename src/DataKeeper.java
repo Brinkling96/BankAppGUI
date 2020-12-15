@@ -19,10 +19,15 @@ public class DataKeeper {
         if (!directory.exists()) {
             directory.mkdirs();
         }
+
         try {
+            File userDetailFile = new File(USER_PATH + "user_details.txt");
+            if (!userDetailFile.exists()) {
+                userDetailFile.createNewFile();
+            }
             Path filePath = Paths.get(USER_PATH + fileName);
             ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
-            switch(action) {
+            switch (action) {
                 case "add":
                     lines.add(user.toString());
                     break;
@@ -37,21 +42,30 @@ public class DataKeeper {
                     lines.remove(index);
                     break;
             }
+            Files.write(filePath, lines, StandardCharsets.UTF_8);
         } catch (IOException e) {
             System.err.println("File not found");
         }
     }
 
     public static void updateAccount(Account account, String type) {
-        String uid = account.getAccountID().substring(0,4);
+        String uid = account.getAccountID().substring(0, 4);
+        String aid = account.getAccountID().substring(4, 10);
         String directoryName = USER_PATH.concat(uid);
-        String fileName = "account_details.txt";
-        Path filePath = Paths.get(directoryName + "/" + fileName);
+
         try {
+            String fileName = "account_details.txt";
+            File file = new File(directoryName + "/" + fileName);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            Path filePath = Paths.get(directoryName + "/" + fileName);
             ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
-            switch(type) {
+            switch (type) {
                 case "add":
                     lines.add(account.toString().replace("\n", ""));
+                    File directory = new File(directoryName + "/" + aid);
+                    directory.mkdir();
                     break;
                 case "remove":
                     int index = 0;
@@ -63,7 +77,7 @@ public class DataKeeper {
                         lines.remove(index);
                     }
                     break;
-                    
+
                 default:
                     for (int i = 0; i < lines.size(); i++) {
                         if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
@@ -74,16 +88,16 @@ public class DataKeeper {
 
             }
             Files.write(filePath, lines, StandardCharsets.UTF_8);
-        } catch (IOException e ) {
+        } catch (IOException e) {
             System.out.println("Unable to update account");
         }
     }
 
     public static void updateDailyReports(Transaction transaction) {
         String transactionTime = transaction.getTime();
-        String month = transactionTime.substring(0,2);
-        String date = transactionTime.substring(3,5);
-        String year = transactionTime.substring(6,10);
+        String month = transactionTime.substring(0, 2);
+        String date = transactionTime.substring(3, 5);
+        String year = transactionTime.substring(6, 10);
 
         String directoryName = BANK_PATH + year + "/" + month;
         String fileName = date;
@@ -91,25 +105,34 @@ public class DataKeeper {
         if (!directory.exists()) {
             directory.mkdirs();
         }
-        File file = new File(directoryName + "/" + fileName);
-        try(FileWriter fw = new FileWriter(file, true);
+        try {
+            File file = new File(directoryName + "/" + fileName);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw)) {
+            PrintWriter out = new PrintWriter(bw);
             out.print(transaction.toString());
+            out.close();
         } catch (IOException e) {
             System.err.println("Transaction could not be recorded");
         }
     }
 
     public static void newTransaction(Transaction transaction) {
-        String uid = transaction.getID().substring(0,4);
-        String aid = transaction.getID().substring(4,10);
+        String uid = transaction.getID().substring(0, 4);
+        String aid = transaction.getID().substring(4, 10);
         String directoryName = USER_PATH + uid + "/" + aid + "/";
+        File accDir = new File(directoryName);
+        if (!accDir.exists()) {
+            accDir.mkdirs();
+        }
         String fileName = "transactions.txt";
         File file = new File(directoryName + "/" + fileName);
-        try(FileWriter fw = new FileWriter(file, true);
+        try (FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw)) {
+            PrintWriter out = new PrintWriter(bw);) {
             out.print(transaction.toString());
         } catch (IOException e) {
             System.err.println("Transaction could not be created");
@@ -125,15 +148,17 @@ public class DataKeeper {
                 String line;
                 while ((line = br.readLine()) != null) {
                     String[] userInfo = line.split(",");
-                    String userID = userInfo[0];
-                    String username = userInfo[1];
-                    String password = userInfo[2];
-                    String status = userInfo[3];
-                    users.add(new CustomerUser(username, password, userID, status));
+                    if (userInfo.length == 4) {
+                        String userID = userInfo[0];
+                        String username = userInfo[1];
+                        String password = userInfo[2];
+                        String status = userInfo[3];
+                        users.add(new CustomerUser(username, password, userID, status));
+                    }
                 }
-                bank = new Bank(users);
+                    bank = new Bank(users);
             } catch (IOException e) {
-                System.err.println("File not found");
+                System.err.println("Bank file not found");
             }
         }
         return bank;
@@ -158,7 +183,7 @@ public class DataKeeper {
 
                 }
             } catch (IOException e) {
-                System.err.println("File not found");
+                System.err.println("Account file not found");
             }
         }
         return accounts;
