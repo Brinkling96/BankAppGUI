@@ -5,11 +5,13 @@ import java.awt.event.ActionEvent;
 public class WithdrawMenu extends InputIntMenu {
 
     private Account account;
+    private Bank bank;
 
-    public WithdrawMenu(Window window, Account account) {
+    public WithdrawMenu(Window window, Account account, Bank bank) {
         super(window, "Withdraw","Withdraw Amount");
 
         this.account = account;
+        this.bank = bank;
 
         pack();
         setVisible(true);
@@ -24,11 +26,14 @@ public class WithdrawMenu extends InputIntMenu {
         }
         else{
             try{
+                //todo adding the fee
                 int amount = Integer.parseInt(intField.getText());
                 if(amount> 0 && account.getBalance()> amount) {
-                    int result = JOptionPane.showConfirmDialog(this, "Withdraw $" + Integer.toString(amount) + " ?");
+                    int result = JOptionPane.showConfirmDialog(this,
+                            "Withdraw $" + Integer.toString(amount) + "?\nThere is a fee of $" + this.bank.getTransactionFee());
                     if (result == JOptionPane.OK_OPTION) {
-                        account.setBalance(account.getBalance() - amount); //todo: Account Actions
+                        account.setBalance(account.getBalance() - amount - this.bank.getTransactionFee()); //todo: Account Actions
+                        bank.createTransaction(account, "fee", -this.bank.getTransactionFee(), "usd");
                         this.dispose();
                     }
                 }
