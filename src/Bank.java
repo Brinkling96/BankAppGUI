@@ -5,6 +5,7 @@ public class Bank {
     //Equivalent to 1 USD
     private double yenConversionRate, euroConversionRate;
     private double interestRate;
+    private int highValueBenchmark;
     private final String name;
     private ArrayList<Transaction> transactions;
     protected ArrayList<User> users;
@@ -15,6 +16,7 @@ public class Bank {
         this.transactionFee = 3;
     	this.yenConversionRate = 103.96;
     	this.euroConversionRate = .82;
+    	this.highValueBenchmark = 5000;
         this.name = "";
         this.transactions = new ArrayList<Transaction>();
     }
@@ -54,11 +56,11 @@ public class Bank {
         transactions.add(new Transaction(account, type, amount, currency));
     }
 
+    // Getters and setters
     public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
-    
-    
+
     public int getTransactionFee() {
     	return this.transactionFee;
     }
@@ -69,5 +71,21 @@ public class Bank {
     
     public double getEuroConversionRate() {
     	return this.euroConversionRate;
+    }
+
+    public double getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(double interestRate) {
+        this.interestRate = interestRate;
+    }
+
+    public int getHighValueBenchmark() {
+        return highValueBenchmark;
+    }
+
+    public void setHighValueBenchmark(int highValueBenchmark) {
+        this.highValueBenchmark = highValueBenchmark;
     }
 }

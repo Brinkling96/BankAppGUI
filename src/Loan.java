@@ -1,7 +1,8 @@
 public class Loan {
-    
+
     private int originalValue;
     private int principal;
+    // interest is in decimal form, should be < 1
     private double interest;
     private Collateral collateral;
 
@@ -11,6 +12,10 @@ public class Loan {
         this.setPrincipal(originalValue);
         this.setInterest(interest);
         this.setCollateral(collateral);
+    }
+
+    public void chargeInterest(){
+        this.setPrincipal((int)(this.getPrincipal()*(1 + this.getInterest())));
     }
 
     // Getters and setters

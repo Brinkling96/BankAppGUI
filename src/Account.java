@@ -56,6 +56,7 @@ public abstract class Account implements AccountActions {
 
     }
 
+    // Fee is automatically charged from the same account.
     @Override
     public boolean withdraw(int amount, String currency, Bank bank) {
         // Withdraw correct amount depending on currency
