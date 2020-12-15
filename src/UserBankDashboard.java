@@ -130,7 +130,7 @@ public class UserBankDashboard extends MainBankDashboard {
     protected void stockMarketAction(){
         this.window.setVisible(false);
         this.window.remove(this);
-        this.window.add(new UserStockMarketBankDashboard(window,new CheckingAccount(500,user),bank));
+        this.window.add(new UserStockMarketBankDashboard(window,new CheckingAccount(user.getUserID(), "500"),bank));
         this.window.setVisible(true);
     }
 
