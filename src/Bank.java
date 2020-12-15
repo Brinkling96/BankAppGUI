@@ -1,15 +1,12 @@
 import java.util.ArrayList;
 
 public class Bank {
-    private int creationFee;
-    private int closureFee;
-    private int transactionFee;
+    private int creationFee, closureFee, transactionFee;
     //Equivalent to 1 USD
     //todo ask user which type of currency to enter?
-    private double yenConversionRate, euroConversionRate;
-    private double interestRate;
+    private double yenConversionRate, euroConversionRate, interestRate;
     private int highValueBenchmark;
-    private final String name;
+    private int userNumber;
     private ArrayList<Transaction> transactions;
     protected ArrayList<User> users;
 
@@ -21,7 +18,6 @@ public class Bank {
     	this.highValueBenchmark = 5000;
     	this.closureFee = 5;
     	this.creationFee = 5;
-        this.name = "";
         this.transactions = new ArrayList<Transaction>();
     }
 
@@ -49,6 +45,7 @@ public class Bank {
 
 
     public void addUser(CustomerUser user){
+        this.userNumber++;
         this.users.add(user);
     }
 
@@ -56,7 +53,7 @@ public class Bank {
         this.users.remove(user);
     }
 
-    public int getNumUsers() { return this.users.size(); }
+    public int getUserNumber() { return this.userNumber; }
 
 
     //The transaction serves as a receipt. Will have already been processed before this method is called.

@@ -4,14 +4,13 @@ public abstract class User {
 
     private String username;
     private char[] password;
-    private int numUsers;
     private String userID;
     private boolean status;
-    public User(String username, char[] password, int numUsers) {
+    public User(String username, char[] password, int userNumber) {
         this.status = true;
         this.username = username;
         this.password = password;
-        this.userID = String.format("%04d", numUsers);
+        this.userID = String.format("%04d", userNumber);
         DataKeeper.newUser(this);
     }
 

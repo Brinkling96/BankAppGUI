@@ -9,13 +9,11 @@ public abstract class Account implements AccountActions {
     protected String accountID;
     protected Integer balance;
     private int numAccounts;
-    private boolean status;
 
     public Account(Integer balance, User user, int numAccounts) {
         this.balance = balance;
         this.numAccounts = numAccounts;
         this.setAccountID(user);
-        this.status = true;
     }
 
     public Account(String accountID, String balance) {

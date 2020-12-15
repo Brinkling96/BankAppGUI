@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class CustomerUser extends User{
 
     public static final int numMembersToDisplay= 3;
+    private int accountNumber;
     private ArrayList<Account> accounts;
     private ArrayList<Loan> loans;
 
@@ -12,8 +13,8 @@ public class CustomerUser extends User{
      * @param password
      * @param numUsers
      */
-    public CustomerUser(String username, char[] password, int numUsers) {
-        super(username,password, numUsers);
+    public CustomerUser(String username, char[] password, int userNumber) {
+        super(username,password, userNumber);
         this.accounts = new ArrayList<>();
     }
 
@@ -33,7 +34,7 @@ public class CustomerUser extends User{
         return accounts;
     }
 
-    public int getNumAccounts() { return this.accounts.size(); }
+    public int getNumAccounts() { return this.accountNumber; }
 
     public void loadAccounts(ArrayList<Account> accounts) {
         this.accounts = accounts;
@@ -41,6 +42,7 @@ public class CustomerUser extends User{
 
     // todo charge fees to add and remove accounts, I think I did it correctly, but we can never be too sure
     public void addAccount(Account account, Bank bank){
+        this.accountNumber++;
         this.accounts.add(account);
         account.setBalance(account.getBalance() - bank.getCreationFee());
         bank.createTransaction(account, "add", -bank.getCreationFee(), "usd");
