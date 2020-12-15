@@ -23,6 +23,7 @@ public class Bank {
         for(User user : users){
             if(user.getUsername().equals(username)){
                 if(user.isPasswordCorrect(password)){
+                    System.out.println("user found");
                     return user;
                 }
             }

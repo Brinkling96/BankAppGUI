@@ -4,11 +4,11 @@ import java.util.ArrayList;
 public class testingUserDash {
     public static void main(String[]  args) {
         JFrame frame = BankingFrame.getInstance();
-        CustomerUser s = new CustomerUser("sdbrady","password".toCharArray());
-        s.addAccount(new CheckingAccount(1000,s));
+        CustomerUser s = new CustomerUser("sdbrady","password".toCharArray(),0);
+        s.addAccount(new CheckingAccount(1000,s,s.getNumAccounts()));
 
-        CustomerUser d = new CustomerUser("Barack","1776".toCharArray());
-        d.addAccount(new CheckingAccount(2000,d));
+        CustomerUser d = new CustomerUser("Barack","1776".toCharArray(),0);
+        d.addAccount(new CheckingAccount(2000,d,d.getNumAccounts()));
 
         ArrayList<User> temp = new ArrayList<>();
 
