@@ -61,32 +61,28 @@ public class DataKeeper {
             }
             Path filePath = Paths.get(directoryName + "/" + fileName);
             ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
-            switch (type) {
-                case "add":
-                    lines.add(account.toString().replace("\n", ""));
-                    File directory = new File(directoryName + "/" + aid);
-                    directory.mkdir();
-                    break;
-                case "remove":
-                    int index = 0;
-                    for (int i = 0; i < lines.size(); i++) {
-                        if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
-                            index = i;
-                            break;
-                        }
-                        lines.remove(index);
+            if (type.equals("add")) {
+                lines.add(account.toString().replace("\n", ""));
+                File directory = new File(directoryName + "/" + aid);
+                directory.mkdir();
+            } else if (type.equals("remove")) {
+                int index = 0;
+                for (int i = 0; i < lines.size(); i++) {
+                    if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
+                        index = i;
+                        break;
                     }
-                    break;
-
-                default:
-                    for (int i = 0; i < lines.size(); i++) {
-                        if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
-                            lines.set(i, account.toString().replace("\n", ""));
-                            break;
-                        }
+                    lines.remove(index);
+                }
+            } else if (type.equals("deposit") || type.equals("withdraw")) {
+                for (int i = 0; i < lines.size(); i++) {
+                    if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
+                        lines.set(i, account.toString().replace("\n", ""));
+                        break;
                     }
-
+                }
             }
+            
             Files.write(filePath, lines, StandardCharsets.UTF_8);
         } catch (IOException e) {
             System.out.println("Unable to update account");
@@ -105,22 +101,20 @@ public class DataKeeper {
         if (!directory.exists()) {
             directory.mkdirs();
         }
-        try {
-            File file = new File(directoryName + "/" + fileName);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            FileWriter fw = new FileWriter(file, true);
+        File file = new File(directoryName + "/" + fileName);
+
+        try (FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw);
+            PrintWriter out = new PrintWriter(bw)){
+            
             out.print(transaction.toString());
-            out.close();
         } catch (IOException e) {
             System.err.println("Transaction could not be recorded");
         }
     }
 
     public static void newTransaction(Transaction transaction) {
+        System.out.println(transaction);
         String uid = transaction.getID().substring(0, 4);
         String aid = transaction.getID().substring(4, 10);
         String directoryName = USER_PATH + uid + "/" + aid + "/";
@@ -134,6 +128,7 @@ public class DataKeeper {
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw);) {
             out.print(transaction.toString());
+                
         } catch (IOException e) {
             System.err.println("Transaction could not be created");
         }
