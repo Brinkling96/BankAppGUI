@@ -32,8 +32,7 @@ public class WithdrawMenu extends InputIntMenu {
                     int result = JOptionPane.showConfirmDialog(this,
                             "Withdraw $" + Integer.toString(amount) + "?\nThere is a fee of $" + this.bank.getTransactionFee());
                     if (result == JOptionPane.OK_OPTION) {
-                        account.setBalance(account.getBalance() - amount - this.bank.getTransactionFee()); //todo: Account Actions
-                        bank.createTransaction(account, "fee", -this.bank.getTransactionFee(), "usd");
+                        account.withdraw(amount, "usd");
                         this.dispose();
                     }
                 }
