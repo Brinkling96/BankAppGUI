@@ -176,7 +176,6 @@ public class UserDashboard extends Dashboard{
         return act;
     }
 
-
     public void displayTransactions() {
         int selectedRow = this.moneyAccountTable.table.getSelectedRow();
         Account account = getSelectedAccount(selectedRow);
@@ -203,7 +202,6 @@ public class UserDashboard extends Dashboard{
                 this.transactionTable.addRowToTable(newData);
             }
         }
-        
     }
 
     public void deposit(){
@@ -214,7 +212,6 @@ public class UserDashboard extends Dashboard{
         }
         Object[] input = new Object[]{account.accountID, account.balance};
         this.moneyAccountTable.reloadRowData(selectedRow,input);
-
     }
 
     public void withdraw(){
@@ -227,8 +224,6 @@ public class UserDashboard extends Dashboard{
         }
         Object[] input = new Object[]{account.accountID, account.balance};
         this.moneyAccountTable.reloadRowData(selectedRow,input);
-
-
     }
 }
 
