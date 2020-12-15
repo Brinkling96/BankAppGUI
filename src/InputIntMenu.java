@@ -11,7 +11,7 @@ public abstract class InputIntMenu extends JDialog {
 
 
     public InputIntMenu(Window owner, String title, String label) {
-        super(owner);
+        super(owner,Dialog.DEFAULT_MODALITY_TYPE);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle(title);
 
