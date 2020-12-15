@@ -23,7 +23,6 @@ public class DataKeeper {
     }
 
     public static void newAccount(Account account) {
-        System.out.println(account.getAccountID());
         String uid = account.getAccountID().substring(0,4);
         String aid = account.getAccountID().substring(4,10);
         String directoryName = USER_PATH.concat(uid);
@@ -37,6 +36,36 @@ public class DataKeeper {
             out.print(account.toString());
         } catch (IOException e) {
             System.err.println("Transaction could not be created");
+        }
+    }
+
+    public static void updateAccount(Account account) {
+        String uid = account.getAccountID().substring(0,4);
+        String aid = account.getAccountID().substring(4,10);
+        String directoryName = USER_PATH.concat(uid);
+        String fileName = "account_details.txt";
+        File file = new File(directoryName + "/" + fileName);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            StringBuffer inputBuffer = new StringBuffer();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String accountID = line.split(",")[0];
+                if (accountID.equals(aid)) {
+                    line = account.toString();
+                }
+                inputBuffer.append(line);
+                inputBuffer.append('\n');
+            }
+            reader.close();
+
+            // write the new string with the replaced line OVER the same file
+            FileOutputStream fileOut = new FileOutputStream(file);
+            fileOut.write(inputBuffer.toString().getBytes());
+            fileOut.close();
+
+        } catch (IOException e) {
+            System.out.println("Problem reading file.");
         }
     }
 

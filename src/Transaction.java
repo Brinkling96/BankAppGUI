@@ -16,8 +16,6 @@ public class Transaction {
         this.currency = curr;
         this.ID = account.getAccountID().toString()
                 + Clock.getClock().getTimeAsLong(currTime);
-        DataKeeper.newTransaction(this);
-        DataKeeper.updateDailyReports(this);
     }
 
     public Transaction(String id, String type, String currency, String amount, String time) {
