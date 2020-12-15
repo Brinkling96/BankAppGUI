@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class BankerDashboard extends Dashboard {
@@ -92,7 +93,7 @@ public class BankerDashboard extends Dashboard {
             tclasses[i] = String.class;
         }
         tclasses[5] = Integer.class;
-        this.transcationTable = new GUITable(createTDTable(tds), new String[]{"TransactionID", "TranscationType", "UserID", "AccountID", "Date", "Amount"}, tclasses);
+        this.transcationTable = new GUITable(createTDTable(tds), new String[]{"TransactionID", "TranscationType", "UserID", "Date", "Amount", "Currency"}, tclasses);
 
         add(Box.createVerticalBox());
         add(transcationTable);
@@ -108,9 +109,9 @@ public class BankerDashboard extends Dashboard {
             returnRow[j++] = transaction.getID();
             returnRow[j++] = transaction.getTransactionType();
             returnRow[j++] = "null for now"; //todo
-            returnRow[j++] = transaction.getAccount().getAccountID();
-            returnRow[j++] = transaction.getTime().toString();
+            returnRow[j++] = transaction.getTime();
             returnRow[j++] = transaction.getAmount();
+            returnRow[j++] = transaction.getCurrency();
         }
 
         return returnlist;
@@ -138,6 +139,10 @@ public class BankerDashboard extends Dashboard {
                 JOptionPane.showMessageDialog(this, "UserID Not Found", "User Dash pull", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+
+    private void viewDailyReport() {
+        
     }
 
     @Override

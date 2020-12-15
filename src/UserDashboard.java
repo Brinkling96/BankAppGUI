@@ -108,7 +108,7 @@ public class UserDashboard extends Dashboard{
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
         
         
-        this.transactionTable = new GUITable(createTDTable(transactions),new String[]{"TransactionID","TranscationType","Date","Amount"}, tclasses);
+        this.transactionTable = new GUITable(createTDTable(transactions),new String[]{"TransactionID","TranscationType","Date","Amount", "Currency"}, tclasses);
         add(Box.createVerticalBox());
         add(transactionTable);
 
@@ -128,8 +128,9 @@ public class UserDashboard extends Dashboard{
             int j =0;
             returnRow[j++] = transaction.getID();
             returnRow[j++] = transaction.getTransactionType();
-            returnRow[j++] = transaction.getTime().toString();
+            returnRow[j++] = transaction.getTime();
             returnRow[j++] = transaction.getAmount();
+            returnRow[j++] = transaction.getCurrency();
         }
 
         return returnlist;
