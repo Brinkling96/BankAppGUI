@@ -26,38 +26,42 @@ public class DataKeeper {
         }
     }
 
-    public static void newAccount(Account account) {
-        String uid = account.getAccountID().substring(0,4);
-        String aid = account.getAccountID().substring(4,10);
-        String directoryName = USER_PATH.concat(uid);
-        String fileName = "account_details.txt";
-        File directory = new File(directoryName + "/" + aid);
-        directory.mkdir();
-        File file = new File(directoryName + "/" + fileName);
-        try(FileWriter fw = new FileWriter(file, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw)) {
-            out.print(account.toString());
-        } catch (IOException e) {
-            System.err.println("Transaction could not be created");
-        }
+    public static void removeUser() {
+
     }
 
-
-    public static void updateAccount(Account account) {
+    public static void updateAccount(Account account, String type) {
         String uid = account.getAccountID().substring(0,4);
         String directoryName = USER_PATH.concat(uid);
         String fileName = "account_details.txt";
         Path filePath = Paths.get(directoryName + "/" + fileName);
         try {
             ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
-            for (int i = 0; i < lines.size(); i++) {
-                if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
-                    lines.set(i, account.toString().replace("\n", ""));
+            switch(type) {
+                case "add":
+                    lines.add(account.toString().replace("\n", ""));
                     break;
-                }
-            }
+                case "remove":
+                    int index = 0;
+                    for (int i = 0; i < lines.size(); i++) {
+                        if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
+                            index = i;
+                            break;
+                        }
+                        lines.remove(index);
+                    }
+                    break;
+                    
+                default:
+                    for (int i = 0; i < lines.size(); i++) {
+                        if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
+                            lines.set(i, account.toString().replace("\n", ""));
+                            break;
+                        }
+                    }
 
+            }
+            
             Files.write(filePath, lines, StandardCharsets.UTF_8);
         } catch (IOException e ) {
             System.out.println("Unable to update account");
@@ -124,7 +128,7 @@ public class DataKeeper {
         return bank;
     }
 
-    public static ArrayList<Account> loadAccounts(User user) {
+    public static ArrayList<Account> getAccountsFromUser(User user) {
         String uid = user.getUserID();
         ArrayList<Account> accounts = new ArrayList<>();
         File file = new File(USER_PATH + uid + "/" + "account_details.txt");
@@ -149,26 +153,50 @@ public class DataKeeper {
         return accounts;
     }
 
-    public static ArrayList<Transaction> loadTransactions(Account account) {
+    /**
+     * Date in the format MM-dd-yyyy
+     * @param date
+     * @return
+     */
+    public static ArrayList<Transaction> getDailyTransactions(String date) {
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        String[] d = date.split("-");
+        String month = d[0];
+        String day = d[1];
+        String year = d[2];
+        File file = new File(BANK_PATH + year + "/" + month + "/" + day);
+        if (file.exists()) {
+            transactions = DataKeeper.readTransaction(file);
+        }
+        return transactions;
+    }
+
+    public static ArrayList<Transaction> getTransactionsFromAccount(Account account) {
         ArrayList<Transaction> transactions = new ArrayList<>();
         String uid = account.getAccountID().substring(0,4);
         String aid = account.getAccountID().substring(4,10);
         File file = new File(USER_PATH + uid + "/" + aid + "/" + "transactions.txt");
         if (file.exists()) {
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    String[] transaction = line.split(",");
-                    String tid = transaction[0];
-                    String type = transaction[1];
-                    String amount = transaction[2];
-                    String currency = transaction[3];
-                    String time = transaction[4];
-                    transactions.add(new Transaction(tid, type, currency, amount, time));
-                }
-            } catch (IOException e) {
-                System.err.println("File not found");
+            transactions = DataKeeper.readTransaction(file);
+        }
+        return transactions;
+    }
+
+    public static ArrayList<Transaction> readTransaction(File file) {
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] transaction = line.split(",");
+                String tid = transaction[0];
+                String type = transaction[1];
+                String amount = transaction[2];
+                String currency = transaction[3];
+                String time = transaction[4];
+                transactions.add(new Transaction(tid, type, currency, amount, time));
             }
+        } catch (IOException e) {
+            System.err.println("Could not read transactions");
         }
         return transactions;
     }

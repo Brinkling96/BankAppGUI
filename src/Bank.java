@@ -64,7 +64,7 @@ public class Bank {
         Transaction t = new Transaction(account, type, amount, currency);
         transactions.add(t);
         DataKeeper.newTransaction(t);
-        DataKeeper.updateAccount(account);
+        DataKeeper.updateAccount(account, type);
         DataKeeper.updateDailyReports(t);
     }
 

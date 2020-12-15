@@ -3,9 +3,9 @@ public class InputTest {
         Bank bank = DataKeeper.initBank();
         System.out.println(bank.getNumUsers());
         CustomerUser user = (CustomerUser) bank.getUser("0051");
-        user.loadAccounts(DataKeeper.loadAccounts(user));
+        user.loadAccounts(DataKeeper.getAccountsFromUser(user));
         CheckingAccount account = (CheckingAccount) user.getAccount("00510000ck");
-        for (Transaction t : DataKeeper.loadTransactions(account)) {
+        for (Transaction t : DataKeeper.getTransactionsFromAccount(account)) {
             System.out.print(t);
         }
     }

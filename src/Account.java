@@ -9,12 +9,13 @@ public abstract class Account implements AccountActions {
     protected String accountID;
     protected Integer balance;
     private int numAccounts;
+    private boolean status;
 
     public Account(Integer balance, User user, int numAccounts) {
         this.balance = balance;
         this.numAccounts = numAccounts;
         this.setAccountID(user);
-        DataKeeper.newAccount(this);
+        this.status = true;
     }
 
     public Account(String accountID, String balance) {
@@ -30,6 +31,8 @@ public abstract class Account implements AccountActions {
             this.accountID += "ck";
         else if (this instanceof SavingsAccount)
             this.accountID += "sv";
+        else if (this instanceof SecurityAccount)
+            this.accountID += "sc";
     }
 
     public String getAccountID() {
