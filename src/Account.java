@@ -9,10 +9,12 @@ public abstract class Account implements AccountActions {
     protected String accountID;
     protected Integer balance;
     private int numAccounts;
+    private Bank bank;
 
-    public Account(Integer balance, User user, int numAccounts) {
+    public Account(Integer balance, User user, int numAccounts, Bank bank) {
         this.balance = balance;
         this.numAccounts = numAccounts;
+        this.bank = bank;
         this.setAccountID(user);
     }
 
@@ -45,9 +47,13 @@ public abstract class Account implements AccountActions {
         this.balance = balance;
     }
 
+    public Bank getBank() {
+        return this.bank;
+    }
+
 
     @Override
-    public boolean deposit(int amount, String currency, Bank bank) {
+    public boolean deposit(int amount, String currency) {
         // Deposit correct amount depending on currency
         // Creates the transaction if valid
         switch (currency) {
@@ -68,7 +74,7 @@ public abstract class Account implements AccountActions {
 
     // Fee is automatically charged from the same account.
     @Override
-    public boolean withdraw(int amount, String currency, Bank bank) {
+    public boolean withdraw(int amount, String currency) {
         // Withdraw correct amount depending on currency
         // Creates the transaction if valid
     	int balanceAfterWithdraw = 0;
