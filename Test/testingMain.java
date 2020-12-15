@@ -10,7 +10,7 @@ public class testingMain {
 
     public static void main(String[]  args) {
         AddAccountDialog d =  new AddSecurityAccount(BankingFrame.getInstance(),
-                new CustomerUser("sdbrady","password".toCharArray(),0));
+                new CustomerUser("sdbrady","password".toCharArray(),0), new Bank(new ArrayList<>()));
         d.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         d.setVisible(true);
 

@@ -132,7 +132,7 @@ public class UserDashboard extends Dashboard{
     }
 
     private void addAccountButtonAction() {
-        MoneyAccountTypeSelectionMenu d = new MoneyAccountTypeSelectionMenu(window, ((CustomerUser) user));
+        MoneyAccountTypeSelectionMenu d = new MoneyAccountTypeSelectionMenu(window, ((CustomerUser) user), this.bank);
         Account act = d.account;
         System.out.println(act);
         if (act != null) {
@@ -148,8 +148,13 @@ public class UserDashboard extends Dashboard{
                 //todo
                 Account account = getSelectedAccount(selectedRow);
                 if (account != null) {
-                    ((CustomerUser) user).removeAccount(account);
-                    this.moneyAccountTable.tableModel.removeRow(selectedRow);
+                    //todo print this to the user instead of the command line
+                    if(account.getBalance() < this.bank.getClosureFee()){
+                        System.out.println("Can't close account unless value is greater than the closer fee of $" + this.bank.getClosureFee());
+                    }else{
+                        ((CustomerUser) user).removeAccount(account, this.bank);
+                        this.moneyAccountTable.tableModel.removeRow(selectedRow);
+                    }
                 }
             }
         }
@@ -182,7 +187,7 @@ public class UserDashboard extends Dashboard{
 
         Account account = getSelectedAccount(selectedRow);
         if(account != null){
-            JDialog wWindow = new WithdrawMenu(window,account);
+            JDialog wWindow = new WithdrawMenu(window,account,this.bank);
 
         }
         Object[] input = new Object[]{account.accountID, account.balance};

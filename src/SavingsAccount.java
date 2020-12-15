@@ -9,4 +9,9 @@ public class SavingsAccount extends Account{
         super(accountID, balance);
     }
 
+    public void accumulateInterest(Bank bank){
+        if(this.getBalance() >= bank.getHighValueBenchmark()){
+            this.setBalance((int)(this.getBalance()*(1 + bank.getInterestRate())));
+        }
+    }
 }

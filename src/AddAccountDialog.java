@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public abstract class AddAccountDialog extends JDialog{
     protected CustomerUser user;
     protected Account account;
+    protected Bank bank;
 
 
     protected JPanel panel = new JPanel();
@@ -16,9 +17,10 @@ public abstract class AddAccountDialog extends JDialog{
     protected JButton okButton;
     protected JButton cancelButton;
 
-    public AddAccountDialog(Window owner, CustomerUser user, String balanceLabelString) {
+    public AddAccountDialog(Window owner, CustomerUser user, String balanceLabelString, Bank bank) {
         super(owner, Dialog.DEFAULT_MODALITY_TYPE);
         this.user = user;
+        this.bank = bank;
         setLocationRelativeTo(owner);
         initComponents(balanceLabelString);
     }

@@ -1,20 +1,26 @@
 import java.util.ArrayList;
 
 public class Bank {
-    private int creationFee, closureFee, transactionFee;
+    private int creationFee;
+    private int closureFee;
+    private int transactionFee;
     //Equivalent to 1 USD
+    //todo ask user which type of currency to enter?
     private double yenConversionRate, euroConversionRate;
     private double interestRate;
+    private int highValueBenchmark;
     private final String name;
     private ArrayList<Transaction> transactions;
     protected ArrayList<User> users;
 
     public Bank(ArrayList<User> users) {
         this.users = users;
-        this.creationFee = 0;
         this.transactionFee = 3;
     	this.yenConversionRate = 103.96;
     	this.euroConversionRate = .82;
+    	this.highValueBenchmark = 5000;
+    	this.closureFee = 5;
+    	this.creationFee = 5;
         this.name = "";
         this.transactions = new ArrayList<Transaction>();
     }
@@ -62,20 +68,61 @@ public class Bank {
         DataKeeper.updateDailyReports(t);
     }
 
+    // Getters and setters
     public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
-    
-    
+
     public int getTransactionFee() {
     	return this.transactionFee;
     }
-    
+    public void setTransactionFee(int transactionFee) {
+        this.transactionFee = transactionFee;
+    }
+
     public double getYenConversionRate() {
     	return this.yenConversionRate;
     }
-    
+    public void setYenConversionRate(double yenConversionRate) {
+        this.yenConversionRate = yenConversionRate;
+    }
+
     public double getEuroConversionRate() {
     	return this.euroConversionRate;
+    }
+    public void setEuroConversionRate(double euroConversionRate) {
+        this.euroConversionRate = euroConversionRate;
+    }
+
+    public double getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(double interestRate) {
+        this.interestRate = interestRate;
+    }
+
+    public int getHighValueBenchmark() {
+        return highValueBenchmark;
+    }
+
+    public void setHighValueBenchmark(int highValueBenchmark) {
+        this.highValueBenchmark = highValueBenchmark;
+    }
+
+    public int getCreationFee() {
+        return creationFee;
+    }
+
+    public void setCreationFee(int creationFee) {
+        this.creationFee = creationFee;
+    }
+
+    public int getClosureFee() {
+        return closureFee;
+    }
+
+    public void setClosureFee(int closureFee) {
+        this.closureFee = closureFee;
     }
 }

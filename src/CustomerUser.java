@@ -4,6 +4,7 @@ public class CustomerUser extends User{
 
     public static final int numMembersToDisplay= 3;
     private ArrayList<Account> accounts;
+    private ArrayList<Loan> loans;
 
     /**
      * This constructor creates a new customer user
@@ -38,11 +39,22 @@ public class CustomerUser extends User{
         this.accounts = accounts;
     }
 
-    // Need to charge fees to add and remove accounts
-    public void addAccount(Account account){ this.accounts.add(account); }
+    // todo charge fees to add and remove accounts, I think I did it correctly, but we can never be too sure
+    public void addAccount(Account account, Bank bank){
+        this.accounts.add(account);
+        account.setBalance(account.getBalance() - bank.getCreationFee());
+        bank.createTransaction(account, "fee", -bank.getCreationFee(), "usd");
+    }
 
-    public void removeAccount(Account account){
+    public void removeAccount(Account account, Bank bank){
         this.accounts.remove(account);
+        account.setBalance(account.getBalance() - bank.getClosureFee());
+        bank.createTransaction(account, "fee", -bank.getClosureFee(), "usd");
+    }
+
+    // todo allow users to take out loans
+    public void takeOutLoan(int originalValue, double interest, Collateral collateral){
+        this.getLoans().add(new Loan(originalValue, interest, collateral));
     }
 
     public Account getAccount(String AccountID){
@@ -54,6 +66,13 @@ public class CustomerUser extends User{
         return null;
     }
 
+    // Getters and setters
+    public ArrayList<Loan> getLoans() {
+        return loans;
+    }
 
+    public void setLoans(ArrayList<Loan> loans) {
+        this.loans = loans;
+    }
 
 }

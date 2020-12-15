@@ -10,7 +10,7 @@ public class OutputTest {
             
         }
         Account c = new CheckingAccount(0, users.get(51), ((CustomerUser) users.get(51)).getNumAccounts());
-        ((CustomerUser) users.get(51)).addAccount(c);
+        ((CustomerUser) users.get(51)).addAccount(c, bank);
         Account s = new SavingsAccount(0, users.get(51), ((CustomerUser) users.get(51)).getNumAccounts());
 
         for (int i = 0; i < 10; i++) {
