@@ -14,7 +14,7 @@ public class BankTimeSetter extends JDialog {
     private JPanel buttonPanel;
 
     public BankTimeSetter(Window window) {
-        super(window);
+        super(window, Dialog.DEFAULT_MODALITY_TYPE);
         setTitle("Set time");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLayout(new GridLayout(2, 1));

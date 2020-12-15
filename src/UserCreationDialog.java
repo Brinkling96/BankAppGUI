@@ -23,7 +23,7 @@ public class UserCreationDialog extends JDialog {
 
 
     public UserCreationDialog(Window window, Bank bank) {
-        super(window);
+        super(window,Dialog.DEFAULT_MODALITY_TYPE);
         this.bank = bank;
 
         this.setLayout(new GridLayout(3,1));
