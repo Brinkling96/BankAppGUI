@@ -45,7 +45,7 @@ public class CustomerUser extends User{
                 num = Integer.parseInt(id);
             }
         }
-        this.accountNumber = num;
+        this.accountNumber = num + 1;
     }
 
     // todo charge fees to add and remove accounts, I think I did it correctly, but we can never be too sure
