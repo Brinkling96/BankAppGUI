@@ -128,6 +128,8 @@ public class BankerDashboard extends Dashboard {
             String accountID = (String) this.userAccountTable.table.getValueAt(selectedRow, 0);
             if (accountID != null) {
                 JDialog dialog = new JDialog();
+                User user = bank.getUser(accountID);
+                ((CustomerUser) user).loadAccounts(DataKeeper.getAccountsFromUser(user));
                 Dashboard dash = new UserDashboard(dialog, ((CustomerUser) bank.getUser(accountID)), bank);//todo
                 dialog.add(dash);
                 dialog.pack();
