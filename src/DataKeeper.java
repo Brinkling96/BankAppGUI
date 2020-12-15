@@ -1,4 +1,8 @@
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class DataKeeper {
@@ -39,33 +43,24 @@ public class DataKeeper {
         }
     }
 
+
     public static void updateAccount(Account account) {
         String uid = account.getAccountID().substring(0,4);
-        String aid = account.getAccountID().substring(4,10);
         String directoryName = USER_PATH.concat(uid);
         String fileName = "account_details.txt";
-        File file = new File(directoryName + "/" + fileName);
+        Path filePath = Paths.get(directoryName + "/" + fileName);
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            StringBuffer inputBuffer = new StringBuffer();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String accountID = line.split(",")[0];
-                if (accountID.equals(aid)) {
-                    line = account.toString();
+            ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
+                    lines.set(i, account.toString().replace("\n", ""));
+                    break;
                 }
-                inputBuffer.append(line);
-                inputBuffer.append('\n');
             }
-            reader.close();
 
-            // write the new string with the replaced line OVER the same file
-            FileOutputStream fileOut = new FileOutputStream(file);
-            fileOut.write(inputBuffer.toString().getBytes());
-            fileOut.close();
-
-        } catch (IOException e) {
-            System.out.println("Problem reading file.");
+            Files.write(filePath, lines, StandardCharsets.UTF_8);
+        } catch (IOException e ) {
+            System.out.println("Unable to update account");
         }
     }
 
