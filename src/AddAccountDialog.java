@@ -17,7 +17,7 @@ public abstract class AddAccountDialog extends JDialog{
     protected JButton cancelButton;
 
     public AddAccountDialog(Window owner, CustomerUser user, String balanceLabelString) {
-        super(owner);
+        super(owner, Dialog.DEFAULT_MODALITY_TYPE);
         this.user = user;
         setLocationRelativeTo(owner);
         initComponents(balanceLabelString);

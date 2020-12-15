@@ -22,7 +22,7 @@ public class MoneyAccountTypeSelectionMenu extends JDialog {
     protected Account account;
 
     public MoneyAccountTypeSelectionMenu(Window owner, CustomerUser user) {
-        super(owner);
+        super(owner, Dialog.DEFAULT_MODALITY_TYPE);
         this.setLayout(new GridLayout(2,2));
         this.window = owner;
 
