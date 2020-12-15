@@ -73,7 +73,7 @@ public abstract class User {
         String out = "";
         out += getUserID() + ",";
         out += getUsername() + ",";
-        out += getPassword().toString() + ",";
+        out += String.valueOf(getPassword()) + ",";
         out += status + "\n";
         return out;
     }
