@@ -147,11 +147,20 @@ public class DataKeeper {
                         String userID = userInfo[0];
                         String username = userInfo[1];
                         String password = userInfo[2];
-                        String status = userInfo[3];
-                        users.add(new CustomerUser(username, password, userID, status));
+                        String type = userInfo[3];
+                        if (type.equals("customer")) {
+                            users.add(new CustomerUser(username, password, userID));
+                        } else {
+                            users.add(new Banker(username, password, userID));
+                        }
                     }
                 }
-                    bank = new Bank(users);
+                bank = new Bank(users);
+                for (User user : users) {
+                    if (user instanceof Banker) {
+                        ((Banker) user).setBank(bank);
+                    }
+                }
             } catch (IOException e) {
                 System.err.println("Bank file not found");
             }

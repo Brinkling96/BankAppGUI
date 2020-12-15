@@ -3,13 +3,15 @@ import java.util.ArrayList;
 public class Banker extends User{
     private Bank bank;
 
-    public Banker(String username, char[] password, int numUsers, Bank bank) {
+    public Banker(String username, char[] password, int numUsers) {
         super(username, password, numUsers);
-        this.bank = bank;
     }
 
-    public Banker(String username, String password, String uid, String status, Bank bank) {
-        super(username, password, uid, status);
+    public Banker(String username, String password, String uid) {
+        super(username, password, uid);
+    }
+
+    public void setBank(Bank bank) {
         this.bank = bank;
     }
 

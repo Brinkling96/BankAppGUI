@@ -108,7 +108,7 @@ public class UserDashboard extends Dashboard{
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
         
         
-        this.transactionTable = new GUITable(createTDTable(transactions),new String[]{"TransactionID","TranscationType","AccountID","Date","Amount"}, tclasses);
+        this.transactionTable = new GUITable(createTDTable(transactions),new String[]{"TransactionID","TranscationType","Date","Amount"}, tclasses);
         add(Box.createVerticalBox());
         add(transactionTable);
 
