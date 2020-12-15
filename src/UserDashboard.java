@@ -29,7 +29,9 @@ public class UserDashboard extends Dashboard{
         ////////////////////////////////////////////////////////////////////////////
         //Accounts Table
         Object[][] tableData = new Object[user.getAccounts().size()][Account.numMemsToDisplay];
-
+        Class[] aclasses = new Class[2];
+        aclasses[0] = String.class;
+        aclasses[1] = Integer.class;
 
         for(int i = 0; i<user.getAccounts().size(); i++){
             Account account = user.getAccounts().get(i);
@@ -39,7 +41,7 @@ public class UserDashboard extends Dashboard{
 
         }
 
-        this.moneyAccountTable = new GUITable(tableData,new String[]{"AccountID","Balance"});
+        this.moneyAccountTable = new GUITable(tableData,new String[]{"AccountID","Balance"},aclasses);
         add(Box.createVerticalBox());
         add(moneyAccountTable);
 
@@ -88,8 +90,13 @@ public class UserDashboard extends Dashboard{
         }
         /////////////////////////////////////////////////////////////////////////////////////////
         //Transcation table
-
-        this.transcationTable = new GUITable(createTDTable(bank.getTransactions()),new String[]{"TransactionID","TranscationType","AccountID","Date","Amount"});
+        Class[] tclasses = new Class[5];
+        tclasses[0] = String.class;
+        tclasses[1] = String.class;
+        tclasses[2] = String.class;
+        tclasses[3] = String.class;
+        tclasses[4] = Integer.class;
+        this.transcationTable = new GUITable(createTDTable(bank.getTransactions()),new String[]{"TransactionID","TranscationType","AccountID","Date","Amount"}, tclasses);
         add(Box.createVerticalBox());
         add(transcationTable);
 

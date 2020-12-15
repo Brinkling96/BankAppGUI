@@ -6,10 +6,10 @@ public class GUITable extends JScrollPane {
     protected BankingGUITableModel tableModel;
 
 
-    public GUITable(Object[][] tableData, String[] tableHeaders) {
+    public GUITable(Object[][] tableData, String[] tableHeaders, Class[] classes) {
         this.table = new JTable();
 
-        TableModel tableModel1 =  new BankingGUITableModel(tableData,tableHeaders);
+        TableModel tableModel1 =  new BankingGUITableModel(tableData,tableHeaders,classes);
 
         table.setModel(tableModel1);
 
