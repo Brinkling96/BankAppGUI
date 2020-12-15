@@ -8,7 +8,7 @@ public class TestingLoginThingy {
         ArrayList<User> temp = new ArrayList<>();
         Bank bank = new Bank(temp);
         CustomerUser s = new CustomerUser("sdbrady","password".toCharArray(),0);
-        s.addAccount(new CheckingAccount(1000,s,s.getNumAccounts()+1), bank);
+        s.addAccount(new CheckingAccount(1000,s,s.getNumAccounts()+1, bank), bank);
         temp.add(s);
 
 
