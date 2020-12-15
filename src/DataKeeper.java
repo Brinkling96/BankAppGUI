@@ -8,26 +8,38 @@ import java.util.ArrayList;
 public class DataKeeper {
     public static String USER_PATH = "./data/users/";
     public static String BANK_PATH = "./data/daily_reports/";
-    public static void newUser(User user) {
+
+    public static void updateUser(User user, String action) {
         String uid = user.getUserID();
         String directoryName = USER_PATH.concat(uid);
         String fileName = "user_details.txt";
 
-        // create a directory for every user
+        // create a directory for every user if not exist
         File directory = new File(directoryName);
-        directory.mkdirs();
-        File file = new File(USER_PATH + fileName);
-        try(FileWriter fw = new FileWriter(file, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw)) {
-            out.print(user.toString());
-        } catch (IOException e) {
-            System.err.println("User could not be recorded");
+        if (!directory.exists()) {
+            directory.mkdirs();
         }
-    }
-
-    public static void removeUser() {
-
+        try {
+            Path filePath = Paths.get(USER_PATH + fileName);
+            ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
+            switch(action) {
+                case "add":
+                    lines.add(user.toString());
+                    break;
+                case "remove":
+                    int index = 0;
+                    for (int i = 0; i < lines.size(); i++) {
+                        if (lines.get(i).split(",")[0].equals(user.getUserID())) {
+                            index = i;
+                            break;
+                        }
+                    }
+                    lines.remove(index);
+                    break;
+            }
+        } catch (IOException e) {
+            System.err.println("File not found");
+        }
     }
 
     public static void updateAccount(Account account, String type) {
@@ -61,7 +73,6 @@ public class DataKeeper {
                     }
 
             }
-            
             Files.write(filePath, lines, StandardCharsets.UTF_8);
         } catch (IOException e ) {
             System.out.println("Unable to update account");
@@ -166,7 +177,7 @@ public class DataKeeper {
         String year = d[2];
         File file = new File(BANK_PATH + year + "/" + month + "/" + day);
         if (file.exists()) {
-            transactions = DataKeeper.readTransaction(file);
+            transactions = DataKeeper.readTransactions(file);
         }
         return transactions;
     }
@@ -177,12 +188,12 @@ public class DataKeeper {
         String aid = account.getAccountID().substring(4,10);
         File file = new File(USER_PATH + uid + "/" + aid + "/" + "transactions.txt");
         if (file.exists()) {
-            transactions = DataKeeper.readTransaction(file);
+            transactions = DataKeeper.readTransactions(file);
         }
         return transactions;
     }
 
-    public static ArrayList<Transaction> readTransaction(File file) {
+    public static ArrayList<Transaction> readTransactions(File file) {
         ArrayList<Transaction> transactions = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;

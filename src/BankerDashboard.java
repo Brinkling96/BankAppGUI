@@ -152,6 +152,7 @@ public class BankerDashboard extends Dashboard {
                 User user = getSelectedUser(selectedRow);
                 if(user != null) {
                     bank.removeUser(user);
+                    DataKeeper.updateUser(user, "remove");
                     userAccountTable.tableModel.removeRow(selectedRow);
                 }
 

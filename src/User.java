@@ -11,7 +11,6 @@ public abstract class User {
         this.username = username;
         this.password = password;
         this.userID = String.format("%04d", userNumber);
-        DataKeeper.newUser(this);
     }
 
     public User(String username, String password, String uid, String status) {
