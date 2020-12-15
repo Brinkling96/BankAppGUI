@@ -9,5 +9,10 @@ import java.util.ArrayList;
 public class testingMain {
 
     public static void main(String[]  args) {
+        AddAccountDialog d =  new AddSecurityAccount(BankingFrame.getInstance(),
+                new CustomerUser("sdbrady","password".toCharArray(),0));
+        d.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        d.setVisible(true);
+
     }
 }

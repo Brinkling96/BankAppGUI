@@ -8,6 +8,7 @@ public abstract class AddAccountDialog extends JDialog{
     protected Account account;
 
 
+    protected JPanel panel = new JPanel();
     protected JLabel balanceLabel;
     protected JTextField balanceField;
 
@@ -15,17 +16,17 @@ public abstract class AddAccountDialog extends JDialog{
     protected JButton okButton;
     protected JButton cancelButton;
 
-    public AddAccountDialog(Window owner, CustomerUser user) {
+    public AddAccountDialog(Window owner, CustomerUser user, String balanceLabelString) {
         super(owner);
         this.user = user;
         setLocationRelativeTo(owner);
-        initComponents();
+        initComponents(balanceLabelString);
     }
 
     @SuppressWarnings("unchecked")
 
-    private void initComponents(){
-        balanceLabel = new JLabel("Input Balance");
+    private void initComponents(String balanceLabelString){
+        balanceLabel = new JLabel(balanceLabelString);
         balanceField = new JTextField();
         okButton = new JButton("OK");
         cancelButton = new JButton("CANCEL");
@@ -33,10 +34,10 @@ public abstract class AddAccountDialog extends JDialog{
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Add Account Menu");
 
-        getContentPane().setLayout(new GridLayout(3,2,5,5));
+        panel.setLayout(new GridLayout(3,2,5,5));
 
-        getContentPane().add(balanceLabel);
-        getContentPane().add(balanceField);
+        panel.add(balanceLabel);
+        panel.add(balanceField);
 
 
         okButton.addActionListener(new ActionListener() {
@@ -54,8 +55,9 @@ public abstract class AddAccountDialog extends JDialog{
         });
 
 
-        getContentPane().add(okButton);
-        getContentPane().add(cancelButton);
+        panel.add(okButton);
+        panel.add(cancelButton);
+        this.add(panel);
 
 
         pack();

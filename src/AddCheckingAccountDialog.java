@@ -6,7 +6,7 @@ public class AddCheckingAccountDialog extends AddAccountDialog {
 
 
     public AddCheckingAccountDialog(Window owner, CustomerUser user) {
-        super(owner, user);
+        super(owner, user, "Input Balance: ");
     }
 
     protected void okButtonAction(ActionEvent e) {
