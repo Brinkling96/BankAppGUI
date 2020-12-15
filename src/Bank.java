@@ -7,7 +7,7 @@ public class Bank {
     private double yenConversionRate, euroConversionRate, interestRate;
     private int highValueBenchmark;
     private int userNumber;
-    private ArrayList<Transaction> transactions;
+    private ArrayList<Transaction> dailyReport;
     protected ArrayList<User> users;
 
     public Bank(ArrayList<User> users) {
@@ -18,7 +18,7 @@ public class Bank {
     	this.highValueBenchmark = 5000;
     	this.closureFee = 5;
     	this.creationFee = 5;
-        this.transactions = new ArrayList<Transaction>();
+        this.dailyReport = new ArrayList<Transaction>();
     }
 
     public User getUser(String username, char[] password){
@@ -59,15 +59,18 @@ public class Bank {
     //The transaction serves as a receipt. Will have already been processed before this method is called.
     public void createTransaction(Account account, String type, int amount, String currency) {
         Transaction t = new Transaction(account, type, amount, currency);
-        transactions.add(t);
         DataKeeper.newTransaction(t);
         DataKeeper.updateAccount(account, type);
         DataKeeper.updateDailyReports(t);
     }
 
     // Getters and setters
-    public ArrayList<Transaction> getTransactions() {
-        return transactions;
+    public ArrayList<Transaction> getDailyReport() {
+        return dailyReport;
+    }
+
+    public void setDailyReport(ArrayList<Transaction> dailyReport) {
+        this.dailyReport = dailyReport;
     }
 
     public int getTransactionFee() {

@@ -99,12 +99,13 @@ public class UserDashboard extends Dashboard{
         }
         /////////////////////////////////////////////////////////////////////////////////////////
         //Transcation table
-        Class[] tclasses = new Class[5];
+        Class[] tclasses = new Class[6];
         tclasses[0] = String.class;
         tclasses[1] = String.class;
         tclasses[2] = String.class;
         tclasses[3] = String.class;
         tclasses[4] = Integer.class;
+        tclasses[5] = String.class;
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
         
         
@@ -180,12 +181,6 @@ public class UserDashboard extends Dashboard{
     public void displayTransactions() {
         int selectedRow = this.moneyAccountTable.table.getSelectedRow();
         Account account = getSelectedAccount(selectedRow);
-        Class[] tclasses = new Class[5];
-        tclasses[0] = String.class;
-        tclasses[1] = String.class;
-        tclasses[2] = String.class;
-        tclasses[3] = String.class;
-        tclasses[4] = Integer.class;
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
         if (account != null) {
             transactions = DataKeeper.getTransactionsFromAccount(account);

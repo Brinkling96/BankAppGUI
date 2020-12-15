@@ -14,10 +14,12 @@ public class BankerDashboard extends Dashboard {
     protected JButton viewAccountButton;
     protected JButton removeAccountButton;
     protected JButton setTimeButton;
+    protected JButton viewDailyReportButton;
     protected JPanel userTableActionPanel;
 
+
     //
-    protected GUITable transcationTable;
+    protected GUITable transactionTable;
 
     public BankerDashboard(Window window, User user, Bank bank) {
         super(window, user, bank);
@@ -30,7 +32,14 @@ public class BankerDashboard extends Dashboard {
                 setTimeButtonAction();
             }
         });
-        this.generalActionsPanel.add(setTimeButton);
+        this.viewDailyReportButton = new JButton("View Daily Report");
+        this.viewDailyReportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewDailyReport();
+            }
+        });
+        this.generalActionsPanel.add(viewDailyReportButton);
 
         //////////////////////////////////////////////////////////////////
         //User Account table
@@ -87,16 +96,18 @@ public class BankerDashboard extends Dashboard {
         ///////////////////////////////////////////////////
         //Transcations
 
-        ArrayList<Transaction> tds = bank.getTransactions();
+        ArrayList<Transaction> tds = new ArrayList<Transaction>();
         Class[] tclasses = new Class[6];
-        for (int i = 0; i < 5; i++) {
-            tclasses[i] = String.class;
-        }
-        tclasses[5] = Integer.class;
-        this.transcationTable = new GUITable(createTDTable(tds), new String[]{"TransactionID", "TranscationType", "UserID", "Date", "Amount", "Currency"}, tclasses);
+        tclasses[0] = String.class;
+        tclasses[1] = String.class;
+        tclasses[2] = String.class;
+        tclasses[3] = String.class;
+        tclasses[4] = Integer.class;
+        tclasses[5] = String.class;
+        this.transactionTable = new GUITable(createTDTable(tds), new String[]{"TransactionID", "TranscationType", "UserID", "Date", "Amount", "Currency"}, tclasses);
 
         add(Box.createVerticalBox());
-        add(transcationTable);
+        add(transactionTable);
     }
 
     private Object[][] createTDTable(ArrayList<Transaction> tds) {
@@ -108,7 +119,6 @@ public class BankerDashboard extends Dashboard {
             int j = 0;
             returnRow[j++] = transaction.getID();
             returnRow[j++] = transaction.getTransactionType();
-            returnRow[j++] = "null for now"; //todo
             returnRow[j++] = transaction.getTime();
             returnRow[j++] = transaction.getAmount();
             returnRow[j++] = transaction.getCurrency();
@@ -141,8 +151,23 @@ public class BankerDashboard extends Dashboard {
         }
     }
 
-    private void viewDailyReport() {
-        
+    public void viewDailyReport() {
+        JDialog drwindow = new DailyReportMenu(window,bank);
+        ArrayList<Transaction> transactions = bank.getDailyReport();
+
+        int num = this.transactionTable.tableModel.getRowCount();
+        for (int i = 0; i < num; i++) {
+            this.transactionTable.tableModel.removeRow(i);
+        }
+        for (Transaction transaction : transactions) {
+            Object[] newData = new Object[] {
+                transaction.getID(),
+                transaction.getTransactionType(),
+                transaction.getTime().toString(),
+                transaction.getAmount()
+            };
+            this.transactionTable.addRowToTable(newData);
+        }
     }
 
     @Override

@@ -200,10 +200,9 @@ public class DataKeeper {
      */
     public static ArrayList<Transaction> getDailyTransactions(String date) {
         ArrayList<Transaction> transactions = new ArrayList<>();
-        String[] d = date.split("-");
-        String month = d[0];
-        String day = d[1];
-        String year = d[2];
+        String month = date.substring(0,2);
+        String day = date.substring(2,4);
+        String year = date.substring(4, 8);
         File file = new File(BANK_PATH + year + "/" + month + "/" + day);
         if (file.exists()) {
             transactions = DataKeeper.readTransactions(file);
