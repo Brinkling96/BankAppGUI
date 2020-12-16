@@ -8,6 +8,11 @@ public class SecurityAccount extends Account{
         this.setStocks(new ArrayList<>());
     }
 
+    public SecurityAccount(String accountID, String balance, ArrayList<Stock> stocks) {
+        super(accountID, balance);
+        this.setStocks(stocks);
+    }
+
     public void buyStock(Stock stock){
         int balanceAfterPurchase = this.getBalance() - (int) stock.getValue()*stock.getShares();
         if(balanceAfterPurchase < 0) {
@@ -38,6 +43,7 @@ public class SecurityAccount extends Account{
 
     public String toString() {
         String out = "";
+        out += accountID + ",";
         out += String.valueOf(balance) + ",";
         for (Stock stock : stocks) {
             out += stock.toString();
