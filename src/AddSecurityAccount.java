@@ -40,8 +40,8 @@ public class AddSecurityAccount extends AddAccountDialog{
         }
 
         Object[][] tableData = new Object[savingsAccounts.size()][Account.numMemsToDisplay];
-        for(int i = 0; i<user.getAccounts().size(); i++){
-            Account account = user.getAccounts().get(i);
+        for(int i = 0; i<savingsAccounts.size(); i++){
+            Account account = savingsAccounts.get(i);
             Object[] row = tableData[i];
             row[0] = account.getAccountID();
             row[1] = account.getBalance();
@@ -75,6 +75,7 @@ public class AddSecurityAccount extends AddAccountDialog{
                 JOptionPane.showMessageDialog(this, warnings, "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 act.setBalance(act.getBalance() - balance);
+                System.out.println(act);
                 this.account = new SecurityAccount(balance, user, bank);
                 user.addAccount(account, this.bank);
                 this.dispose();

@@ -4,7 +4,9 @@ Shawn Zhou
 Sean Brady
 Sarah Shahinpour
 
-Run Command: java Main
+Run Command: 
+javac *.java
+java Main
 
 CLASSES:
 
@@ -17,10 +19,14 @@ Account (abstract): implements AccountActions and contains all functions and att
     SecurityAccount: type of account that handles stocks
     LoanAccount: type of account that handles loans
 
+    note: Relevant interests charge/payments are calculated at each user/banker's login
+
 
 User (abstract): contains all necessary features of a user
     Banker: user that has more capabilities than a customer and doesn't hold any accounts
     CustomerUser: user that has different types of accounts
+
+    note: User keeps track of last login time and current login time
 
 Bank: holds all the information and functionality that is important to a bank
 BankInitializer: initializes all things necessary in the bank and displays a login screen
