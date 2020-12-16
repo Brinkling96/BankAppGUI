@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 
-//Holds all the information and functionality that is important to a bank
+/**
+ * Holds all the information and functionality that is important to a bank
+ */ 
 public class Bank {
+    // The three currencies used by this bank
     public static String[] VALID_CURRENCIES = {"usd", "euro", "yen"};
     private int creationFee, closureFee, transactionFee;
     //Equivalent to 1 USD
@@ -26,28 +29,7 @@ public class Bank {
         this.userNumber = 0;
     }
 
-    public User getUser(String username, char[] password){
-        for(User user : users){
-            if(user.getUsername().equals(username)){
-                if(user.isPasswordCorrect(password)){
-                    System.out.println("user found");
-                    return user;
-                }
-            }
-        }
-        return null;
-    }
-
-    public User getUser(String accountID) {
-        for (User user : users) {
-            String uid = accountID.substring(0,4);
-            if (uid.equals(user.getUserID())) {
-                return user;
-            }
-        }
-        return null;
-    }
-
+    // Major methods
 
     public void addUser(CustomerUser user){
         this.userNumber++;
@@ -66,7 +48,33 @@ public class Bank {
         DataKeeper.updateDailyReports(t);
     }
 
+
     // Getters and setters
+
+    // Get user by username/password
+    public User getUser(String username, char[] password){
+        for(User user : users){
+            if(user.getUsername().equals(username)){
+                if(user.isPasswordCorrect(password)){
+                    System.out.println("user found");
+                    return user;
+                }
+            }
+        }
+        return null;
+    }
+
+    // Get user by account ID
+    public User getUser(String accountID) {
+        for (User user : users) {
+            String uid = accountID.substring(0,4);
+            if (uid.equals(user.getUserID())) {
+                return user;
+            }
+        }
+        return null;
+    }
+    
     public ArrayList<Transaction> getDailyReport() {
         return dailyReport;
     }
@@ -82,16 +90,10 @@ public class Bank {
         this.transactionFee = transactionFee;
     }
 
-    // public double getYenConversionRate() {
-    // 	return this.yenConversionRate;
-    // }
     public void setYenConversionRate(double yenConversionRate) {
         this.yenConversionRate = yenConversionRate;
     }
 
-    // public double getEuroConversionRate() {
-    // 	return this.euroConversionRate;
-    // }
     public void setEuroConversionRate(double euroConversionRate) {
         this.euroConversionRate = euroConversionRate;
     }
@@ -151,11 +153,16 @@ public class Bank {
         }
     }
 
+    /**
+     * Stock methods
+     */
     public void addStock(Stock stock){
         stocks.add(stock);
     }
 
-    public void removeStock(Stock stock){stocks.remove(stock);}
+    public void removeStock(Stock stock){
+        stocks.remove(stock);
+    }
 
     public ArrayList<Stock> getStocks() {
         return stocks;
@@ -169,5 +176,4 @@ public class Bank {
         }
         return null;
     }
-
 }

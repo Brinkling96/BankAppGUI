@@ -1,9 +1,16 @@
+/******************************************************************************
+ * Class: AddSecurityAccount.java
+ * Author: Sarah Shahinpour, Sean Brady, Shuaike Zhou, 
+ *******************************************************************************/
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-//Dialog that allows the user to create a securities account
+/**
+ * Dialog that allows the user to create a securities account
+ */ 
 public class AddSecurityAccount extends AddAccountDialog{
 
     protected GUITable savingTable;

@@ -1,9 +1,17 @@
+/******************************************************************************
+ * Class: AddAccountDialog.java
+ * Author: Sarah Shahinpour, Sean Brady, Shuaike Zhou, 
+ *******************************************************************************/
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-//a general Dialog that allows a user to create an account
+/**
+ * a general Dialog that allows a user to create an account
+ */
 public abstract class AddAccountDialog extends JDialog{
     protected CustomerUser user;
     protected Account account;
@@ -26,6 +34,10 @@ public abstract class AddAccountDialog extends JDialog{
 
     @SuppressWarnings("unchecked")
 
+    /**
+     * Creates the necessary field/panels for user input
+     * @param balanceLabelString
+     */
     private void initComponents(String balanceLabelString){
         balanceLabel = new JLabel(balanceLabelString);
         balanceField = new JTextField();
@@ -71,9 +83,12 @@ public abstract class AddAccountDialog extends JDialog{
     private void cancelButtonAction(ActionEvent e){
         this.dispose();
     }
+    /**
+     * OK button needs to be implemented by subclass
+     * @param e
+     */
     protected abstract void okButtonAction(ActionEvent e);
     public Account getAccount(){
         return account;
     }
-
 }

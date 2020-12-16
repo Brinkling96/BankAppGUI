@@ -1,8 +1,16 @@
+/******************************************************************************
+ * Class: AddLoanAccount.java
+ * Author: Sarah Shahinpour, Sean Brady, Shuaike Zhou, 
+ *******************************************************************************/
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-
-//Dialog that allows the user to take out a loan
+/**
+ * Extends AddAccountDialog.java. Allows user to take out loan by 
+ * creating a loan account
+ */
 public class AddLoanAccountDialog extends AddAccountDialog{
 
     protected JPanel collateralPanel = new JPanel();

@@ -1,8 +1,15 @@
+/******************************************************************************
+ * Class: AddCheckingAccount.java
+ * Author: Sarah Shahinpour, Sean Brady, Shuaike Zhou, 
+ *******************************************************************************/
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-//Dialog that allows the user to create a checking account
+/**
+ * Dialog that allows the user to create a checking account
+ */
 public class AddCheckingAccountDialog extends AddAccountDialog {
 
     public AddCheckingAccountDialog(Window owner, CustomerUser user, Bank bank) {
@@ -19,6 +26,7 @@ public class AddCheckingAccountDialog extends AddAccountDialog {
         if (balanceField.getText().isEmpty()) {
             returnString = "Input a Balance!";
         } else {
+            // Check balance
             try {
                 balance = Integer.parseInt(balanceField.getText());
                 if(balance < this.bank.getCreationFee()) {
