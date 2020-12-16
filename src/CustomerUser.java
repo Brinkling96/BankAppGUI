@@ -5,7 +5,6 @@ public class CustomerUser extends User{
     public static final int numMembersToDisplay= 3;
     private int accountNumber;
     private ArrayList<Account> accounts;
-    private ArrayList<Loan> loans;
 
     /**
      * This constructor creates a new customer user
@@ -34,7 +33,7 @@ public class CustomerUser extends User{
         return accounts;
     }
 
-    public int getNumAccounts() { return this.accountNumber; }
+    public int getAccountNumber() { return this.accountNumber; }
 
     public void loadAccounts(ArrayList<Account> accounts) {
         this.accounts = accounts;
@@ -62,10 +61,10 @@ public class CustomerUser extends User{
         bank.createTransaction(account, "account removal fee", -bank.getClosureFee(), "usd");
     }
 
-    // todo allow users to take out loans
-    public void takeOutLoan(int originalValue, double interest, Collateral collateral){
-        this.getLoans().add(new Loan(originalValue, interest, collateral));
-    }
+    // // todo allow users to take out loans
+    // public void takeOutLoan(int originalValue, double interest, Collateral collateral, Bank bank){
+    //     this.accounts.add(new LoanAccount(originalValue, interest, collateral, this, bank));
+    // }
 
     public Account getAccount(String AccountID){
         for(Account acct: accounts){
@@ -77,12 +76,12 @@ public class CustomerUser extends User{
     }
 
     // Getters and setters
-    public ArrayList<Loan> getLoans() {
-        return loans;
-    }
+    // public ArrayList<Loan> getLoans() {
+    //     return null;
+    // }
 
-    public void setLoans(ArrayList<Loan> loans) {
-        this.loans = loans;
-    }
+    // public void setLoans(ArrayList<Loan> loans) {
+    //     this.loans = loans;
+    // }
 
 }

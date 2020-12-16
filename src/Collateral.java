@@ -10,8 +10,6 @@ public class Collateral {
         this.setValue(value);
     }
 
-
-
     // Getters and setters
     public String getName() {
         return name;
@@ -37,6 +35,12 @@ public class Collateral {
         this.value = value;
     }
 
-
+    public String toString() {
+        String out = "";
+        out += name + ",";
+        out += description + ",";
+        out += String.valueOf(value) + ",";
+        return out;
+    }
 
 }
