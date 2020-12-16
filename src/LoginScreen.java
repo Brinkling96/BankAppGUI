@@ -102,13 +102,13 @@ public class LoginScreen extends JPanel {
                     }
                 }
 
-                if(customerUser.getLoans() != null) {
-                    for(Loan loan: customerUser.getLoans()){
-                        //todo loan doesn't have an account associated with it, so no transaction for now
-                        loan.chargeInterest((int)days);
-                        //createTransaction(account, "interest payment", interestGained, "usd")
-                    }
-                }
+                // if(customerUser.getLoans() != null) {
+                //     for(Loan loan: customerUser.getLoans()){
+                //         //todo loan doesn't have an account associated with it, so no transaction for now
+                //         loan.chargeInterest((int)days);
+                //         //createTransaction(account, "interest payment", interestGained, "usd")
+                //     }
+                // }
                 this.window.add(new UserDashboard(window,(CustomerUser) user,bank));
             }
             else if(user instanceof Banker){

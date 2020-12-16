@@ -2,9 +2,9 @@ import java.time.LocalDateTime;
 
 public class SavingsAccount extends Account {
 
-    public SavingsAccount(Integer balance, User user, int numAccounts, Bank bank) {
+    public SavingsAccount(Integer balance, User user, Bank bank) {
 
-        super(balance, user, numAccounts, bank);
+        super(balance, user, bank);
     }
 
     public SavingsAccount(String accountID, String balance) {

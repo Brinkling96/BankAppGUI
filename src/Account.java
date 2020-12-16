@@ -8,13 +8,13 @@ public abstract class Account implements AccountActions {
 
     protected String accountID;
     protected Integer balance;
-    private int numAccounts;
+    private int accountNumber;
     private Bank bank;
     protected User user;
 
-    public Account(Integer balance, User user, int numAccounts, Bank bank) {
+    public Account(Integer balance, User user, Bank bank) {
         this.balance = balance;
-        this.numAccounts = numAccounts;
+        this.accountNumber = ((CustomerUser)user).getAccountNumber();
         this.bank = bank;
         this.user = user;
         this.setAccountID(user);
@@ -26,15 +26,17 @@ public abstract class Account implements AccountActions {
     }
 
     private void setAccountID(User user) {
-        this.accountID = String.format("%04d",numAccounts);
+        this.accountID = String.format("%04d",accountNumber);
         this.accountID = user.getUserID() + this.accountID;
-        numAccounts++;
+        accountNumber++;
         if (this instanceof CheckingAccount)
             this.accountID += "ck";
         else if (this instanceof SavingsAccount)
             this.accountID += "sv";
         else if (this instanceof SecurityAccount)
             this.accountID += "sc";
+        else if (this instanceof LoanAccount)
+            this.accountID += "ln";
     }
 
     public String getAccountID() {

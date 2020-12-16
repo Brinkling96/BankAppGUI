@@ -118,6 +118,9 @@ public class UserDashboard extends MainDashboard {
             Object[] row = tableData[i];
             row[0] = account.getAccountID();
             row[1] = account.getBalance();
+            if (account instanceof LoanAccount) {
+                row[1] = ((LoanAccount)account).getPrincipal();
+            }
 
         }
         return tableData;
@@ -144,7 +147,7 @@ public class UserDashboard extends MainDashboard {
     protected void stockMarketAction(){
         this.window.setVisible(false);
         this.window.remove(this);
-        this.window.add(new UserStockMarketDash(window,user,new CheckingAccount(0,user,12,this.bank),bank)); //todo
+        this.window.add(new UserStockMarketDash(window,user,new CheckingAccount(0,user,this.bank),bank)); //todo
         this.window.setVisible(true);
     }
 

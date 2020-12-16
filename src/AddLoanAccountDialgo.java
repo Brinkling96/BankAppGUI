@@ -65,7 +65,7 @@ public class AddLoanAccountDialgo extends AddAccountDialog{
         else {
             try {
                 cVal = Integer.parseInt(cValue.textField.getText());
-                if (cVal < balance * Loan.COLLATERAL_ORIGINIAL_VALUE) {
+                if (cVal < balance * LoanAccount.COLLATERAL_ORIGINIAL_VALUE) {
                     returnString += "Need a higher Collateral Value for this Loan!\n";
                 }
             } catch (NumberFormatException err) {
@@ -77,8 +77,11 @@ public class AddLoanAccountDialgo extends AddAccountDialog{
         if (returnString != null) {
             JOptionPane.showMessageDialog(this, returnString, "Input Warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            //this.account = new Loan(); todo
-            //user.addAccount(account, this.bank);
+            String name = cName.textField.getText();
+            String description = cDescription.textField.getText();
+            Collateral c = new Collateral(name, description, cVal);
+            Account account = new LoanAccount(balance,user,bank,c);
+            user.addAccount(account, this.bank);
             this.dispose();
         }
     }

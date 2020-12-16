@@ -200,13 +200,20 @@ public class DataKeeper {
                 while ((line = br.readLine()) != null) {
                     String[] accountInfo = line.split(",");
                     String aid = accountInfo[0];
-                    String balance = accountInfo[1];
                     String type = aid.substring(aid.length()-2, aid.length());
-                    if (type.equals("ck"))
-                        accounts.add(new CheckingAccount(aid, balance));
-                    else if (type.equals("sv"))
-                        accounts.add(new SavingsAccount(aid, balance));
 
+                    if (type.equals("ck")) {
+                        String balance = accountInfo[1];
+                        accounts.add(new CheckingAccount(aid, balance));
+                    } else if (type.equals("sv")) {
+                        String balance = accountInfo[1];
+                        accounts.add(new SavingsAccount(aid, balance));
+                    } else if (type.equals("ln")) {
+                        String originalValue = accountInfo[1];
+                        String principal = accountInfo[2];
+                        Collateral c = new Collateral(accountInfo[3], accountInfo[4], Integer.parseInt(accountInfo[5]));
+                        accounts.add(new LoanAccount(aid, originalValue, principal, c));
+                    }
                 }
             } catch (IOException e) {
                 System.err.println("Account file not found");
