@@ -9,7 +9,7 @@ public abstract class Account implements AccountActions {
     protected String accountID;
     protected Integer balance;
     private int accountNumber;
-    private Bank bank;
+    protected Bank bank;
     protected User user;
 
     public Account(Integer balance, User user, Bank bank) {

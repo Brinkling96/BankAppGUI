@@ -57,7 +57,7 @@ public class UserDashboard extends MainDashboard {
                 }
             });
 
-            this.depositButton = new JButton("Deposit");
+            this.depositButton = new JButton("Deposit/Pay Loan");
             this.depositButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
