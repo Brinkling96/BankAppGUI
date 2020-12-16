@@ -27,8 +27,6 @@ public class UserStockMarketDash extends StockMarketDash {
     //Current Positions
 
     protected GUITable currentPositionsTable;
-    protected JLabel currentPositionsLabel = new JLabel("Current Position");
-    protected JPanel currentPositionsPanel = new JPanel();
 
     //Current Positions Actions
 
@@ -80,15 +78,17 @@ public class UserStockMarketDash extends StockMarketDash {
         });
 
         this.smActionsPanel.add(buyShares);
+        this.add(Box.createVerticalGlue());
         this.add(smActionsPanel);
 
 
         //cp table
 
-        this.currentPositionsTable = new GUITable("Current Positons: ",new Object[][]{{"t"}}, new String[]{"T"}, new Class[]{String.class});
-        this.currentPositionsPanel.add(currentPositionsLabel);
-        this.currentPositionsPanel.add(currentPositionsTable);
-        this.add(currentPositionsPanel);
+        this.currentPositionsTable = new GUITable("Current Positons: ",new Object[][]{{}},
+                new String[]{"Stock Name","Stock Price","Bought at Price", "Shares"},
+                new Class[]{String.class,Integer.class,Integer.class,Integer.class});
+        this.add(Box.createVerticalGlue());
+        this.add(currentPositionsTable);
 
         //cp Action
 
@@ -100,6 +100,8 @@ public class UserStockMarketDash extends StockMarketDash {
         });
 
         this.cpActionsPanel.add(sellShares);
+        this.add(Box.createVerticalGlue());
+        this.add(cpActionsPanel);
 
 
 
@@ -119,6 +121,7 @@ public class UserStockMarketDash extends StockMarketDash {
         this.window.setVisible(false);
         this.window.remove(this);
         this.window.add(new UserDashboard(window,(CustomerUser) user,bank));
+        this.window.pack();
         this.window.setVisible(true);
     }
 }
