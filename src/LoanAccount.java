@@ -23,8 +23,9 @@ public class LoanAccount extends Account {
     }
 
     public void chargeInterest(int days){
-        int interestGained = (int)(this.getPrincipal()*Math.pow((1+(INTEREST_RATE)), days));
+        int interestGained = (int) Math.ceil((Math.pow((1+(INTEREST_RATE)), days)));
         this.setPrincipal(this.getPrincipal() + interestGained);
+        bank.createTransaction(this, "interest charge", interestGained, "usd");
     }
 
     // Getters and setters
