@@ -97,7 +97,7 @@ public class LoginScreen extends JPanel {
                 if(customerUser.getAccounts() != null){
                     for(Account account: customerUser.getAccounts()) {
                         if (account instanceof SavingsAccount && account.getBalance() >= bank.getHighValueBenchmark()) {
-                            ((SavingsAccount) account).accumulateInterest();
+                            ((SavingsAccount) account).accumulateInterest((int)days, bank);
                         }
                     }
                 }
