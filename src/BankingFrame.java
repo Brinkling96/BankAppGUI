@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: BankingFrame.java
+ * Author: Sarah Shahinpour, Sean Brady, Shuaike Zhou, 
+ *******************************************************************************/
+
 import javax.swing.*;
 
 //Helps display the bank to the user

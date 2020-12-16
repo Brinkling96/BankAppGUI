@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: BankerStockMarketDash.java
+ * Author: Sarah Shahinpour, Sean Brady, Shuaike Zhou, 
+ *******************************************************************************/
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

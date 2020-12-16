@@ -1,7 +1,11 @@
+/******************************************************************************
+ * Class: DailyReportMenu.java
+ * Author: Sarah Shahinpour, Sean Brady, Shuaike Zhou, 
+ *******************************************************************************/
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 //Dialog that allows the banker to generate a daily report
 public class DailyReportMenu extends InputIntMenu{
     private Bank bank;

@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: BankingGUITableModel.java
+ * Author: Sarah Shahinpour, Sean Brady, Shuaike Zhou, 
+ *******************************************************************************/
+
 import javax.swing.table.DefaultTableModel;
 
 //Used to display items like accounts and transactions

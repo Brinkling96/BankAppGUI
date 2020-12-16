@@ -27,7 +27,7 @@ public abstract class InputIntMenu extends JDialog {
         this.intField = new JTextField();
         this.currencyLabel = new JLabel(currency);
         this.currencyField = new JComboBox(
-    new String[]{Bank.VALID_CURRENCIES[0],Bank.VALID_CURRENCIES[1],Bank.VALID_CURRENCIES[2]});
+            new String[]{Bank.VALID_CURRENCIES[0],Bank.VALID_CURRENCIES[1],Bank.VALID_CURRENCIES[2]});
         this.submitButton = new JButton("Submit");
         this.cancelButton = new JButton("Cancel");
 

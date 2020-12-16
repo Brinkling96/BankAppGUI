@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: Banker.java
+ * Author: Sarah Shahinpour, Sean Brady, Shuaike Zhou, 
+ *******************************************************************************/
+
 import java.util.ArrayList;
 
 //User that has more capabilities than a customer and doesn't hold any accounts

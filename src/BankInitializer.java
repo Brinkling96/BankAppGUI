@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: BankInitializer.java
+ * Author: Sarah Shahinpour, Sean Brady, Shuaike Zhou, 
+ *******************************************************************************/
+
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -14,6 +19,7 @@ public class BankInitializer {
         frame.setVisible(true);
     }
 
+    // Initializes the bank from file if users already exist
     private Bank createBank() {
         Bank bank = DataKeeper.initBank();
         if (bank == null) {

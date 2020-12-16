@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: DataKeeper.java
+ * Author: Sarah Shahinpour, Sean Brady, Shuaike Zhou, 
+ *******************************************************************************/
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;

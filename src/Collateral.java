@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: Collateral.java
+ * Author: Sarah Shahinpour, Sean Brady, Shuaike Zhou, 
+ *******************************************************************************/
+
 //An item of a particular value needed when someone wants to take out a loan
 public class Collateral {
 

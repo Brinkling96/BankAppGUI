@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: CustomerUser.java
+ * Author: Sarah Shahinpour, Sean Brady, Shuaike Zhou, 
+ *******************************************************************************/
+
 import java.util.ArrayList;
 
 //User that has different types of accounts

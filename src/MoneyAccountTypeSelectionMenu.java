@@ -49,6 +49,7 @@ public class MoneyAccountTypeSelectionMenu extends JDialog {
         this.setVisible(true);
     }
 
+    // Select account types
     private void submitActionButton() {
         if(this.dropDownBox.getSelectedItem().toString() == MoneyAccountTypeSelectionMenu.accountTypes[0]){
             this.setVisible(false);
