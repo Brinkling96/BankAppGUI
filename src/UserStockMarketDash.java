@@ -23,6 +23,7 @@ public class UserStockMarketDash extends BankDashboard {
 
 
 
+    //General Actions
     protected JButton backToUserDash = new JButton("Back to MainMenu");
 
     //Current Positions
