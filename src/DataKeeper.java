@@ -116,6 +116,45 @@ public class DataKeeper {
         }
     }
 
+    public static void updateStocks(Stock stock, String action) {
+        String fileName = "./data/bank_stocks.txt";
+        File file = new File(fileName);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            Path filePath = Paths.get(fileName);
+            ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
+            switch (action) {
+                case "add":
+                    lines.add(stock.toString().replace("\n", ""));
+                    break;
+                case "remove":
+                    String removeLine = "";
+                    for (int i = 0; i < lines.size(); i++) {
+                        if (lines.get(i).split(",")[0].equals(stock.getName())) {
+                            removeLine = lines.get(i);
+                            break;
+                        }
+                    }
+                    lines.remove(removeLine);
+                    break;
+                case "update":
+                    for (int i = 0; i < lines.size(); i++) {
+                        if (lines.get(i).split(",")[0].equals(stock.getName())) {
+                            lines.set(i, stock.toString().replace("\n", ""));
+                            break;
+                        }
+                    }
+                    break;
+            }
+            Files.write(filePath, lines, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            System.err.println("Could not update stock");
+        }
+
+    }
+
     public static void updateDailyReports(Transaction transaction) {
         String transactionTime = transaction.getTime();
         String month = transactionTime.substring(0, 2);
@@ -297,5 +336,30 @@ public class DataKeeper {
             System.err.println("Could not read transactions");
         }
         return transactions;
+    }
+
+    public static ArrayList<Stock> loadStocks() {
+        String fileName = "./data/bank_stocks.txt";
+        ArrayList<Stock> stocks = new ArrayList<Stock>();
+        File file = new File(fileName);
+        try {
+            if (file.exists()) {
+                Path filePath = Paths.get(fileName);
+                ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
+                for (String line : lines) {
+                    String[] stockString = line.split(",");
+                    String name = stockString[0];
+                    String value = stockString[1];
+                    String shares = stockString[2];
+                    String type = stockString[3];
+                    if (type.equals("nyse")) {
+                        stocks.add(new NYSE_Stock(name, value, shares));
+                    }
+                }
+            }
+        } catch (IOException e){
+
+        }
+        return stocks;
     }
 }

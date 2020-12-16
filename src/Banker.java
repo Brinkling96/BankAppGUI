@@ -39,7 +39,4 @@ public class Banker extends User{
         this.bank.setInterestRate(interestRate);
         this.bank.setHighValueBenchmark(highValueBenchmark);
     }
-
-
-
 }

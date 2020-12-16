@@ -161,6 +161,11 @@ public class Bank {
     /**
      * Stock methods
      */
+
+    public void loadStocks(ArrayList<Stock> stocks) {
+        this.stocks = stocks;
+    }
+
     public void addStock(Stock stock){
         stocks.add(stock);
     }

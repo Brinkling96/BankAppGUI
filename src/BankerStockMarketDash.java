@@ -53,6 +53,7 @@ public class BankerStockMarketDash extends StockMarketDash {
         if (stock != null) {
             stockTable.addRowToTable(new Object[]{stock.getName(), stock.getValue(),stock.getShares()});
             bank.addStock(d.stock);
+            DataKeeper.updateStocks(d.stock, "add");
         }
     }
 
@@ -67,6 +68,7 @@ public class BankerStockMarketDash extends StockMarketDash {
                 if (stock != null) {
                     //todo payback everyone
                     bank.removeStock(stock);
+                    DataKeeper.updateStocks(stock, "remove");
                     this.stockTable.tableModel.removeRow(selectedRow);
                 }
             }
@@ -80,6 +82,7 @@ public class BankerStockMarketDash extends StockMarketDash {
             StockEditDialog d = new StockEditDialog(window,stock);
             Stock newstock = d.stock;
             if (newstock != null) {
+                DataKeeper.updateStocks(d.stock, "update");
                 stockTable.reloadRowData(selectedRow,new Object[]{stock.getName(),stock.getValue(),stock.getShares()});
             }
         }

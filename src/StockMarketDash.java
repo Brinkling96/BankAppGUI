@@ -14,6 +14,7 @@ public abstract class StockMarketDash extends BankDashboard{
 
     public StockMarketDash(Window window, User user, Bank bank, String windowLabelString) {
         super(window, user, bank);
+        bank.loadStocks(DataKeeper.loadStocks());
         this.windowLabel =  new JLabel(windowLabelString);
 
         this.generalLabelsPanel.add(windowLabel);

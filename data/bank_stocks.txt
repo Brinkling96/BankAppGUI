@@ -1,0 +1,2 @@
+AMZN,1000,1000,nyse,
+TESLA,1000,1000,nyse,
