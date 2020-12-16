@@ -57,7 +57,20 @@ public class BankerStockMarketDash extends StockMarketDash {
     }
 
     private void removeStockAction() {
-        //todo
+        int selectedRow = this.stockTable.table.getSelectedRow();
+        if (selectedRow >= 0) {
+            int result = JOptionPane.showConfirmDialog(this, "Are you sure?", "Confirm Stock Deletion",
+                    JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.OK_OPTION) {
+                //todo
+                Stock stock = getSelectedStock(selectedRow);
+                if (stock != null) {
+                    //todo payback everyone
+                    bank.removeStock(stock);
+                    this.stockTable.tableModel.removeRow(selectedRow);
+                }
+            }
+        }
     }
 
     private void editStockAction() {
