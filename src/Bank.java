@@ -16,6 +16,7 @@ public class Bank {
     	this.yenConversionRate = 103.96;
     	this.euroConversionRate = .82;
     	this.highValueBenchmark = 5000;
+    	this.interestRate = .20;
     	this.closureFee = 5;
     	this.creationFee = 5;
         this.dailyReport = new ArrayList<Transaction>();

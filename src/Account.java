@@ -98,7 +98,8 @@ public abstract class Account implements AccountActions {
     		this.setBalance(balanceAfterWithdraw);
     	}
 
-    	bank.createTransaction(this, "withdraw", amount, currency);
+    	bank.createTransaction(this, "withdraw", -amount, currency);
+    	bank.createTransaction(this, "withdraw fee", -bank.getTransactionFee(), currency);
     	return true;
 
     }

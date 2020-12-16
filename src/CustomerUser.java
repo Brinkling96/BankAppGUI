@@ -53,13 +53,13 @@ public class CustomerUser extends User{
         this.accountNumber++;
         this.accounts.add(account);
         account.setBalance(account.getBalance() - bank.getCreationFee());
-        bank.createTransaction(account, "add", -bank.getCreationFee(), "usd");
+        bank.createTransaction(account, "account creation fee", -bank.getCreationFee(), "usd");
     }
 
     public void removeAccount(Account account, Bank bank){
         this.accounts.remove(account);
         account.setBalance(account.getBalance() - bank.getClosureFee());
-        bank.createTransaction(account, "remove", -bank.getClosureFee(), "usd");
+        bank.createTransaction(account, "account removal fee", -bank.getClosureFee(), "usd");
     }
 
     // todo allow users to take out loans
