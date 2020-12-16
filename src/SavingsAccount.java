@@ -7,13 +7,13 @@ public class SavingsAccount extends Account {
         super(balance, user, numAccounts, bank);
     }
 
-    public SavingsAccount(String accountID, String balance, String lastLoginDate) {
-        super(accountID, balance, lastLoginDate);
+    public SavingsAccount(String accountID, String balance) {
+        super(accountID, balance);
     }
 
     public void accumulateInterest(){
-        LocalDateTime now = Clock.getClock().getTime();
-        LocalDateTime lastLoginDate = this.getLastLoginDate();
+        LocalDateTime now = this.user.getCurrentLogin();
+        LocalDateTime lastLoginDate = this.user.getLastLogin();
         long days = Clock.getClock().daysElapsed(now, lastLoginDate);
         // TODO: Check how many days has passed since last login date
         

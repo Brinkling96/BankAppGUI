@@ -25,8 +25,8 @@ public class CustomerUser extends User{
      * @param uid
      * @param status
      */
-    public CustomerUser(String username, String password, String uid) {
-        super(username, password, uid);
+    public CustomerUser(String username, String password, String uid, String lastLogin) {
+        super(username, password, uid, lastLogin);
         this.accounts = new ArrayList<>();
     }
 

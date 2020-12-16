@@ -54,6 +54,14 @@ public class DataKeeper {
                     lines.remove(removeLine);
                     deleteDir(new File(directoryName));
                     break;
+                case "logoff":
+                    for (int i = 0; i < lines.size(); i++) {
+                        if (lines.get(i).split(",")[0].equals(user.getUserID())) {
+                            lines.set(i, user.toString().replace("\n", ""));
+                            break;
+                        }
+                    }
+                    break;
             }
             Files.write(filePath, lines, StandardCharsets.UTF_8);
         } catch (IOException e) {
@@ -156,15 +164,16 @@ public class DataKeeper {
                 String line;
                 while ((line = br.readLine()) != null) {
                     String[] userInfo = line.split(",");
-                    if (userInfo.length == 4) {
+                    if (userInfo.length == 5) {
                         String userID = userInfo[0];
                         String username = userInfo[1];
                         String password = userInfo[2];
                         String type = userInfo[3];
+                        String lastLogin = userInfo[4];
                         if (type.equals("customer")) {
-                            users.add(new CustomerUser(username, password, userID));
+                            users.add(new CustomerUser(username, password, userID, lastLogin));
                         } else {
-                            users.add(new Banker(username, password, userID));
+                            users.add(new Banker(username, password, userID, lastLogin));
                         }
                     }
                 }
@@ -192,12 +201,11 @@ public class DataKeeper {
                     String[] accountInfo = line.split(",");
                     String aid = accountInfo[0];
                     String balance = accountInfo[1];
-                    String date = accountInfo[2];
                     String type = aid.substring(aid.length()-2, aid.length());
                     if (type.equals("ck"))
-                        accounts.add(new CheckingAccount(aid, balance, date));
+                        accounts.add(new CheckingAccount(aid, balance));
                     else if (type.equals("sv"))
-                        accounts.add(new SavingsAccount(aid, balance, date));
+                        accounts.add(new SavingsAccount(aid, balance));
 
                 }
             } catch (IOException e) {

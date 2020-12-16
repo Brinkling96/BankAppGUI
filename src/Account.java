@@ -1,5 +1,3 @@
-import java.time.LocalDateTime;
-
 public abstract class Account implements AccountActions {
 
     /*todo calculate interest. maybe add variable to bank class for last updated (need to make sure to write to a doc)
@@ -12,17 +10,17 @@ public abstract class Account implements AccountActions {
     protected Integer balance;
     private int numAccounts;
     private Bank bank;
-    private LocalDateTime lastLoginDate;
+    protected User user;
 
     public Account(Integer balance, User user, int numAccounts, Bank bank) {
         this.balance = balance;
         this.numAccounts = numAccounts;
         this.bank = bank;
-        this.lastLoginDate = Clock.getClock().getTime();
+        this.user = user;
         this.setAccountID(user);
     }
 
-    public Account(String accountID, String balance, String date) {
+    public Account(String accountID, String balance) {
         this.accountID = accountID;
         this.balance = Integer.parseInt(balance);
     }
@@ -55,13 +53,6 @@ public abstract class Account implements AccountActions {
         return this.bank;
     }
 
-    public LocalDateTime getLastLoginDate() {
-        return this.lastLoginDate;
-    }
-
-    public void updateLoginDate() {
-        this.lastLoginDate = Clock.getClock().getTime();
-    }
     @Override
     public boolean deposit(int amount, String currency) {
         // Deposit correct amount depending on currency
@@ -116,7 +107,6 @@ public abstract class Account implements AccountActions {
         String out = "";
         out += getAccountID() + ",";
         out += getBalance() + ",";
-        out += Clock.getClock().getTimeAsString(lastLoginDate) + "\n";
         return out;
     }
 }

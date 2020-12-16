@@ -7,8 +7,8 @@ public class Banker extends User{
         super(username, password, numUsers);
     }
 
-    public Banker(String username, String password, String uid) {
-        super(username, password, uid);
+    public Banker(String username, String password, String uid, String lastLogin) {
+        super(username, password, uid, lastLogin);
     }
 
     public void setBank(Bank bank) {
