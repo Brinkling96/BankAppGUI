@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class UserDashboard extends Dashboard{
+public class UserDashboard extends MainDashboard {
 
 
 

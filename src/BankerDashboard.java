@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class BankerDashboard extends Dashboard {
+public class BankerDashboard extends MainDashboard {
 
 
     protected GUITable userAccountTable;
@@ -141,7 +141,7 @@ public class BankerDashboard extends Dashboard {
                 JDialog dialog = new JDialog();
                 User user = bank.getUser(accountID);
                 ((CustomerUser) user).loadAccounts(DataKeeper.getAccountsFromUser(user));
-                Dashboard dash = new UserDashboard(dialog, ((CustomerUser) bank.getUser(accountID)), bank);//todo
+                BankDashboard dash = new UserDashboard(dialog, ((CustomerUser) bank.getUser(accountID)), bank);//todo
                 dialog.add(dash);
                 dialog.pack();
                 dialog.setVisible(true);
@@ -175,7 +175,6 @@ public class BankerDashboard extends Dashboard {
         //todo
     }
 
-    @Override
     protected void removeAccountButtonActionPerformed() {
         int result = JOptionPane.showConfirmDialog(this, "Are you sure?", "Confirm Account Deletion", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.OK_OPTION) {
