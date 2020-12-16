@@ -17,9 +17,10 @@ public class GUITable extends JPanel {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        label= new JLabel(labelString);
-        this.labelHost.add(label);
-        this.add(labelHost);
+        label= new JLabel(labelString,SwingConstants.LEFT);
+
+
+        this.add(label);
 
         this.table = new JTable();
 
