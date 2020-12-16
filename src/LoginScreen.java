@@ -85,11 +85,13 @@ public class LoginScreen extends JPanel {
 
     private void submitButtonAction() {
         User user = bank.getUser( usernamePanel.getTextInputted() ,passwordField.getPassword());
+        
 
         if(user != null) {
             this.window.setVisible(false);
             this.window.remove(this);
             if(user instanceof CustomerUser) {
+                ((CustomerUser) user).loadAccounts(DataKeeper.getAccountsFromUser(user));
                 this.window.add(new UserDashboard(window,(CustomerUser) user,bank));
             }
             else if(user instanceof Banker){

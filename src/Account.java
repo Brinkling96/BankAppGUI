@@ -1,17 +1,21 @@
 public abstract class Account implements AccountActions {
 
-
+    /*todo calculate interest. maybe add variable to bank class for last updated (need to make sure to write to a doc)
+        and for how many days have past compound interest for that many days and update accounts.
+        we can say it compounds at 9am or something. relevant to savings accounts over highValueBenchmark, loans and possibly the stock market.
+    */
     public static final int numMemsToDisplay = 2;
 
     protected String accountID;
     protected Integer balance;
     private int numAccounts;
+    private Bank bank;
 
-    public Account(Integer balance, User user, int numAccounts) {
+    public Account(Integer balance, User user, int numAccounts, Bank bank) {
         this.balance = balance;
         this.numAccounts = numAccounts;
+        this.bank = bank;
         this.setAccountID(user);
-        DataKeeper.newAccount(this);
     }
 
     public Account(String accountID, String balance) {
@@ -27,6 +31,8 @@ public abstract class Account implements AccountActions {
             this.accountID += "ck";
         else if (this instanceof SavingsAccount)
             this.accountID += "sv";
+        else if (this instanceof SecurityAccount)
+            this.accountID += "sc";
     }
 
     public String getAccountID() {
@@ -41,9 +47,13 @@ public abstract class Account implements AccountActions {
         this.balance = balance;
     }
 
+    public Bank getBank() {
+        return this.bank;
+    }
+
 
     @Override
-    public boolean deposit(int amount, String currency, Bank bank) {
+    public boolean deposit(int amount, String currency) {
         // Deposit correct amount depending on currency
         // Creates the transaction if valid
         switch (currency) {
@@ -62,10 +72,10 @@ public abstract class Account implements AccountActions {
 
     }
 
+    // Fee is automatically charged from the same account.
     @Override
-    public boolean withdraw(int amount, String currency, Bank bank) {
+    public boolean withdraw(int amount, String currency) {
         // Withdraw correct amount depending on currency
-    	// Charge fee
         // Creates the transaction if valid
     	int balanceAfterWithdraw = 0;
         switch (currency) {

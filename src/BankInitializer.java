@@ -20,6 +20,7 @@ public class BankInitializer {
             ArrayList<User> users = new ArrayList<User>();
             bank = new Bank(users);
         }
+        bank.setUserNumber();
         return bank;
     }
 

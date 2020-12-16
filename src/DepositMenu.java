@@ -32,7 +32,7 @@ public class DepositMenu extends InputIntMenu {
                 if(amount> 0) {
                     int result = JOptionPane.showConfirmDialog(this, "Deposit $" + Integer.toString(amount) + " ?");
                     if (result == JOptionPane.OK_OPTION) {
-                        account.setBalance(account.getBalance() + amount); //todo: Account Actions
+                        account.deposit(amount, "usd");
                         this.dispose();
                     }
                 }

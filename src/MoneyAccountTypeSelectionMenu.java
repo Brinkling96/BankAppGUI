@@ -8,6 +8,8 @@ public class MoneyAccountTypeSelectionMenu extends JDialog {
     protected static final String[] accountTypes = new String[]{"Checking","Savings"};
     private Window window;
 
+    private Bank bank;
+
     protected JLabel label = new JLabel("Select AccountType to create: ");
 
     protected JComboBox dropDownBox = new JComboBox(new DefaultComboBoxModel(accountTypes));
@@ -21,10 +23,11 @@ public class MoneyAccountTypeSelectionMenu extends JDialog {
 
     protected Account account;
 
-    public MoneyAccountTypeSelectionMenu(Window owner, CustomerUser user) {
+    public MoneyAccountTypeSelectionMenu(Window owner, CustomerUser user, Bank bank) {
         super(owner, Dialog.DEFAULT_MODALITY_TYPE);
         this.setLayout(new GridLayout(2,2));
         this.window = owner;
+        this.bank = bank;
 
         this.user = user;
 
@@ -56,14 +59,14 @@ public class MoneyAccountTypeSelectionMenu extends JDialog {
     private void submitActionButton() {
         if(this.dropDownBox.getSelectedItem().toString() == this.accountTypes[0]){
             this.setVisible(false);
-            AddAccountDialog d = new AddCheckingAccountDialog(this.window,this.user);
+            AddAccountDialog d = new AddCheckingAccountDialog(this.window,this.user, this.bank);
             if(d.getAccount() != null){
                 this.account = d.getAccount();
             }
         }
         else if(this.dropDownBox.getSelectedItem().toString()== this.accountTypes[1]){
             this.setVisible(false);
-            AddAccountDialog d = new AddSavingsAccountDialog(this.window,this.user);
+            AddAccountDialog d = new AddSavingsAccountDialog(this.window,this.user,this.bank);
             if(d.getAccount() != null){
                 this.account = d.getAccount();
             }

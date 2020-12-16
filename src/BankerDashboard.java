@@ -13,10 +13,12 @@ public class BankerDashboard extends Dashboard {
     protected JButton viewAccountButton;
     protected JButton removeAccountButton;
     protected JButton setTimeButton;
+    protected JButton viewDailyReportButton;
     protected JPanel userTableActionPanel;
 
+
     //
-    protected GUITable transcationTable;
+    protected GUITable transactionTable;
 
     public BankerDashboard(Window window, User user, Bank bank) {
         super(window, user, bank);
@@ -29,12 +31,22 @@ public class BankerDashboard extends Dashboard {
                 setTimeButtonAction();
             }
         });
-        this.generalActionsPanel.add(setTimeButton);
+        this.viewDailyReportButton = new JButton("View Daily Report");
+        this.viewDailyReportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewDailyReport();
+            }
+        });
+        this.generalActionsPanel.add(viewDailyReportButton);
 
         //////////////////////////////////////////////////////////////////
         //User Account table
         Object[][] tableData = new Object[bank.users.size()][CustomerUser.numMembersToDisplay];
-
+        Class[] aclasses = new Class[3];
+        aclasses[0] = String.class;
+        aclasses[1] = String.class;
+        aclasses[2] = Integer.class;
 
         for (int i = 0; i < bank.users.size(); i++) {
             User account = bank.users.get(i);
@@ -49,7 +61,8 @@ public class BankerDashboard extends Dashboard {
 
         }
 
-        this.userAccountTable = new GUITable(tableData, new String[]{"AccountID", "Username", "Number of Accounts"});
+
+        this.userAccountTable = new GUITable(tableData, new String[]{"AccountID", "Username", "Number of Accounts"}, aclasses);
         add(Box.createVerticalBox());
         add(userAccountTable);
         //////////////////////////////////////////////////////////////////////////
@@ -74,6 +87,7 @@ public class BankerDashboard extends Dashboard {
             }
         });
 
+        
         this.userTableActionPanel.add(removeAccountButton);
 
 
@@ -82,13 +96,17 @@ public class BankerDashboard extends Dashboard {
         ///////////////////////////////////////////////////
         //Transcations
 
-        ArrayList<Transaction> tds = bank.getTransactions();
-
-
-        this.transcationTable = new GUITable(createTDTable(tds), new String[]{"TransactionID", "TranscationType", "UserID", "AccountID", "Date", "Amount"});
+        ArrayList<Transaction> tds = new ArrayList<Transaction>();
+        Class[] tclasses = new Class[6];
+        tclasses[0] = String.class;
+        tclasses[1] = String.class;
+        tclasses[2] = String.class;
+        tclasses[3] = Integer.class;
+        tclasses[4] = String.class;
+        this.transactionTable = new GUITable(createTDTable(tds), new String[]{"TransactionID", "TranscationType", "Date", "Amount", "Currency"}, tclasses);
 
         add(Box.createVerticalBox());
-        add(transcationTable);
+        add(transactionTable);
     }
 
     private Object[][] createTDTable(ArrayList<Transaction> tds) {
@@ -100,10 +118,9 @@ public class BankerDashboard extends Dashboard {
             int j = 0;
             returnRow[j++] = transaction.getID();
             returnRow[j++] = transaction.getTransactionType();
-            returnRow[j++] = "null for now"; //todo
-            returnRow[j++] = transaction.getAccount().getAccountID();
-            returnRow[j++] = transaction.getTime().toString();
+            returnRow[j++] = transaction.getTime();
             returnRow[j++] = transaction.getAmount();
+            returnRow[j++] = transaction.getCurrency();
         }
 
         return returnlist;
@@ -116,11 +133,14 @@ public class BankerDashboard extends Dashboard {
     }
 
     private void viewAccountAction() {
+        System.out.println("Viewing accounts");
         int selectedRow = this.userAccountTable.table.getSelectedRow();
         if (selectedRow >= 0) {
             String accountID = (String) this.userAccountTable.table.getValueAt(selectedRow, 0);
             if (accountID != null) {
                 JDialog dialog = new JDialog();
+                User user = bank.getUser(accountID);
+                ((CustomerUser) user).loadAccounts(DataKeeper.getAccountsFromUser(user));
                 Dashboard dash = new UserDashboard(dialog, ((CustomerUser) bank.getUser(accountID)), bank);//todo
                 dialog.add(dash);
                 dialog.pack();
@@ -128,6 +148,25 @@ public class BankerDashboard extends Dashboard {
             } else {
                 JOptionPane.showMessageDialog(this, "UserID Not Found", "User Dash pull", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }
+
+    public void viewDailyReport() {
+        JDialog drwindow = new DailyReportMenu(window,bank);
+        ArrayList<Transaction> transactions = bank.getDailyReport();
+
+        int num = this.transactionTable.tableModel.getRowCount();
+        for (int i = 0; i < num; i++) {
+            this.transactionTable.tableModel.removeRow(i);
+        }
+        for (Transaction transaction : transactions) {
+            Object[] newData = new Object[] {
+                transaction.getID(),
+                transaction.getTransactionType(),
+                transaction.getTime().toString(),
+                transaction.getAmount()
+            };
+            this.transactionTable.addRowToTable(newData);
         }
     }
 
@@ -145,6 +184,7 @@ public class BankerDashboard extends Dashboard {
                 User user = getSelectedUser(selectedRow);
                 if(user != null) {
                     bank.removeUser(user);
+                    DataKeeper.updateUser(user, "remove");
                     userAccountTable.tableModel.removeRow(selectedRow);
                 }
 

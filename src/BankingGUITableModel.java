@@ -2,19 +2,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class BankingGUITableModel extends DefaultTableModel {
     protected Class[] types;
-    public BankingGUITableModel(Object[][] data, Object[] columnNames) {
+    public BankingGUITableModel(Object[][] data, Object[] columnNames, Class[] classes) {
         super(data, columnNames);
-        if(data.length >0) {
-
-            int tableLength = columnNames.length;
-
-            types = new Class[tableLength];
-
-
-            for (int i = 0; i < tableLength; i++) {
-                types[i] = data[0][i].getClass();
-            }
-        }
+        this.types = classes;
 
     }
 

@@ -3,20 +3,23 @@ import java.util.ArrayList;
 public class Bank {
     private int creationFee, closureFee, transactionFee;
     //Equivalent to 1 USD
-    private double yenConversionRate, euroConversionRate;
-    private double interestRate;
-    private final String name;
-    private ArrayList<Transaction> transactions;
+    //todo ask user which type of currency to enter?
+    private double yenConversionRate, euroConversionRate, interestRate;
+    private int highValueBenchmark;
+    private int userNumber;
+    private ArrayList<Transaction> dailyReport;
     protected ArrayList<User> users;
 
     public Bank(ArrayList<User> users) {
         this.users = users;
-        this.creationFee = 0;
         this.transactionFee = 3;
     	this.yenConversionRate = 103.96;
     	this.euroConversionRate = .82;
-        this.name = "";
-        this.transactions = new ArrayList<Transaction>();
+    	this.highValueBenchmark = 5000;
+    	this.closureFee = 5;
+    	this.creationFee = 5;
+        this.dailyReport = new ArrayList<Transaction>();
+        this.userNumber = 0;
     }
 
     public User getUser(String username, char[] password){
@@ -43,6 +46,7 @@ public class Bank {
 
 
     public void addUser(CustomerUser user){
+        this.userNumber++;
         this.users.add(user);
     }
 
@@ -50,32 +54,86 @@ public class Bank {
         this.users.remove(user);
     }
 
-    public int getNumUsers() { return this.users.size(); }
-
-
     //The transaction serves as a receipt. Will have already been processed before this method is called.
     public void createTransaction(Account account, String type, int amount, String currency) {
         Transaction t = new Transaction(account, type, amount, currency);
-        transactions.add(t);
         DataKeeper.newTransaction(t);
-        DataKeeper.updateAccount(account);
+        DataKeeper.updateAccount(account, type);
         DataKeeper.updateDailyReports(t);
     }
 
-    public ArrayList<Transaction> getTransactions() {
-        return transactions;
+    // Getters and setters
+    public ArrayList<Transaction> getDailyReport() {
+        return dailyReport;
     }
-    
-    
+
+    public void setDailyReport(ArrayList<Transaction> dailyReport) {
+        this.dailyReport = dailyReport;
+    }
+
     public int getTransactionFee() {
     	return this.transactionFee;
     }
-    
+    public void setTransactionFee(int transactionFee) {
+        this.transactionFee = transactionFee;
+    }
+
     public double getYenConversionRate() {
     	return this.yenConversionRate;
     }
-    
+    public void setYenConversionRate(double yenConversionRate) {
+        this.yenConversionRate = yenConversionRate;
+    }
+
     public double getEuroConversionRate() {
     	return this.euroConversionRate;
+    }
+    public void setEuroConversionRate(double euroConversionRate) {
+        this.euroConversionRate = euroConversionRate;
+    }
+
+    public double getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(double interestRate) {
+        this.interestRate = interestRate;
+    }
+
+    public int getHighValueBenchmark() {
+        return highValueBenchmark;
+    }
+
+    public void setHighValueBenchmark(int highValueBenchmark) {
+        this.highValueBenchmark = highValueBenchmark;
+    }
+
+    public int getCreationFee() {
+        return creationFee;
+    }
+
+    public void setCreationFee(int creationFee) {
+        this.creationFee = creationFee;
+    }
+
+    public int getClosureFee() {
+        return closureFee;
+    }
+
+    public void setClosureFee(int closureFee) {
+        this.closureFee = closureFee;
+    }
+
+    public int getUserNumber() { 
+        return this.userNumber + 1; 
+    }
+
+    public void setUserNumber() {
+        for (User user : users) {
+            int num = Integer.parseInt(user.getUserID().substring(2,4));
+            if (this.userNumber <= num) {
+                this.userNumber = num;
+            }
+        }
     }
 }

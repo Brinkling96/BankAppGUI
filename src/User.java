@@ -1,28 +1,18 @@
-import java.util.ArrayList;
-
 public abstract class User {
 
     private String username;
     private char[] password;
-    private int numUsers;
     private String userID;
-    private boolean status;
-    public User(String username, char[] password, int numUsers) {
-        this.status = true;
+    public User(String username, char[] password, int userNumber) {
         this.username = username;
         this.password = password;
-        this.userID = String.format("%04d", numUsers);
-        DataKeeper.newUser(this);
+        this.userID = String.format("%04d", userNumber);
     }
 
-    public User(String username, String password, String uid, String status) {
+    public User(String username, String password, String uid) {
         this.username = username;
         this.password = password.toCharArray();
         this.userID = uid;
-        if (status.equals("true"))
-            this.status = true;
-        else
-            this.status = false;
     }
 
     public String getUsername() {
@@ -65,16 +55,17 @@ public abstract class User {
         return true;
     }
 
-    public void deactivate() { this.status = false; }
-
-    public void activate() { this.status = true; }
-
     public String toString() {
         String out = "";
         out += getUserID() + ",";
         out += getUsername() + ",";
-        out += getPassword().toString() + ",";
-        out += status + "\n";
+        out += String.valueOf(getPassword()) + ",";
+        if (this instanceof CustomerUser) {
+            out += "customer";
+        } else {
+            out += "banker";
+        }
+        out += "\n";
         return out;
     }
 }

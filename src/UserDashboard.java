@@ -16,11 +16,11 @@ public class UserDashboard extends Dashboard{
     protected JButton removeAccountButton;
     protected JButton depositButton;
     protected JButton withdrawnButton;
+    protected JButton displayTransactionButton;
     protected JPanel accountTableActionPanel;
 
-
     //Transcation tables
-    protected GUITable transcationTable;
+    protected GUITable transactionTable;
 
     public UserDashboard(Window window, CustomerUser user, Bank bank) {
         //HOST PANEL SETUP
@@ -29,7 +29,9 @@ public class UserDashboard extends Dashboard{
         ////////////////////////////////////////////////////////////////////////////
         //Accounts Table
         Object[][] tableData = new Object[user.getAccounts().size()][Account.numMemsToDisplay];
-
+        Class[] aclasses = new Class[2];
+        aclasses[0] = String.class;
+        aclasses[1] = Integer.class;
 
         for(int i = 0; i<user.getAccounts().size(); i++){
             Account account = user.getAccounts().get(i);
@@ -39,7 +41,7 @@ public class UserDashboard extends Dashboard{
 
         }
 
-        this.moneyAccountTable = new GUITable(tableData,new String[]{"AccountID","Balance"});
+        this.moneyAccountTable = new GUITable(tableData,new String[]{"AccountID","Balance"},aclasses);
         add(Box.createVerticalBox());
         add(moneyAccountTable);
 
@@ -79,19 +81,37 @@ public class UserDashboard extends Dashboard{
                 }
             });
 
+            this.displayTransactionButton = new JButton("Display");
+            this.displayTransactionButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    displayTransactions();
+                }
+            });
+
             this.accountTableActionPanel.add(addAccountButton);
             this.accountTableActionPanel.add(removeAccountButton);
             this.accountTableActionPanel.add(depositButton);
             this.accountTableActionPanel.add(withdrawnButton);
+            this.accountTableActionPanel.add(displayTransactionButton);
             add(Box.createVerticalBox());
             add(accountTableActionPanel);
         }
         /////////////////////////////////////////////////////////////////////////////////////////
         //Transcation table
-
-        this.transcationTable = new GUITable(createTDTable(bank.getTransactions()),new String[]{"TransactionID","TranscationType","AccountID","Date","Amount"});
+        Class[] tclasses = new Class[6];
+        tclasses[0] = String.class;
+        tclasses[1] = String.class;
+        tclasses[2] = String.class;
+        tclasses[3] = String.class;
+        tclasses[4] = Integer.class;
+        tclasses[5] = String.class;
+        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+        
+        
+        this.transactionTable = new GUITable(createTDTable(transactions),new String[]{"TransactionID","TranscationType","Date","Amount", "Currency"}, tclasses);
         add(Box.createVerticalBox());
-        add(transcationTable);
+        add(transactionTable);
 
 
         /////////////////////////////////////////////////////////////////////
@@ -100,18 +120,8 @@ public class UserDashboard extends Dashboard{
 
 
     private Object[][] createTDTable(ArrayList<Transaction> tds){
-        ArrayList<Transaction> userTds = new ArrayList<>();
-
-        for(Transaction t: tds){
-            for(Account a: ((CustomerUser) user).getAccounts()){
-                if(t.getAccount().getAccountID() == a.getAccountID()){
-                    userTds.add(t);
-                }
-            }
-        }
-
-
-        Object[][] returnlist = new Object[userTds.size()][Transaction.numMemsToDisplay-1];
+        ArrayList<Transaction> userTds = tds;
+        Object[][] returnlist = new Object[userTds.size()][Transaction.numMemsToDisplay-2];
 
         for(int i =0; i < returnlist.length; i++){
             Object[] returnRow = returnlist[i];
@@ -119,9 +129,9 @@ public class UserDashboard extends Dashboard{
             int j =0;
             returnRow[j++] = transaction.getID();
             returnRow[j++] = transaction.getTransactionType();
-            returnRow[j++] = transaction.getAccount().getAccountID();
-            returnRow[j++] = transaction.getTime().toString();
+            returnRow[j++] = transaction.getTime();
             returnRow[j++] = transaction.getAmount();
+            returnRow[j++] = transaction.getCurrency();
         }
 
         return returnlist;
@@ -132,9 +142,8 @@ public class UserDashboard extends Dashboard{
     }
 
     private void addAccountButtonAction() {
-        MoneyAccountTypeSelectionMenu d = new MoneyAccountTypeSelectionMenu(window, ((CustomerUser) user));
+        MoneyAccountTypeSelectionMenu d = new MoneyAccountTypeSelectionMenu(window, ((CustomerUser) user), this.bank);
         Account act = d.account;
-        System.out.println(act);
         if (act != null) {
             moneyAccountTable.addRowToTable(new Object[]{act.getAccountID(), act.getBalance()});
         }
@@ -148,8 +157,13 @@ public class UserDashboard extends Dashboard{
                 //todo
                 Account account = getSelectedAccount(selectedRow);
                 if (account != null) {
-                    ((CustomerUser) user).removeAccount(account);
-                    this.moneyAccountTable.tableModel.removeRow(selectedRow);
+                    //todo print this to the user instead of the command line
+                    if(account.getBalance() < this.bank.getClosureFee()){
+                        System.out.println("Can't close account unless value is greater than the closer fee of $" + this.bank.getClosureFee());
+                    }else{
+                        ((CustomerUser) user).removeAccount(account, this.bank);
+                        this.moneyAccountTable.tableModel.removeRow(selectedRow);
+                    }
                 }
             }
         }
@@ -164,7 +178,27 @@ public class UserDashboard extends Dashboard{
         return act;
     }
 
-
+    public void displayTransactions() {
+        int selectedRow = this.moneyAccountTable.table.getSelectedRow();
+        Account account = getSelectedAccount(selectedRow);
+        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+        if (account != null) {
+            transactions = DataKeeper.getTransactionsFromAccount(account);
+            int num = this.transactionTable.tableModel.getRowCount();
+            for (int i = 0; i < num; i++) {
+                this.transactionTable.tableModel.removeRow(i);
+            }
+            for (Transaction transaction : transactions) {
+                Object[] newData = new Object[] {
+                    transaction.getID(),
+                    transaction.getTransactionType(),
+                    transaction.getTime().toString(),
+                    transaction.getAmount()
+                };
+                this.transactionTable.addRowToTable(newData);
+            }
+        }
+    }
 
     public void deposit(){
         int selectedRow = this.moneyAccountTable.table.getSelectedRow();
@@ -174,7 +208,6 @@ public class UserDashboard extends Dashboard{
         }
         Object[] input = new Object[]{account.accountID, account.balance};
         this.moneyAccountTable.reloadRowData(selectedRow,input);
-
     }
 
     public void withdraw(){
@@ -182,13 +215,11 @@ public class UserDashboard extends Dashboard{
 
         Account account = getSelectedAccount(selectedRow);
         if(account != null){
-            JDialog wWindow = new WithdrawMenu(window,account);
+            JDialog wWindow = new WithdrawMenu(window,account,this.bank);
 
         }
         Object[] input = new Object[]{account.accountID, account.balance};
         this.moneyAccountTable.reloadRowData(selectedRow,input);
-
-
     }
 }
 
