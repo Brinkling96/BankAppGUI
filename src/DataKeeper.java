@@ -219,6 +219,29 @@ public class DataKeeper {
                         String principal = accountInfo[2];
                         Collateral c = new Collateral(accountInfo[3], accountInfo[4], Integer.parseInt(accountInfo[5]));
                         accounts.add(new LoanAccount(aid, originalValue, principal, c));
+                    } else if (type.equals("sc")) {
+                        String balance = accountInfo[0];
+                        ArrayList<Stock> stocks = new ArrayList<Stock>();
+                        String name = "";
+                        String value = "";
+                        String shares = "";
+                        String stockType = "";
+                        int count = 1;
+                        for (int i = 1; i < accountInfo.length; i++) {
+                            if (count == 1) {
+                                name = accountInfo[i];
+                            } else if (count == 2) {
+                                value = accountInfo[i];
+                            } else if (count == 3) {
+                                shares = accountInfo[i];
+                            } else if (count == 4) {
+                                stockType = accountInfo[i];
+                                if (stockType.equals("nyse")) {
+                                    stocks.add(new NYSE_Stock(name,value,shares));
+                                }
+                                count = 1;
+                            }
+                        }
                     }
                 }
             } catch (IOException e) {

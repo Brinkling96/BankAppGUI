@@ -3,11 +3,13 @@ public abstract class Stock {
     protected String name;
     protected Integer value;
     protected Integer shares;
+    protected String type;
 
     public Stock(String name, Integer value, Integer shares) {
         this.name = name;
         this.value = value;
         this.shares = shares;
+        this.type = "";
     }
 
     public String getName() {
@@ -28,5 +30,14 @@ public abstract class Stock {
 
     public void setShares(Integer shares) {
         this.shares = shares;
+    }
+
+    public String toString() {
+        String out = "";
+        out += name + ",";
+        out += String.valueOf(value) + ",";
+        out += String.valueOf(shares) + ",";
+        out += type + ",";
+        return out;
     }
 }

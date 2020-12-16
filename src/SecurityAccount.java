@@ -35,4 +35,14 @@ public class SecurityAccount extends Account{
     public void setStocks(ArrayList<Stock> stocks) {
         this.stocks = stocks;
     }
+
+    public String toString() {
+        String out = "";
+        out += String.valueOf(balance) + ",";
+        for (Stock stock : stocks) {
+            out += stock.toString();
+        }
+        out += "\n";
+        return out;
+    }
 }
