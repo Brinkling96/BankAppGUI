@@ -51,7 +51,7 @@ public class AddLoanAccountDialog extends AddAccountDialog{
             try {
                 balance = Integer.parseInt(balanceField.getText());
                 if(balance < this.bank.getCreationFee() || balance <100 ) {
-                    returnString = "Loan must be greater than the creation fee of $" + this.bank.getCreationFee() +"\n";
+                    returnString = "Loan must be greater than $99 \n";
                 }
             } catch (NumberFormatException err) {
                 returnString += "Loan Amount must be a number!\n";

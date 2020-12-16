@@ -36,7 +36,7 @@ public class UserStockMarketDash extends StockMarketDash {
 
 
 
-    public UserStockMarketDash(Window window,User user, Account account, Bank bank) {
+    public UserStockMarketDash(Window window,User user, SecurityAccount account, Bank bank) {
         super(window, user, bank, "Stock Market: ");//account.getUser().getUsername()
 
         ///General Labels
@@ -104,8 +104,11 @@ public class UserStockMarketDash extends StockMarketDash {
 
     private void buySharesAction() {
         //todo
-        JOptionPane.showMessageDialog(this,"Unimplemented");
+       JOptionPane.showMessageDialog(this,"Unimplemented");
+       //Account act = getSelectedAccount()
     }
+
+
 
     private void doSellSharesAction() {
         //todo

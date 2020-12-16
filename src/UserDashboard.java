@@ -140,12 +140,19 @@ public class UserDashboard extends MainDashboard {
         return returnlist;
     }
 
-    protected void stockMarketAction(){
-        this.window.setVisible(false);
-        this.window.remove(this);
-        this.window.add(new UserStockMarketDash(window,user,new CheckingAccount(0,user,this.bank),bank)); //todo
-        this.window.pack();
-        this.window.setVisible(true);
+    protected void stockMarketAction() {
+        Account account = getSelectedAccount(moneyAccountTable.table.getSelectedRow());
+        if (account instanceof SecurityAccount) {
+            this.window.setVisible(false);
+            this.window.remove(this);
+            this.window.add(new UserStockMarketDash(window, user, (SecurityAccount) account, bank)); //todo
+            this.window.pack();
+            this.window.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"Select a Security Account","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
     private void addAccountButtonAction() {

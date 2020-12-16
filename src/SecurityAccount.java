@@ -3,6 +3,8 @@ import java.util.ArrayList;
 //Type of account that handles stocks
 public class SecurityAccount extends Account{
     private ArrayList<Stock> stocks;
+    public static final int STARTING_BALANCE = 1000;
+
     public SecurityAccount(Integer balance, User user, Bank bank) {
         super(balance, user, bank);
         this.setStocks(new ArrayList<>());

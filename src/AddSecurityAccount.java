@@ -52,7 +52,45 @@ public class AddSecurityAccount extends AddAccountDialog{
 
     @Override
     protected void okButtonAction(ActionEvent e) {
-        JOptionPane.showMessageDialog(this, "Unimplemented");
-        this.dispose();
+        SavingsAccount act = (SavingsAccount) getSelectedAccount(this.savingTable.table.getSelectedRow());
+        String warnings = "";
+        int balance = 0;
+
+        if (act.getBalance() < SecurityAccount.STARTING_BALANCE) {
+            warnings += "Need atleast " + SecurityAccount.STARTING_BALANCE + " in savings to create a security account!/n";
+        } else if (balanceField.getText().isEmpty()) {
+            warnings += "Need to input a Security Account balance!";
+        } else {
+            try {
+                balance = Integer.parseInt(balanceField.getText());
+                if (balance > act.getBalance()) {
+                    warnings += "Transfer must be less than balance";
+                } else if (balance < SecurityAccount.STARTING_BALANCE) {
+                    warnings += "Transfer must be more than " + SecurityAccount.STARTING_BALANCE;
+                }
+            } catch (NumberFormatException err) {
+                warnings += "Transfer must be a number!";
+            }
+            if (warnings != "") {
+                JOptionPane.showMessageDialog(this, warnings, "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                act.setBalance(act.getBalance() - balance);
+                this.account = new SecurityAccount(balance, user, bank);
+                user.addAccount(account, this.bank);
+                this.dispose();
+            }
+        }
+    }
+    private Account getSelectedAccount(int selectedRow){
+        Account act = null;
+        if (selectedRow >= 0) {
+            String actnum = (String) this.savingTable.table.getValueAt(selectedRow, 0);
+
+            act = ((CustomerUser) user).getAccount(actnum);
+            if(!(act instanceof SavingsAccount)){
+                act =null;
+            }
+        }
+        return act;
     }
 }
