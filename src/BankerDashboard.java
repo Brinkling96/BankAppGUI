@@ -172,7 +172,10 @@ public class BankerDashboard extends MainDashboard {
 
     @Override
     protected void stockMarketAction() {
-        //todo
+        this.window.setVisible(false);
+        this.window.remove(this);
+        this.window.add(new BankerStockMarketDash(window,bank));
+        this.window.setVisible(true);
     }
 
     protected void removeAccountButtonActionPerformed() {

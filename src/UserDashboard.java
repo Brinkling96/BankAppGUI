@@ -138,7 +138,10 @@ public class UserDashboard extends MainDashboard {
     }
 
     protected void stockMarketAction(){
-        //todo
+        this.window.setVisible(false);
+        this.window.remove(this);
+        this.window.add(new UserStockMarketDash(window,new CheckingAccount(0,this.user,12,this.bank),bank)); //todo
+        this.window.setVisible(true);
     }
 
     private void addAccountButtonAction() {
