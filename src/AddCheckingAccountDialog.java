@@ -44,8 +44,8 @@ public class AddCheckingAccountDialog extends AddAccountDialog {
                 int result = JOptionPane.showConfirmDialog(this,"Creation fee of $" + bank.getCreationFee(),
                         "Fee",JOptionPane.YES_NO_OPTION);
                 if(result == JOptionPane.OK_OPTION) {
-                    user.addAccount(account, this.bank);
                     this.account = new CheckingAccount(balance, user, bank);
+                    user.addAccount(account, this.bank);
                 }
                 this.dispose();
             } else {
