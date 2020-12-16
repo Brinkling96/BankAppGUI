@@ -1,9 +1,5 @@
+//contains all functions and attributes necessary in any account
 public abstract class Account implements AccountActions {
-
-    /*todo calculate interest. maybe add variable to bank class for last updated (need to make sure to write to a doc)
-        and for how many days have past compound interest for that many days and update accounts.
-        we can say it compounds at 9am or something. relevant to savings accounts over highValueBenchmark, loans and possibly the stock market.
-    */
     public static final int numMemsToDisplay = 2;
 
     protected String accountID;
@@ -78,8 +74,7 @@ public abstract class Account implements AccountActions {
     // Fee is automatically charged from the same account.
     @Override
     public boolean withdraw(int amount, String currency) {
-        // Withdraw correct amount depending on currency
-        // Creates the transaction if valid
+        // Withdraw correct amount depending on currency and creates the transaction if valid
     	int balanceAfterWithdraw = 0;
         // switch (currency) {
         //     case "usd" -> balanceAfterWithdraw = this.getBalance() - amount - bank.getTransactionFee();

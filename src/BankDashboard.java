@@ -3,23 +3,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//Panel that contains the necessary attributes needed to be displayed to a user of a bank
 public abstract class BankDashboard extends JPanel {
 
         protected Window window;
-
         protected Bank bank;
-
         protected User user;
 
-
         //Dashboard Generals
-
         protected JPanel generalLabelsPanel;
 
         //DashBoardOptions
         protected JPanel generalActionsPanel;
         protected JButton logoutButton;
-
 
         public BankDashboard(Window window, User user, Bank bank) {
             super();

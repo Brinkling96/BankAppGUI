@@ -3,23 +3,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//Dialog that allows the banker to edit stocks
 public class StockEditDialog extends JDialog{
     protected Stock stock;
-
-
     protected JPanel host = new JPanel();
-
-
     protected JPanel inputPanel = new JPanel();
     protected JLabel name;
     protected FieldInputTextCombo valueInput = new FieldInputTextCombo("Stock Value");
     protected FieldInputTextCombo sharesInput = new FieldInputTextCombo("Number of Shares");
-
-
     protected JPanel buttonPanel = new JPanel();
     protected JButton submit = new JButton("Submit");
     protected JButton cancel = new JButton("Cancel");
-
 
     public StockEditDialog(Window owner,Stock stock) {
         super(owner, Dialog.DEFAULT_MODALITY_TYPE);
@@ -60,7 +54,6 @@ public class StockEditDialog extends JDialog{
         this.add(host);
         this.pack();
         this.setVisible(true);
-
 
     }
 
@@ -106,6 +99,7 @@ public class StockEditDialog extends JDialog{
         }
 
     }
+
     private void cancelAction() {
         this.dispose();
     }

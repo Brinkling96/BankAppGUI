@@ -1,18 +1,17 @@
+//Type of account that handles loans
 public class LoanAccount extends Account {
 
+    // interest is in decimal form, should be < 1
     public static double INTEREST_RATE = 0.1;
-    public static double COLLATERAL_ORIGINIAL_VALUE = 0.1;
+    public static double COLLATERAL_ORIGINAL_VALUE = 0.1;
     private int originalValue;
     private int principal;
-    // interest is in decimal form, should be < 1
-    // private double interest;
     private Collateral collateral;
 
     public LoanAccount (int originalValue, User user, Bank bank, Collateral collateral) {
         super(originalValue, user, bank);
         this.setOriginalValue(originalValue);
         this.setPrincipal(originalValue);
-        // this.setInterest(interest);
         this.setCollateral(collateral);
     }
 
@@ -20,7 +19,6 @@ public class LoanAccount extends Account {
         super(accountID, principal);
         this.setOriginalValue(Integer.parseInt(originalValue));
         this.setPrincipal(Integer.parseInt(originalValue));
-        // this.setInterest(Integer.parseInt(interest));
         this.setCollateral(collateral);
     }
 
@@ -44,14 +42,6 @@ public class LoanAccount extends Account {
 
     public void setPrincipal(int principal) {
         this.principal = principal;
-    }
-
-    public double getInterest() {
-        return INTEREST_RATE;
-    }
-
-    public void setInterest(double interest) {
-        // this.interest = interest;
     }
 
     public Collateral getCollateral() {

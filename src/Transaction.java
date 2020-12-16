@@ -1,8 +1,8 @@
 import java.time.LocalDateTime;
 
+//Serves as a receipt when there are any transactions in the bank like withdraws or deposits
 public class Transaction {
     public static final int numMemsToDisplay = 6;
-
     private Account account;
     private final String transactionType, currency, ID, time;
     private final int amount;
@@ -55,7 +55,6 @@ public class Transaction {
     }
 
     public String toString() {
-
         String out = "";
         out += this.getID() + ",";
         out += this.getTransactionType() + ",";

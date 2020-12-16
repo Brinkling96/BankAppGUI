@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+//Displays the different functionalities of the banker's account
 public class BankerDashboard extends MainDashboard {
-
 
     protected GUITable userAccountTable;
 
@@ -15,14 +15,10 @@ public class BankerDashboard extends MainDashboard {
     protected JButton setTimeButton;
     protected JButton viewDailyReportButton;
     protected JPanel userTableActionPanel;
-
-
-    //
     protected GUITable transactionTable;
 
     public BankerDashboard(Window window, Banker banker, Bank bank) {
         super(window, banker, bank);
-
 
         this.setTimeButton = new JButton("Set Time");
         this.setTimeButton.addActionListener(new ActionListener() {
@@ -94,7 +90,7 @@ public class BankerDashboard extends MainDashboard {
         add(Box.createVerticalBox());
         add(userTableActionPanel);
         ///////////////////////////////////////////////////
-        //Transcations
+        //Transactions
 
         ArrayList<Transaction> tds = new ArrayList<Transaction>();
         Class[] tclasses = new Class[6];
@@ -125,7 +121,6 @@ public class BankerDashboard extends MainDashboard {
 
         return returnlist;
     }
-
 
     private void setTimeButtonAction() {
         //todo, if we need it

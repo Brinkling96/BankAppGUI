@@ -2,15 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+//Dialog that gives the user a way to create any type of stock
 public abstract class StockCreationDialog extends JDialog {
 
     protected Stock stock;
-
-
     protected JPanel host = new JPanel();
-
-
     protected JPanel inputPanel = new JPanel();
     protected FieldInputTextCombo nameInput = new FieldInputTextCombo("Stock Name");
     protected FieldInputTextCombo valueInput = new FieldInputTextCombo("Stock Value");
@@ -51,7 +47,6 @@ public abstract class StockCreationDialog extends JDialog {
         });
 
         this.add(host);
-
 
     }
 
@@ -100,14 +95,11 @@ public abstract class StockCreationDialog extends JDialog {
             this.dispose();
         }
 
-
-
     }
     protected abstract Stock createStock(String name, Integer value, Integer shares);
 
     private void cancelAction() {
         this.dispose();
     }
-
 
 }

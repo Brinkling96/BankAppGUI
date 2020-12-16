@@ -3,24 +3,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//Dialog that allows the user to select which type of account they would like to create
 public class MoneyAccountTypeSelectionMenu extends JDialog {
 
     protected static final String[] accountTypes = new String[]{"Checking","Savings","Loan","Security"};
     private Window window;
-
     private Bank bank;
-
     protected JLabel label = new JLabel("Select AccountType to create: ");
-
     protected JComboBox dropDownBox = new JComboBox(new DefaultComboBoxModel(accountTypes));
-
     protected JButton submitButton = new JButton("Submit");
-
     protected JButton cancelButton = new JButton("Cancel");
-
-
     protected CustomerUser user;
-
     protected Account account;
 
     public MoneyAccountTypeSelectionMenu(Window owner, CustomerUser user, Bank bank) {

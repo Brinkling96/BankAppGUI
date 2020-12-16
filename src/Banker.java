@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+//User that has more capabilities than a customer and doesn't hold any accounts
 public class Banker extends User{
     private Bank bank;
 
@@ -23,10 +24,6 @@ public class Banker extends User{
         return this.bank.getUser(accountID);
     }
 
-    //todo update stock prices
-
-
-    //todo allow banker to configure bank
     public void configureBank(int creationFee, int closureFee, int transactionFee, double yenConversionRate, double euroConversionRate,
         double interestRate, int highValueBenchmark){
         this.bank.setCreationFee(creationFee);

@@ -1,3 +1,4 @@
+//Contains the necessary attributes for any stock in and stock market
 public abstract class Stock {
     protected String name;
     protected Integer value;

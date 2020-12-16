@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+//Dialog that allows the user to create a checking account
 public class AddCheckingAccountDialog extends AddAccountDialog {
-
 
     public AddCheckingAccountDialog(Window owner, CustomerUser user, Bank bank) {
         super(owner, user, "Input Balance: ", bank);
