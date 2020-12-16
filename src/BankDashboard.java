@@ -25,6 +25,7 @@ public abstract class BankDashboard extends JPanel {
             super();
             this.window = window;
             this.bank = bank;
+            this.user = user;
             window.setMinimumSize(new Dimension(1200, 800));
             LayoutManager layoutManager = new BoxLayout(this, BoxLayout.Y_AXIS);
             this.setLayout(layoutManager);

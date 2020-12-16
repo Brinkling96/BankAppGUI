@@ -3,8 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class BankerStockMarketDash extends BankDashboard {
-    protected JLabel windowLabel = new JLabel("Banker Stock Market");
+public class BankerStockMarketDash extends StockMarketDash {
 
     protected JButton backToMainDashButton = new JButton("Back to MainMenu");
 
@@ -23,27 +22,7 @@ public class BankerStockMarketDash extends BankDashboard {
 
 
     public BankerStockMarketDash(Window window, Banker banker, Bank bank) {
-        super(window, banker, bank);
-        //General Labels
-        this.generalLabelsPanel.add(windowLabel);
-
-        //General Actions
-        this.backToMainDashButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                goBacktoMainMenu();
-            }
-        });
-
-        this.generalActionsPanel.add(backToMainDashButton);
-
-
-        //First table
-        this.stockTable = new GUITable("Stock Market: ",new Object[][]{{"t"}}, new String[]{"T"},new Class[]{String.class});
-        this.stockList.add(stockMarket);
-        this.stockList.add(stockTable);
-        add(stockList);
-
+        super(window, banker, bank,"Banker Stock Market");
 
         //Table actions
         this.addStock.addActionListener(new ActionListener() {
@@ -70,26 +49,25 @@ public class BankerStockMarketDash extends BankDashboard {
         this.actionTableButtons.add(editStock);
         add(actionTableButtons);
 
-
-
-
-
-
-
-
-
     }
 
     private void addStockAction() {
+        //todo
     }
 
     private void removeStockAction() {
+        //todo
     }
 
     private void editStockAction() {
+        //todo
     }
 
-    protected void goBacktoMainMenu() {
-        //todo
+    @Override
+    protected void goBacktoMainMenu()  {
+        this.window.setVisible(false);
+        this.window.remove(this);
+        this.window.add(new BankerDashboard(window,(Banker) user,bank));
+        this.window.setVisible(true);
     }
 }

@@ -3,13 +3,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UserStockMarketDash extends BankDashboard {
+public class UserStockMarketDash extends StockMarketDash {
     protected Account account;
-    protected Bank bank;
 
 
     //General Labels
-    protected JLabel windowLabel;
     protected JLabel securityAccountIDLabel = new JLabel("Security Account ID: ");
     protected JLabel securityAccountIDActual;
 
@@ -51,10 +49,9 @@ public class UserStockMarketDash extends BankDashboard {
 
 
     public UserStockMarketDash(Window window,User user, Account account, Bank bank) {
-        super(window, user, bank);
+        super(window, user, bank, "Stock Market: ");//account.getUser().getUsername()
 
         ///General Labels
-        this.windowLabel = new JLabel("NULL"); //account.getUser().getUsername()
         this.generalLabelsPanel.add(windowLabel);
 
         this.securityAccountIDActual = new JLabel(account.getAccountID());
@@ -73,15 +70,18 @@ public class UserStockMarketDash extends BankDashboard {
         this.generalLabelsPanel.add(unrealizedProfitLabel);
         this.generalLabelsPanel.add(unrealizedProfitActual);
 
+        //stock Market Action
 
-        //General Action
-        this.backToUserDash.addActionListener(new ActionListener() {
+        this.buyShares.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                goBackToDash();
+                buySharesAction();
             }
         });
-        this.generalActionsPanel.add(backToUserDash);
+
+        this.smActionsPanel.add(buyShares);
+        this.add(smActionsPanel);
+
 
         //cp table
 
@@ -101,23 +101,8 @@ public class UserStockMarketDash extends BankDashboard {
 
         this.cpActionsPanel.add(sellShares);
 
-        //Stock Market
-        this.stockMarketTable = new GUITable("Stock Market: ",new Object[][]{{"w"}}, new String[]{"W"},new Class[]{String.class});
-        this.stockMarketPanel.add(stockMarketLabel);
-        this.stockMarketPanel.add(stockMarketTable);
-        this.add(stockMarketPanel);
 
-        //stock Market Action
 
-        this.buyShares.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buySharesAction();
-            }
-        });
-
-        this.smActionsPanel.add(buyShares);
-        this.add(smActionsPanel);
 
     }
 
@@ -129,8 +114,11 @@ public class UserStockMarketDash extends BankDashboard {
         //todo
     }
 
-    private void goBackToDash() {
-        //todo
+    @Override
+    protected void goBacktoMainMenu() {
+        this.window.setVisible(false);
+        this.window.remove(this);
+        this.window.add(new UserDashboard(window,(CustomerUser) user,bank));
+        this.window.setVisible(true);
     }
-
 }
