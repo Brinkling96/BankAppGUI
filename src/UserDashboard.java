@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class UserDashboard extends Dashboard{
+public class UserDashboard extends MainDashboard {
 
 
 
@@ -138,7 +138,10 @@ public class UserDashboard extends Dashboard{
     }
 
     protected void stockMarketAction(){
-        //todo
+        this.window.setVisible(false);
+        this.window.remove(this);
+        this.window.add(new UserStockMarketDash(window,new CheckingAccount(0,this.user,12,this.bank),bank)); //todo
+        this.window.setVisible(true);
     }
 
     private void addAccountButtonAction() {
