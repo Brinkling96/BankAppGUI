@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class DailyReportMenu extends InputIntMenu{
     private Bank bank;
     public DailyReportMenu(Window owner, Bank bank) {
-        super(owner, "Daily Report Menu", "Date (MMddyyyy)");
+        super(owner, "Daily Report Menu", "Date (MMddyyyy)", "");
         this.bank = bank;
         pack();
         setVisible(true);

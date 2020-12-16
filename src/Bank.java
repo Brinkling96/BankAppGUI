@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Bank {
+    public static String[] VALID_CURRENCIES = {"usd", "euro", "yen"};
     private int creationFee, closureFee, transactionFee;
     //Equivalent to 1 USD
     //todo ask user which type of currency to enter?
