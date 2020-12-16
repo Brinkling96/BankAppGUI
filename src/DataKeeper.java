@@ -96,7 +96,7 @@ public class DataKeeper {
                 }
                 lines.remove(removeLine);
                 deleteDir(new File(directoryName + "/" + aid));
-            } else if (type.equals("deposit fee") || type.equals("withdraw fee")) {
+            } else {
                 for (int i = 0; i < lines.size(); i++) {
                     if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
                         lines.set(i, account.toString().replace("\n", ""));
