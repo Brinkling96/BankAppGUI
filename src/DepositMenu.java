@@ -25,48 +25,43 @@ public class DepositMenu extends InputIntMenu {
         if(intField.getText().isEmpty()){
             warning = "Deposit must be entered";
         } else {
-            if (currencyField.getText().isEmpty()) {
-                warning = "Currency must be entered";
-            } else {
-                boolean valid = false;
-                for (String str : Bank.VALID_CURRENCIES) {
-                    if (currencyField.getText().equals(str)) {
-                        valid = true;
-                        break;
-                    }
+            boolean valid = false;
+            for (String str : Bank.VALID_CURRENCIES) {
+                if (currencyField.getSelectedItem().equals(str)) {
+                    valid = true;
+                    break;
                 }
-                if (valid) {
-                    try{
-                        int amount = Integer.parseInt(intField.getText());
-                        if(amount> 0) {
-                            if (account instanceof LoanAccount) {
-                                if (amount <= ((LoanAccount) account).getPrincipal()) {
-                                    int result = JOptionPane.showConfirmDialog(this, "Pay " + currencyField.getText() + " " + Integer.toString(amount) + " ?");
-                                    if (result == JOptionPane.OK_OPTION) {
-                                        ((LoanAccount) account).deposit(amount, currencyField.getText());
-                                        this.dispose();
-                                    }
-                                } else {
-                                    warning = "Deposit amount is not valid";
-                                }
-                            } else {
-                                int result = JOptionPane.showConfirmDialog(this, "Deposit "+ currencyField.getText() + " " + Integer.toString(amount) + " ?");
+            }
+            if (valid) {
+                try {
+                    int amount = Integer.parseInt(intField.getText());
+                    if (amount > 0) {
+                        if (account instanceof LoanAccount) {
+                            if (amount <= ((LoanAccount) account).getPrincipal()) {
+                                int result = JOptionPane.showConfirmDialog(this, "Pay " + (String) currencyField.getSelectedItem() + " " + Integer.toString(amount) + " ?");
                                 if (result == JOptionPane.OK_OPTION) {
-                                    account.deposit(amount, currencyField.getText());
+                                    ((LoanAccount) account).deposit(amount,  (String) currencyField.getSelectedItem());
                                     this.dispose();
                                 }
+                            } else {
+                                warning = "Deposit amount is not valid";
+                            }
+                        } else {
+                            int result = JOptionPane.showConfirmDialog(this, "Deposit " + currencyField.getSelectedItem() + " " + Integer.toString(amount) + " ?");
+                            if (result == JOptionPane.OK_OPTION) {
+                                account.deposit(amount, (String) currencyField.getSelectedItem());
+                                this.dispose();
                             }
                         }
-                        else{
-                            warning = "Deposit amount is not valid";
-                        }
-
-                    }catch (NumberFormatException err){
-                        warning = "Deposit a number";
+                    } else {
+                        warning = "Deposit amount is not valid";
                     }
-                } else {
-                    warning = "Currency must be 'usd', 'euro' or 'yen'";
+
+                } catch (NumberFormatException err) {
+                    warning = "Deposit a number";
                 }
+            } else {
+                warning = "Currency must be 'usd', 'euro' or 'yen'";
             }
         }
         if(warning != null){

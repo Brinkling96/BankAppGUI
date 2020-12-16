@@ -8,7 +8,7 @@ public abstract class InputIntMenu extends JDialog {
     protected JLabel intLabel;
     protected JTextField intField;
     protected JLabel currencyLabel;
-    protected JTextField currencyField;
+    protected JComboBox currencyField;
     protected JButton submitButton;
     protected JButton cancelButton;
 
@@ -26,11 +26,12 @@ public abstract class InputIntMenu extends JDialog {
         this.intLabel = new JLabel(label);
         this.intField = new JTextField();
         this.currencyLabel = new JLabel(currency);
-        this.currencyField = new JTextField();
+        this.currencyField = new JComboBox(
+    new String[]{Bank.VALID_CURRENCIES[0],Bank.VALID_CURRENCIES[1],Bank.VALID_CURRENCIES[2]});
         this.submitButton = new JButton("Submit");
         this.cancelButton = new JButton("Cancel");
 
-        getContentPane().setLayout(new GridLayout(2,2,5,5));
+        getContentPane().setLayout(new GridLayout(3,2,5,5));
 
         getContentPane().add(intLabel);
         getContentPane().add(intField);
