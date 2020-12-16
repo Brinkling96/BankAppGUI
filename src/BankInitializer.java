@@ -1,9 +1,9 @@
 import javax.swing.*;
 import java.util.ArrayList;
 
+//Initializes all things necessary in the bank and displays a login screen
 public class BankInitializer {
     public BankInitializer() {
-
     }
 
     public void initialize() {

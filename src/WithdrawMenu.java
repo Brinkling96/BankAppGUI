@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+//Dialog that allows a customer to withdraw money from an account
 public class WithdrawMenu extends InputIntMenu {
 
     private Account account;

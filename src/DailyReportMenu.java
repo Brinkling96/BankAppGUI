@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+//Dialog that allows the banker to generate a daily report
 public class DailyReportMenu extends InputIntMenu{
     private Bank bank;
     public DailyReportMenu(Window owner, Bank bank) {
@@ -9,7 +10,6 @@ public class DailyReportMenu extends InputIntMenu{
         this.bank = bank;
         pack();
         setVisible(true);
-
     }
 
     @Override

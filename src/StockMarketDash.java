@@ -4,15 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+//Contains necessary features that should be displayed when accessing the stock market
 public abstract class StockMarketDash extends BankDashboard{
 
     protected JLabel windowLabel;
-
     protected JButton backToMainDashButton = new JButton("Back to MainMenu");
-
     protected GUITable stockTable;
-
-
     protected JPanel actionTableButtons = new JPanel();
 
     public StockMarketDash(Window window, User user, Bank bank, String windowLabelString) {
@@ -30,7 +27,6 @@ public abstract class StockMarketDash extends BankDashboard{
         });
 
         this.generalActionsPanel.add(backToMainDashButton);
-
 
         //First table
         this.stockTable = new GUITable("Stock Market: ",createStockTData(),
@@ -60,7 +56,6 @@ public abstract class StockMarketDash extends BankDashboard{
 
         return returnlist;
     }
-
 
     protected abstract void goBacktoMainMenu();
 }

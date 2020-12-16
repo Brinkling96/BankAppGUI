@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+//Panel that can be used whenever a label with a drop down needs to be displayed
 public class LabelDropDownCombo extends JPanel {
     protected JLabel label;
     protected JComboBox comboBox;

@@ -2,8 +2,8 @@ import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.*;
 
+//Panel that displays items in a table
 public class GUITable extends JPanel {
-
 
     protected JPanel labelHost = new JPanel();
     protected JLabel label;

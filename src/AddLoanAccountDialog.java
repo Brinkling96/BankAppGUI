@@ -2,34 +2,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+//Dialog that allows the user to take out a loan
 public class AddLoanAccountDialog extends AddAccountDialog{
 
-    protected JPanel collatoralPanel= new JPanel();
-
+    protected JPanel collateralPanel = new JPanel();
     protected FieldInputTextCombo cName = new FieldInputTextCombo("Collatoral Name:");
     protected FieldInputTextCombo cDescription = new FieldInputTextCombo("Description:");
     protected FieldInputTextCombo cValue = new FieldInputTextCombo("Value:");
 
-
-
     public AddLoanAccountDialog(Window owner, CustomerUser user, Bank bank) {
         super(owner, user, "Input Loan amount :", bank);
 
+        collateralPanel.setLayout(new GridLayout(1,3));
 
-        collatoralPanel.setLayout(new GridLayout(1,3));
-
-        this.collatoralPanel.add(cName);
-        this.collatoralPanel.add(cDescription);
-        this.collatoralPanel.add(cValue);
-
-        this.host.add(collatoralPanel,0);
+        this.collateralPanel.add(cName);
+        this.collateralPanel.add(cDescription);
+        this.collateralPanel.add(cValue);
+        this.host.add(collateralPanel,0);
         this.pack();
         this.setVisible(true);
-
-
-
-
-
     }
 
     @Override
@@ -65,14 +56,13 @@ public class AddLoanAccountDialog extends AddAccountDialog{
         else {
             try {
                 cVal = Integer.parseInt(cValue.textField.getText());
-                if (cVal < balance * LoanAccount.COLLATERAL_ORIGINIAL_VALUE) {
+                if (cVal < balance * LoanAccount.COLLATERAL_ORIGINAL_VALUE) {
                     returnString += "Need a higher Collateral Value for this Loan!\n";
                 }
             } catch (NumberFormatException err) {
                 returnString += "Collateral Value must be a number!\n";
             }
         }
-
 
         if (returnString != null) {
             JOptionPane.showMessageDialog(this, returnString, "Input Warning", JOptionPane.WARNING_MESSAGE);

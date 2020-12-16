@@ -1,7 +1,5 @@
+//Type of account that doesn't accumulate interest
 public class CheckingAccount extends Account {
-
-
-
     public CheckingAccount(Integer balance, User user, Bank bank) {
         super(balance, user, bank);
     }

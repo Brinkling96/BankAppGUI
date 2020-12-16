@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+//Dialog that allows the user to create a securities account
 public class AddSecurityAccount extends AddAccountDialog{
 
     protected GUITable savingTable;

@@ -2,10 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+//Dialog that allows a customer to deposit money into their account
 public class DepositMenu extends InputIntMenu {
 
     private Account account;
-
 
     public DepositMenu(Window owner, Account account) {
         super(owner, "Deposit Menu", "Deposit Amount");
@@ -17,7 +17,6 @@ public class DepositMenu extends InputIntMenu {
         setVisible(true);
 
     }
-
 
     @Override
     protected void submitButtonAction(ActionEvent e) {

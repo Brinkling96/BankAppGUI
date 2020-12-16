@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+//Panel that can be used whenever the user should enter text next to a field
 public class FieldInputTextCombo extends JPanel {
 
     protected JLabel label;

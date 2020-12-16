@@ -1,5 +1,4 @@
-import java.time.LocalDateTime;
-
+//Type of account that accumulates interest
 public class SavingsAccount extends Account {
 
     public SavingsAccount(Integer balance, User user, Bank bank) {

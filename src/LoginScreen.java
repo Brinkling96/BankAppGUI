@@ -3,18 +3,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//Panel that allows the user to login
 public class LoginScreen extends JPanel {
 
     protected Bank bank;
-
     protected Window window;
-
     protected FieldInputTextCombo usernamePanel;
-
     protected JPanel passwordPanel;
     protected JLabel passwordLabel;
     protected JPasswordField passwordField;
-
     protected JPanel buttonPanel;
     protected JButton submitButton;
     protected JButton newUserButton;
@@ -66,12 +63,9 @@ public class LoginScreen extends JPanel {
         this.buttonPanel.add(newUserButton);
         this.buttonPanel.add(cancelButton);
 
-
         this.add(usernamePanel);
         this.add(passwordPanel);
         this.add(buttonPanel);
-
-
     }
 
     private void cancelButtonAction() {
@@ -101,14 +95,6 @@ public class LoginScreen extends JPanel {
                         }
                     }
                 }
-
-                // if(customerUser.getLoans() != null) {
-                //     for(Loan loan: customerUser.getLoans()){
-                //         //todo loan doesn't have an account associated with it, so no transaction for now
-                //         loan.chargeInterest((int)days);
-                //         //createTransaction(account, "interest payment", interestGained, "usd")
-                //     }
-                // }
                 this.window.add(new UserDashboard(window,(CustomerUser) user,bank));
             }
             else if(user instanceof Banker){

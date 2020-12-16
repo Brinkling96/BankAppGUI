@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
+//Holds all the information and functionality that is important to a bank
 public class Bank {
     private int creationFee, closureFee, transactionFee;
     //Equivalent to 1 USD
-    //todo ask user which type of currency to enter?
     private double yenConversionRate, euroConversionRate, interestRate;
     private int highValueBenchmark;
     private int userNumber;

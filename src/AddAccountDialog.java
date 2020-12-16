@@ -3,18 +3,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//a general Dialog that allows a user to create an account
 public abstract class AddAccountDialog extends JDialog{
     protected CustomerUser user;
     protected Account account;
     protected Bank bank;
-
     protected JPanel host = new JPanel();
-
-
     protected JPanel bpanel = new JPanel();
     protected JLabel balanceLabel;
     protected JTextField balanceField;
-
     protected JPanel buttonPanel = new JPanel();
     protected JButton okButton;
     protected JButton cancelButton;
@@ -46,7 +43,6 @@ public abstract class AddAccountDialog extends JDialog{
 
         this.host.add(bpanel);
 
-
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -68,7 +64,6 @@ public abstract class AddAccountDialog extends JDialog{
 
         this.host.add(buttonPanel);
 
-
         this.add(host);
 
     }
@@ -76,11 +71,9 @@ public abstract class AddAccountDialog extends JDialog{
     private void cancelButtonAction(ActionEvent e){
         this.dispose();
     }
-
     protected abstract void okButtonAction(ActionEvent e);
     public Account getAccount(){
         return account;
     }
-
 
 }

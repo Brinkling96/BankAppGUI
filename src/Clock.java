@@ -2,6 +2,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+//Necessary to keep track of when interest should be calculated and handle transactions
 public class Clock {
     public static String TIME_PATTERN = "MM-dd-yyyy HH:mm:ss";
     private static Clock clock = new Clock();

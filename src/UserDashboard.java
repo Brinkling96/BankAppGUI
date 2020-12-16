@@ -4,10 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+//Displays the account attributes to the user
 public class UserDashboard extends MainDashboard {
-
-
-
     //User Account Table
     protected GUITable moneyAccountTable;
 
@@ -104,7 +102,6 @@ public class UserDashboard extends MainDashboard {
         this.transactionTable = new GUITable("Transaction Table: ",createTDTable(transactions),new String[]{"TransactionID","TranscationType","Date","Amount", "Currency"}, tclasses);
         add(Box.createVerticalGlue());
         add(transactionTable);
-
 
         /////////////////////////////////////////////////////////////////////
     }

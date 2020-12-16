@@ -1,0 +1,75 @@
+README
+
+Shawn Zhou
+Sean Brady
+Sarah Shahinpour
+
+Run Command: java Main
+
+CLASSES:
+
+Main: used to run the program
+
+AccountActions (interface): defines all necessary functions of an account
+Account (abstract): implements AccountActions and contains all functions and attributes necessary in any account
+    CheckingAccount: type of account that doesn't accumulate interest
+    SavingsAccount: type of account that accumulates interest
+    SecurityAccount: type of account that handles stocks
+    LoanAccount: type of account that handles loans
+
+
+User (abstract): contains all necessary features of a user
+    Banker: user that has more capabilities than a customer and doesn't hold any accounts
+    CustomerUser: user that has different types of accounts
+
+Bank: holds all the information and functionality that is important to a bank
+BankInitializer: initializes all things necessary in the bank and displays a login screen
+Collateral: an item of a particular value needed when someone wants to take out a loan
+Transaction: serves as a receipt when there are any transactions in the bank like withdraws or deposits
+
+Stock (abstract): contains the necessary attributes for any stock in and stock market
+    NYSE_Stock: contains the necessary attributes for a stock on the NYSE
+
+Clock: necessary to keep track of when interest should be calculated and handle transactions
+BankTimeSetter: allows user to set the time of the bank
+DataKeeper: accesses files to keep track of all the users and transactions so that the data is persistent
+
+
+AddAccountDialog (abstract): a general Dialog that allows a user to create an account
+    AddCheckingAccountDialog: Dialog that allows the user to create a checking account
+    AddSavingsAccountDialog: Dialog that allows the user to create a savings account
+    AddLoanAccountDialog: Dialog that allows the user to take out a loan
+    AddSecurityAccount: Dialog that allows the user to create a securities account
+
+UserCreationDialog: Dialog that allows a user to create an account with the bank
+StockCreationDialog: (abstract) Dialog that gives the user a way to create any type of stock
+    NYSEStockCreationDialog: Dialog that allows the user to create a stock specific to the NYSE
+StockEditDialog: Dialog that allows the banker to edit stocks
+
+
+BankingFrame: Frame that helps display the bank to the user
+GUITable: Panel that displays items in a table
+BankingGUITableModel: used to display items like accounts and transactions
+
+MoneyAccountTypeSelectionMenu: Dialog that allows the user to select which type of account they would like to create
+
+FieldInputTextCombo: Panel that can be used whenever the user should enter text next to a field
+LabelDropDownCombo: Panel that can be used whenever a label with a drop down needs to be displayed
+
+InputIntMenu (abstract): general Dialog that allows the user to input an int
+    DailyReportMenu: Dialog that allows the banker to generate a daily report
+    WithdrawMenu: Dialog that allows a customer to withdraw money from an account
+    DepositMenu: Dialog that allows a customer to deposit money into their account
+
+
+LoginScreen: Panel that allows the user to login
+
+
+BankDashboard (abstract): Panel that contains the necessary attributes needed to be displayed to a user of a bank
+    MainDashBoard (abstract): general main dashboard that can be used for any bank user
+        UserDashboard: displays the account attributes to the user
+        BankerDashboard: displays the different functionalities of the banker's account
+
+StockMarketDash (abstract): contains necessary features that should be displayed when accessing the stock market
+    BankerStockMarketDash: displays stock market features relevant to the banker
+    UserStockMarketDash: displays stock market features relevant to the user

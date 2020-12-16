@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+//Dialog that allows the user to create a savings account
 public class AddSavingsAccountDialog extends AddAccountDialog {
 
     public AddSavingsAccountDialog(Window owner, CustomerUser user, Bank bank) {

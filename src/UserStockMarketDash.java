@@ -3,9 +3,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//Displays stock market features relevant to the user
 public class UserStockMarketDash extends StockMarketDash {
     protected Account account;
-
 
     //General Labels
     protected JLabel securityAccountIDLabel = new JLabel("Security Account ID: ");
@@ -17,8 +17,6 @@ public class UserStockMarketDash extends StockMarketDash {
     protected JLabel realizedProfitActual;
     protected JLabel unrealizedProfitLabel = new JLabel("Unrealized Profit");
     protected JLabel unrealizedProfitActual;
-
-
 
 
     //General Actions
@@ -43,8 +41,6 @@ public class UserStockMarketDash extends StockMarketDash {
 
     protected JButton buyShares = new JButton("Buy Stock Shares");
     protected JPanel smActionsPanel = new JPanel();
-
-
 
     public UserStockMarketDash(Window window,User user, Account account, Bank bank) {
         super(window, user, bank, "Stock Market: ");//account.getUser().getUsername()

@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//General Dialog that allows the user to input an int
 public abstract class InputIntMenu extends JDialog {
     protected JLabel intLabel;
     protected JTextField intField;
@@ -24,7 +25,6 @@ public abstract class InputIntMenu extends JDialog {
         this.intField = new JTextField();
         this.submitButton = new JButton("Submit");
         this.cancelButton = new JButton("Cancel");
-
 
         getContentPane().setLayout(new GridLayout(2,2,5,5));
 
@@ -48,7 +48,6 @@ public abstract class InputIntMenu extends JDialog {
         });
 
         getContentPane().add(cancelButton);
-
 
     }
 
