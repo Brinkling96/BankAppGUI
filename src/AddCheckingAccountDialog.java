@@ -33,8 +33,12 @@ public class AddCheckingAccountDialog extends AddAccountDialog {
             JOptionPane.showMessageDialog(this, returnString, "Input Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             if (balance > 100) {
-                this.account = new CheckingAccount(balance, user, bank);
-                user.addAccount(account, this.bank);
+                int result = JOptionPane.showConfirmDialog(this,"Creation fee of $" + bank.getCreationFee(),
+                        "Fee",JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.OK_OPTION) {
+                    user.addAccount(account, this.bank);
+                    this.account = new CheckingAccount(balance, user, bank);
+                }
                 this.dispose();
             } else {
                 returnString = "Balance must be over 100";

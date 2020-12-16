@@ -45,6 +45,7 @@ public class AddSecurityAccount extends AddAccountDialog{
 
     @Override
     protected void okButtonAction(ActionEvent e) {
-        //todo
+        JOptionPane.showMessageDialog(this, "Unimplemented");
+        this.dispose();
     }
 }

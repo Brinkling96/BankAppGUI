@@ -215,30 +215,32 @@ public class UserDashboard extends MainDashboard {
 
     public void deposit(){
         int selectedRow = this.moneyAccountTable.table.getSelectedRow();
-        Account account = getSelectedAccount(selectedRow);
-        if(account != null){
-            JDialog dWindow = new DepositMenu(window,account);
+        if(selectedRow >=0 ) {
+            Account account = getSelectedAccount(selectedRow);
+            if (account != null) {
+                JDialog dWindow = new DepositMenu(window, account);
+            }
+            if (account instanceof LoanAccount) {
+                Object[] input = new Object[]{account.accountID, ((LoanAccount) account).getPrincipal()};
+                this.moneyAccountTable.reloadRowData(selectedRow, input);
+            } else {
+                Object[] input = new Object[]{account.accountID, account.balance};
+                this.moneyAccountTable.reloadRowData(selectedRow, input);
+            }
         }
-        if (account instanceof LoanAccount) {
-            Object[] input = new Object[]{account.accountID, ((LoanAccount) account).getPrincipal()};
-            this.moneyAccountTable.reloadRowData(selectedRow,input);
-        } else {
-            Object[] input = new Object[]{account.accountID, account.balance};
-            this.moneyAccountTable.reloadRowData(selectedRow,input);
-        }
-        
     }
 
     public void withdraw(){
         int selectedRow = this.moneyAccountTable.table.getSelectedRow();
+        if(selectedRow >=0 ) {
+            Account account = getSelectedAccount(selectedRow);
+            if (account != null) {
+                JDialog wWindow = new WithdrawMenu(window, account, this.bank);
 
-        Account account = getSelectedAccount(selectedRow);
-        if(account != null){
-            JDialog wWindow = new WithdrawMenu(window,account,this.bank);
-
+            }
+            Object[] input = new Object[]{account.accountID, account.balance};
+            this.moneyAccountTable.reloadRowData(selectedRow, input);
         }
-        Object[] input = new Object[]{account.accountID, account.balance};
-        this.moneyAccountTable.reloadRowData(selectedRow,input);
     }
 }
 
