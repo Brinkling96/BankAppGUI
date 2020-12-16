@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public abstract class StockMarketDash extends BankDashboard{
 
@@ -34,10 +35,33 @@ public abstract class StockMarketDash extends BankDashboard{
 
 
         //First table
-        this.stockTable = new GUITable("Stock Market: ",new Object[][]{{"t"}}, new String[]{"T"},new Class[]{String.class});
+        this.stockTable = new GUITable("Stock Market: ",createStockTData(),
+                new String[]{"Stock Name", "Stock Price","Avaliable Shares"},new Class[]{String.class,Integer.class,Integer.class});
         this.stockList.add(stockMarket);
         this.stockList.add(stockTable);
         add(stockList);
+    }
+
+    private Object[][] createStockTData(){
+        ArrayList<Stock> s =  bank.getStocks();
+        ArrayList<NYSE_Stock> nyse = new ArrayList<>();
+
+        for(Stock x : s){
+            if(x instanceof NYSE_Stock){
+                nyse.add((NYSE_Stock) x);
+            }
+
+        }
+        Object[][] returnlist = new Object[nyse.size()][3];
+        for(int i=0; i<returnlist.length; i++){
+            NYSE_Stock g = nyse.get(i);
+            int j=0;
+            returnlist[i][j++] = g.name;
+            returnlist[i][j++] = g.value;
+            returnlist[i][j++] = g.shares;
+        }
+
+        return returnlist;
     }
 
 

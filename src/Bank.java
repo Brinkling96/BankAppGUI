@@ -10,6 +10,8 @@ public class Bank {
     private ArrayList<Transaction> dailyReport;
     protected ArrayList<User> users;
 
+    protected ArrayList<Stock> stocks = new ArrayList<>();
+
     public Bank(ArrayList<User> users) {
         this.users = users;
         this.transactionFee = 3;
@@ -137,4 +139,24 @@ public class Bank {
             }
         }
     }
+
+    public void addStock(Stock stock){
+        stocks.add(stock);
+    }
+
+    public void removeStock(Stock stock){stocks.remove(stock);}
+
+    public ArrayList<Stock> getStocks() {
+        return stocks;
+    }
+
+    public Stock findStock(String stockName){
+        for(Stock s : stocks){
+            if(s.getName().equals(stockName)){
+                return s;
+            }
+        }
+        return null;
+    }
+
 }
