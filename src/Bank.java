@@ -81,18 +81,28 @@ public class Bank {
         this.transactionFee = transactionFee;
     }
 
-    public double getYenConversionRate() {
-    	return this.yenConversionRate;
-    }
+    // public double getYenConversionRate() {
+    // 	return this.yenConversionRate;
+    // }
     public void setYenConversionRate(double yenConversionRate) {
         this.yenConversionRate = yenConversionRate;
     }
 
-    public double getEuroConversionRate() {
-    	return this.euroConversionRate;
-    }
+    // public double getEuroConversionRate() {
+    // 	return this.euroConversionRate;
+    // }
     public void setEuroConversionRate(double euroConversionRate) {
         this.euroConversionRate = euroConversionRate;
+    }
+
+    public double getConversionRate(String currency) {
+        double rate = 0;
+        switch(currency) {
+            case "usd" -> rate = 1;
+            case "euro" -> rate = euroConversionRate;
+            case "yen" -> rate = yenConversionRate;
+        }
+        return rate;
     }
 
     public double getInterestRate() {
