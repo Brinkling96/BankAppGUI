@@ -155,7 +155,12 @@ public class UserDashboard extends MainDashboard {
         MoneyAccountTypeSelectionMenu d = new MoneyAccountTypeSelectionMenu(window, ((CustomerUser) user), this.bank);
         Account act = d.account;
         if (act != null) {
-            moneyAccountTable.addRowToTable(new Object[]{act.getAccountID(), act.getBalance()});
+            if (act instanceof LoanAccount) {
+                moneyAccountTable.addRowToTable(new Object[]{act.getAccountID(), ((LoanAccount)act).getPrincipal()});
+            } else {
+                moneyAccountTable.addRowToTable(new Object[]{act.getAccountID(), act.getBalance()});
+
+            }
         }
     }
 

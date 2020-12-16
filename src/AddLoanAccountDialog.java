@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class AddLoanAccountDialgo extends AddAccountDialog{
+public class AddLoanAccountDialog extends AddAccountDialog{
 
     protected JPanel collatoralPanel= new JPanel();
 
@@ -12,7 +12,7 @@ public class AddLoanAccountDialgo extends AddAccountDialog{
 
 
 
-    public AddLoanAccountDialgo(Window owner, CustomerUser user, Bank bank) {
+    public AddLoanAccountDialog(Window owner, CustomerUser user, Bank bank) {
         super(owner, user, "Input Loan amount :", bank);
 
 
@@ -80,7 +80,7 @@ public class AddLoanAccountDialgo extends AddAccountDialog{
             String name = cName.textField.getText();
             String description = cDescription.textField.getText();
             Collateral c = new Collateral(name, description, cVal);
-            Account account = new LoanAccount(balance,user,bank,c);
+            account = new LoanAccount(balance,user,bank,c);
             user.addAccount(account, this.bank);
             this.dispose();
         }

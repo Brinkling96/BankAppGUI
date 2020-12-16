@@ -57,14 +57,14 @@ public class MoneyAccountTypeSelectionMenu extends JDialog {
     }
 
     private void submitActionButton() {
-        if(this.dropDownBox.getSelectedItem().toString() == this.accountTypes[0]){
+        if(this.dropDownBox.getSelectedItem().toString() == MoneyAccountTypeSelectionMenu.accountTypes[0]){
             this.setVisible(false);
             AddAccountDialog d = new AddCheckingAccountDialog(this.window,this.user, this.bank);
             if(d.getAccount() != null){
                 this.account = d.getAccount();
             }
         }
-        else if(this.dropDownBox.getSelectedItem().toString()== this.accountTypes[1]){
+        else if(this.dropDownBox.getSelectedItem().toString()== MoneyAccountTypeSelectionMenu.accountTypes[1]){
             this.setVisible(false);
             AddAccountDialog d = new AddSavingsAccountDialog(this.window,this.user,this.bank);
             if(d.getAccount() != null){
@@ -72,15 +72,15 @@ public class MoneyAccountTypeSelectionMenu extends JDialog {
             }
         }
 
-        else if(this.dropDownBox.getSelectedItem().toString()== this.accountTypes[2]){
+        else if(this.dropDownBox.getSelectedItem().toString()== MoneyAccountTypeSelectionMenu.accountTypes[2]){
             this.setVisible(false);
-            AddAccountDialog d = new AddLoanAccountDialgo(window,user,bank);
+            AddAccountDialog d = new AddLoanAccountDialog(this.window,this.user,this.bank);
             if(d.getAccount() != null){
                 this.account = d.getAccount();
             }
         }
 
-        else if(this.dropDownBox.getSelectedItem().toString()== this.accountTypes[3]){
+        else if(this.dropDownBox.getSelectedItem().toString()== MoneyAccountTypeSelectionMenu.accountTypes[3]){
             this.setVisible(false);
             AddSecurityAccount d = new AddSecurityAccount(window,user,bank);
             if(d.getAccount() != null){

@@ -49,6 +49,7 @@ public class CustomerUser extends User{
 
     // todo charge fees to add and remove accounts, I think I did it correctly, but we can never be too sure
     public void addAccount(Account account, Bank bank){
+        System.out.println(bank);
         this.accountNumber++;
         this.accounts.add(account);
         account.setBalance(account.getBalance() - bank.getCreationFee());
