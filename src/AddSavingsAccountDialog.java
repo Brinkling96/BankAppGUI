@@ -32,8 +32,12 @@ public class AddSavingsAccountDialog extends AddAccountDialog {
         }
         else{
             if(balance >100){
-                this.account = new SavingsAccount(balance, user, bank);
-                user.addAccount(account, this.bank);
+                int result = JOptionPane.showConfirmDialog(this,"Creation fee of $" + bank.getCreationFee(),
+                        "Fee",JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.OK_OPTION) {
+                    this.account = new SavingsAccount(balance, user, bank);
+                    user.addAccount(account, this.bank);
+                }
                 this.dispose();
             }
             else{

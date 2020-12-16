@@ -41,7 +41,8 @@ public class DepositMenu extends InputIntMenu {
                             warning = "Deposit amount is not valid";
                         }
                     } else {
-                        int result = JOptionPane.showConfirmDialog(this, "Deposit $" + Integer.toString(amount) + " ?");
+                        int result = JOptionPane.showConfirmDialog(this,
+                                "Deposit $" + Integer.toString(amount) + " ?");
                         if (result == JOptionPane.OK_OPTION) {
                             account.deposit(amount, "usd");
                             this.dispose();

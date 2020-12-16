@@ -80,8 +80,12 @@ public class AddLoanAccountDialog extends AddAccountDialog{
             String name = cName.textField.getText();
             String description = cDescription.textField.getText();
             Collateral c = new Collateral(name, description, cVal);
-            account = new LoanAccount(balance,user,bank,c);
-            user.addAccount(account, this.bank);
+            int result = JOptionPane.showConfirmDialog(this,"Creation fee of $" + bank.getCreationFee(),
+                    "Fee",JOptionPane.YES_NO_OPTION);
+            if(result == JOptionPane.OK_OPTION) {
+                account = new LoanAccount(balance, user, bank, c);
+                user.addAccount(account, this.bank);
+            }
             this.dispose();
         }
     }
