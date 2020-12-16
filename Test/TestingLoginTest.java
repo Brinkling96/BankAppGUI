@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class TestingLoginTest {
     public static void main(String[]  args) {
+        /*
         JFrame frame = BankingFrame.getInstance();
         ArrayList<User> temp = new ArrayList<>();
         Bank bank = new Bank(temp);
@@ -18,5 +19,7 @@ public class TestingLoginTest {
         frame.add(new LoginScreen(frame,bank));
         frame.pack();
         frame.setVisible(true);
+
+         */
     }
 }

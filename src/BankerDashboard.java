@@ -62,7 +62,7 @@ public class BankerDashboard extends Dashboard {
         }
 
 
-        this.userAccountTable = new GUITable(tableData, new String[]{"AccountID", "Username", "Number of Accounts"}, aclasses);
+        this.userAccountTable = new GUITable("Users Table: ",tableData, new String[]{"AccountID", "Username", "Number of Accounts"}, aclasses);
         add(Box.createVerticalBox());
         add(userAccountTable);
         //////////////////////////////////////////////////////////////////////////
@@ -103,7 +103,7 @@ public class BankerDashboard extends Dashboard {
         tclasses[2] = String.class;
         tclasses[3] = Integer.class;
         tclasses[4] = String.class;
-        this.transactionTable = new GUITable(createTDTable(tds), new String[]{"TransactionID", "TranscationType", "Date", "Amount", "Currency"}, tclasses);
+        this.transactionTable = new GUITable("Transactions table: ",createTDTable(tds), new String[]{"TransactionID", "TranscationType", "Date", "Amount", "Currency"}, tclasses);
 
         add(Box.createVerticalBox());
         add(transactionTable);

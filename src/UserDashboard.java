@@ -41,8 +41,8 @@ public class UserDashboard extends Dashboard{
 
         }
 
-        this.moneyAccountTable = new GUITable(tableData,new String[]{"AccountID","Balance"},aclasses);
-        add(Box.createVerticalBox());
+        this.moneyAccountTable = new GUITable("Account Table: ",tableData,new String[]{"AccountID","Balance"},aclasses);
+        add(Box.createVerticalGlue());
         add(moneyAccountTable);
 
         //////////////////////////////////////////////////////////////////////////////
@@ -109,8 +109,8 @@ public class UserDashboard extends Dashboard{
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
         
         
-        this.transactionTable = new GUITable(createTDTable(transactions),new String[]{"TransactionID","TranscationType","Date","Amount", "Currency"}, tclasses);
-        add(Box.createVerticalBox());
+        this.transactionTable = new GUITable("Transaction Table: ",createTDTable(transactions),new String[]{"TransactionID","TranscationType","Date","Amount", "Currency"}, tclasses);
+        add(Box.createVerticalGlue());
         add(transactionTable);
 
 

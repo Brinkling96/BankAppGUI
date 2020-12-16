@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class testingUserDash {
     public static void main(String[]  args) {
+        /*
         JFrame frame = BankingFrame.getInstance();
         ArrayList<User> temp = new ArrayList<>();
 
@@ -21,5 +22,7 @@ public class testingUserDash {
         frame.add(new UserDashboard(frame,d,bank));
         frame.pack();
         frame.setVisible(true);
+
+         */
     }
 }

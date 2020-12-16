@@ -1,12 +1,26 @@
 import javax.swing.*;
 import javax.swing.table.TableModel;
+import java.awt.*;
 
-public class GUITable extends JScrollPane {
+public class GUITable extends JPanel {
+
+
+    protected JPanel labelHost = new JPanel();
+    protected JLabel label;
+
+    protected JScrollPane scrollPane = new JScrollPane();
     protected  JTable table;
     protected BankingGUITableModel tableModel;
 
 
-    public GUITable(Object[][] tableData, String[] tableHeaders, Class[] classes) {
+    public GUITable(String labelString,Object[][] tableData, String[] tableHeaders, Class[] classes) {
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        label= new JLabel(labelString);
+        this.labelHost.add(label);
+        this.add(labelHost);
+
         this.table = new JTable();
 
         TableModel tableModel1 =  new BankingGUITableModel(tableData,tableHeaders,classes);
@@ -18,15 +32,19 @@ public class GUITable extends JScrollPane {
 
 
         tableModel = (BankingGUITableModel) this.table.getModel();
-        this.add(table);
+        this.scrollPane.add(table);
 
-        this.setViewportView(table);
+        this.scrollPane.setViewportView(table);
+
+
         if (table.getColumnModel().getColumnCount() > 0) {
             for(int i = table.getColumnModel().getColumnCount(); i== -1; i--){
                 table.getColumnModel().getColumn(i).setMinWidth(25);
                 table.getColumnModel().getColumn(i).setResizable(false);
             }
         }
+        this.add(Box.createVerticalGlue());
+        this.add(scrollPane);
 
     }
 
@@ -51,6 +69,10 @@ public class GUITable extends JScrollPane {
     public void addRowToTable(Object[] rowData){
         this.tableModel.addRow(new Object[]{});
         reloadRowData(this.tableModel.getRowCount()-1, rowData);
+    }
+
+    public Dimension getTableSize(){
+        return new Dimension(tableModel.getColumnCount(),tableModel.getRowCount());
     }
 
 }
