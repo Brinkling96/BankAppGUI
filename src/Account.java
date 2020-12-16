@@ -1,4 +1,11 @@
-//contains all functions and attributes necessary in any account
+/******************************************************************************
+ * Class: Account.java
+ * Author: Sarah Shahinpour, Sean Brady, Shuaike Zhou, 
+ *******************************************************************************/
+
+/**
+ * The Account class contains all functions and attributes necessary in any account
+ */
 public abstract class Account implements AccountActions {
     public static final int numMemsToDisplay = 2;
 
@@ -8,6 +15,9 @@ public abstract class Account implements AccountActions {
     protected Bank bank;
     protected User user;
 
+    /**
+     * This constructor is used when a new account is created by the user
+     */
     public Account(Integer balance, User user, Bank bank) {
         this.balance = balance;
         this.accountNumber = ((CustomerUser)user).getAccountNumber();
@@ -16,11 +26,19 @@ public abstract class Account implements AccountActions {
         this.setAccountID(user);
     }
 
+    /**
+     * This constructor is used when an account is loaded from the files
+     */
     public Account(String accountID, String balance) {
         this.accountID = accountID;
         this.balance = Integer.parseInt(balance);
     }
 
+    /**
+     * The accountID is set by a new account number, merged by the user
+     * number to ensure no duplicates
+     * @param user
+     */
     private void setAccountID(User user) {
         this.accountID = String.format("%04d",accountNumber);
         this.accountID = user.getUserID() + this.accountID;
@@ -35,6 +53,10 @@ public abstract class Account implements AccountActions {
             this.accountID += "ln";
     }
 
+    /**
+     * Getters and setters
+     */
+
     public String getAccountID() {
         return accountID;
     }
@@ -47,58 +69,42 @@ public abstract class Account implements AccountActions {
         this.balance = balance;
     }
 
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+    
     public Bank getBank() {
         return this.bank;
     }
 
+    /**
+     * Deposits a certain amount of money in a certain currency, converted into usd
+     */
     @Override
     public boolean deposit(int amount, String currency) {
-        // Deposit correct amount depending on currency
-        // Creates the transaction if valid
-        // switch (currency) {
-        //     case "usd" -> this.setBalance(this.getBalance() + amount);
-        //     case "yen" -> this.setBalance((int) (this.getBalance() + amount / bank.getYenConversionRate()));
-        //     case "euro" -> this.setBalance((int) (this.getBalance() + amount / bank.getEuroConversionRate()));
-        //     default -> {
-        //         System.out.println("Currency not supported.");
-        //         return false;
-        //     }
-        // }
         this.setBalance(this.getBalance() + (int) (amount/bank.getConversionRate(currency)));
         bank.createTransaction(this, "deposit", amount, currency);
-
         return true;
-
     }
 
-    // Fee is automatically charged from the same account.
+    /**
+     * Withdraw a certain amount of money in a certain currency. 
+     * Withdrawal fee is automatically charged from the same account.
+     */
     @Override
     public boolean withdraw(int amount, String currency) {
         // Withdraw correct amount depending on currency and creates the transaction if valid
     	int balanceAfterWithdraw = 0;
-        // switch (currency) {
-        //     case "usd" -> balanceAfterWithdraw = this.getBalance() - amount - bank.getTransactionFee();
-        //     case "yen" -> balanceAfterWithdraw =
-        //             (int) (this.getBalance() - amount / bank.getYenConversionRate() - bank.getTransactionFee());
-        //     case "euro" -> balanceAfterWithdraw =
-        //             (int) (this.getBalance() - amount / bank.getEuroConversionRate() - bank.getTransactionFee());
-        //     default -> {
-        //         System.out.println("Currency not supported.");
-        //         return false;
-        //     }
-        // }
     	balanceAfterWithdraw = this.getBalance() - (int) (amount/bank.getConversionRate(currency)) - bank.getTransactionFee();
     	if(balanceAfterWithdraw < 0) {
         	System.out.println("Current balance is too low to withdraw that amount.");
             return false;
-    	}else {
+    	} else {
     		this.setBalance(balanceAfterWithdraw);
     	}
-
     	bank.createTransaction(this, "withdraw", -amount, currency);
     	bank.createTransaction(this, "withdraw fee", -bank.getTransactionFee(), currency);
     	return true;
-
     }
 
     public String toString() {

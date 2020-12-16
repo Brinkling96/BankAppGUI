@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 //Panel that allows the user to login
 public class LoginScreen extends JPanel {
@@ -84,7 +85,11 @@ public class LoginScreen extends JPanel {
             this.window.setVisible(false);
             this.window.remove(this);
             if(user instanceof CustomerUser) {
-                ((CustomerUser) user).loadAccounts(DataKeeper.getAccountsFromUser(user));
+                ArrayList<Account> accounts = DataKeeper.getAccountsFromUser((CustomerUser) user);
+                for (Account account : accounts) {
+                    account.setBank(bank);
+                }
+                ((CustomerUser) user).loadAccounts(accounts);
                 //update the savings accounts and loans with interest here
                 CustomerUser customerUser = (CustomerUser) user;
                 long days = Clock.getClock().daysElapsed(customerUser.getCurrentLogin(), customerUser.getLastLogin());
