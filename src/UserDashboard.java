@@ -224,6 +224,15 @@ public class UserDashboard extends MainDashboard {
         Object[] input = new Object[]{account.accountID, account.balance};
         this.moneyAccountTable.reloadRowData(selectedRow,input);
     }
+
+    @Override
+    protected void logout() {
+        user.logout();
+        this.window.setVisible(false);
+        this.window.remove(this);
+        this.window.add(new LoginScreen(window, bank));
+        this.window.setVisible(true);
+    }
 }
 
 
