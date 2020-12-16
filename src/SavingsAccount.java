@@ -15,10 +15,10 @@ public class SavingsAccount extends Account {
         LocalDateTime now = this.user.getCurrentLogin();
         LocalDateTime lastLoginDate = this.user.getLastLogin();
         long days = Clock.getClock().daysElapsed(now, lastLoginDate);
-        // TODO: Check how many days has passed since last login date
-        
         if(this.getBalance() >= this.getBank().getHighValueBenchmark()){
-            this.setBalance((int)(this.getBalance()*(1 + this.getBank().getInterestRate())));
+            int interestGained = (int)(this.getBalance()*Math.pow((1+(this.getBank().getInterestRate())), days));
+            this.setBalance(this.getBalance() + interestGained);
+            this.getBank().createTransaction(this, "interest payment", interestGained, "usd");
         }
     }
 }
