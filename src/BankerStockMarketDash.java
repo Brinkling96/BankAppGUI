@@ -5,11 +5,7 @@ import java.awt.event.ActionListener;
 
 public class BankerStockMarketDash extends StockMarketDash {
 
-    protected JButton backToMainDashButton = new JButton("Back to MainMenu");
 
-    protected GUITable stockTable;
-    protected JLabel stockMarket = new JLabel("StockMarket");
-    protected JPanel stockList = new JPanel();
 
 
     protected JPanel actionTableButtons = new JPanel();
@@ -52,15 +48,53 @@ public class BankerStockMarketDash extends StockMarketDash {
     }
 
     private void addStockAction() {
-        //todo
+        StockCreationDialog d = new NYSEStockCreationDialog(window);
+        Stock stock = d.stock;
+        if (stock != null) {
+            stockTable.addRowToTable(new Object[]{stock.getName(), stock.getValue(),stock.getShares()});
+            bank.addStock(d.stock);
+        }
     }
 
     private void removeStockAction() {
-        //todo
+        int selectedRow = this.stockTable.table.getSelectedRow();
+        if (selectedRow >= 0) {
+            int result = JOptionPane.showConfirmDialog(this, "Are you sure?", "Confirm Stock Deletion",
+                    JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.OK_OPTION) {
+                //todo
+                Stock stock = getSelectedStock(selectedRow);
+                if (stock != null) {
+                    //todo payback everyone
+                    bank.removeStock(stock);
+                    this.stockTable.tableModel.removeRow(selectedRow);
+                }
+            }
+        }
     }
 
     private void editStockAction() {
-        //todo
+        int selectedRow = this.stockTable.table.getSelectedRow();
+        Stock stock = getSelectedStock(selectedRow);
+        if (stock != null) {
+            StockEditDialog d = new StockEditDialog(window,stock);
+            Stock newstock = d.stock;
+            if (newstock != null) {
+                stockTable.reloadRowData(selectedRow,new Object[]{stock.getName(),stock.getValue(),stock.getShares()});
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Stock Not Found",
+                    "EditStockError", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private  Stock getSelectedStock(int selectedRow){
+        if (selectedRow >= 0) {
+            String stockName = (String) this.stockTable.table.getValueAt(selectedRow, 0);
+            return bank.findStock(stockName);
+        }
+        return null;
     }
 
     @Override

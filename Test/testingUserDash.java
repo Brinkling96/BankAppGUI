@@ -14,8 +14,7 @@ public class testingUserDash {
         temp.add(s);
 
         Bank bank = new Bank(temp);
-
-        s.addAccount(new CheckingAccount(2131,s,12,bank),bank);
+        
 
         bank.createTransaction(s.getAccount(s.getAccounts().get(0).accountID), "CheckingDeposit",1000,"USD");
         frame.add(new UserDashboard(frame,s,bank));

@@ -20,4 +20,12 @@ public abstract class Stock {
     public Integer getShares() {
         return shares;
     }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    public void setShares(Integer shares) {
+        this.shares = shares;
+    }
 }
