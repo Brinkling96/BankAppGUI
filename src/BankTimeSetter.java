@@ -4,12 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-
+//Allows user to set the time of the bank
 public class BankTimeSetter extends JDialog {
 
     private LabelDropDownCombo month, day, year, hour, minute,second;
     private JPanel comboBoxes;
-
     private JButton submitButton, cancelButton;
     private JPanel buttonPanel;
 

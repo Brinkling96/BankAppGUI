@@ -1,5 +1,6 @@
 import java.awt.*;
 
+//Dialog that allows the user to create a stock specific to the NYSE
 public class NYSEStockCreationDialog extends StockCreationDialog {
 
     public NYSEStockCreationDialog(Window owner) {

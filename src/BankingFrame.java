@@ -1,5 +1,6 @@
 import javax.swing.*;
 
+//Helps display the bank to the user
 public class BankingFrame extends JFrame{
 
     private static BankingFrame host;

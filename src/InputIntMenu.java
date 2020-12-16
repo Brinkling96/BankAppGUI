@@ -3,33 +3,39 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//General Dialog that allows the user to input an int
 public abstract class InputIntMenu extends JDialog {
     protected JLabel intLabel;
     protected JTextField intField;
+    protected JLabel currencyLabel;
+    protected JTextField currencyField;
     protected JButton submitButton;
     protected JButton cancelButton;
 
 
-    public InputIntMenu(Window owner, String title, String label) {
+    public InputIntMenu(Window owner, String title, String label, String currency) {
         super(owner,Dialog.DEFAULT_MODALITY_TYPE);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle(title);
 
-        initComponents(label);
+        initComponents(label, currency);
         setLocationRelativeTo(owner);
     }
 
-    private void initComponents(String label) {
+    private void initComponents(String label, String currency) {
         this.intLabel = new JLabel(label);
         this.intField = new JTextField();
+        this.currencyLabel = new JLabel(currency);
+        this.currencyField = new JTextField();
         this.submitButton = new JButton("Submit");
         this.cancelButton = new JButton("Cancel");
-
 
         getContentPane().setLayout(new GridLayout(2,2,5,5));
 
         getContentPane().add(intLabel);
         getContentPane().add(intField);
+        getContentPane().add(currencyLabel);
+        getContentPane().add(currencyField);
 
         submitButton.addActionListener(new ActionListener() {
             @Override
@@ -48,7 +54,6 @@ public abstract class InputIntMenu extends JDialog {
         });
 
         getContentPane().add(cancelButton);
-
 
     }
 

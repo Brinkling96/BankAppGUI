@@ -3,23 +3,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//Displays stock market features relevant to the banker
 public class BankerStockMarketDash extends StockMarketDash {
 
-
-
-
     protected JPanel actionTableButtons = new JPanel();
-
     protected JButton addStock = new JButton("Add a new Stock entry");
     protected JButton removeStock = new JButton("Remove Stock from Market");
     protected JButton editStock = new JButton("Edit Stock");
 
-
-
-
     public BankerStockMarketDash(Window window, Banker banker, Bank bank) {
         super(window, banker, bank,"Banker Stock Market");
-
 
         //Table actions
         this.addStock.addActionListener(new ActionListener() {

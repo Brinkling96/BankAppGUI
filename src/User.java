@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 
+//Contains all necessary features of a user
 public abstract class User {
 
     private String username;

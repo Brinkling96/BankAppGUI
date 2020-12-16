@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+//Accesses files to keep track of all the users and transactions so that the data is persistent
 public class DataKeeper {
     public static String USER_PATH = "./data/users/";
     public static String BANK_PATH = "./data/daily_reports/";

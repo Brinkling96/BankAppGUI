@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 
+//Holds all the information and functionality that is important to a bank
 public class Bank {
+    public static String[] VALID_CURRENCIES = {"usd", "euro", "yen"};
     private int creationFee, closureFee, transactionFee;
     //Equivalent to 1 USD
-    //todo ask user which type of currency to enter?
     private double yenConversionRate, euroConversionRate, interestRate;
     private int highValueBenchmark;
     private int userNumber;
@@ -81,18 +82,28 @@ public class Bank {
         this.transactionFee = transactionFee;
     }
 
-    public double getYenConversionRate() {
-    	return this.yenConversionRate;
-    }
+    // public double getYenConversionRate() {
+    // 	return this.yenConversionRate;
+    // }
     public void setYenConversionRate(double yenConversionRate) {
         this.yenConversionRate = yenConversionRate;
     }
 
-    public double getEuroConversionRate() {
-    	return this.euroConversionRate;
-    }
+    // public double getEuroConversionRate() {
+    // 	return this.euroConversionRate;
+    // }
     public void setEuroConversionRate(double euroConversionRate) {
         this.euroConversionRate = euroConversionRate;
+    }
+
+    public double getConversionRate(String currency) {
+        double rate = 0;
+        switch(currency) {
+            case "usd" -> rate = 1;
+            case "euro" -> rate = euroConversionRate;
+            case "yen" -> rate = yenConversionRate;
+        }
+        return rate;
     }
 
     public double getInterestRate() {

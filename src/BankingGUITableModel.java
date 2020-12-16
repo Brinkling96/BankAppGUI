@@ -1,5 +1,6 @@
 import javax.swing.table.DefaultTableModel;
 
+//Used to display items like accounts and transactions
 public class BankingGUITableModel extends DefaultTableModel {
     protected Class[] types;
     public BankingGUITableModel(Object[][] data, Object[] columnNames, Class[] classes) {

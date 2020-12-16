@@ -3,23 +3,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//Dialog that allows a user to create an account with the bank
 public class UserCreationDialog extends JDialog {
 
     protected Bank bank;
-
     protected FieldInputTextCombo usernamePanel;
-
     protected JPanel passwordPanel;
     protected JLabel passwordLabel;
     protected JPasswordField passwordField;
-
-
-
     protected JPanel buttonPanel = new JPanel();
     protected JButton submitButton = new JButton("Submit");
-
     protected JButton cancelButton = new JButton("Cancel");
-
 
 
     public UserCreationDialog(Window window, Bank bank) {

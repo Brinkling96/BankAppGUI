@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+//User that has different types of accounts
 public class CustomerUser extends User{
 
     public static final int numMembersToDisplay= 3;
@@ -10,7 +11,7 @@ public class CustomerUser extends User{
      * This constructor creates a new customer user
      * @param username
      * @param password
-     * @param numUsers
+     * @param userNumber
      */
     public CustomerUser(String username, char[] password, int userNumber) {
         super(username,password, userNumber);
@@ -22,7 +23,7 @@ public class CustomerUser extends User{
      * @param username
      * @param password
      * @param uid
-     * @param status
+     * @param lastLogin
      */
     public CustomerUser(String username, String password, String uid, String lastLogin) {
         super(username, password, uid, lastLogin);
@@ -47,7 +48,7 @@ public class CustomerUser extends User{
         this.accountNumber = num + 1;
     }
 
-    // todo charge fees to add and remove accounts, I think I did it correctly, but we can never be too sure
+    //charges fees to add and remove accounts
     public void addAccount(Account account, Bank bank){
         System.out.println(bank);
         this.accountNumber++;
@@ -62,11 +63,6 @@ public class CustomerUser extends User{
         bank.createTransaction(account, "account removal fee", -bank.getClosureFee(), "usd");
     }
 
-    // // todo allow users to take out loans
-    // public void takeOutLoan(int originalValue, double interest, Collateral collateral, Bank bank){
-    //     this.accounts.add(new LoanAccount(originalValue, interest, collateral, this, bank));
-    // }
-
     public Account getAccount(String AccountID){
         for(Account acct: accounts){
             if(acct.getAccountID().equals(AccountID)){
@@ -75,14 +71,5 @@ public class CustomerUser extends User{
         }
         return null;
     }
-
-    // Getters and setters
-    // public ArrayList<Loan> getLoans() {
-    //     return null;
-    // }
-
-    // public void setLoans(ArrayList<Loan> loans) {
-    //     this.loans = loans;
-    // }
 
 }
