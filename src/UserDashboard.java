@@ -28,20 +28,12 @@ public class UserDashboard extends MainDashboard {
 
         ////////////////////////////////////////////////////////////////////////////
         //Accounts Table
-        Object[][] tableData = new Object[user.getAccounts().size()][Account.numMemsToDisplay];
         Class[] aclasses = new Class[2];
         aclasses[0] = String.class;
         aclasses[1] = Integer.class;
 
-        for(int i = 0; i<user.getAccounts().size(); i++){
-            Account account = user.getAccounts().get(i);
-            Object[] row = tableData[i];
-            row[0] = account.getAccountID();
-            row[1] = account.getBalance();
 
-        }
-
-        this.moneyAccountTable = new GUITable("Account Table: ",tableData,new String[]{"AccountID","Balance"},aclasses);
+        this.moneyAccountTable = new GUITable("Account Table: ",createACTable(),new String[]{"AccountID","Balance"},aclasses);
         add(Box.createVerticalGlue());
         add(moneyAccountTable);
 
@@ -118,6 +110,18 @@ public class UserDashboard extends MainDashboard {
     }
 
 
+    private Object[][] createACTable(){
+        CustomerUser user = (CustomerUser) this.user;
+        Object[][] tableData = new Object[user.getAccounts().size()][Account.numMemsToDisplay];
+        for(int i = 0; i<user.getAccounts().size(); i++){
+            Account account = user.getAccounts().get(i);
+            Object[] row = tableData[i];
+            row[0] = account.getAccountID();
+            row[1] = account.getBalance();
+
+        }
+        return tableData;
+    }
 
     private Object[][] createTDTable(ArrayList<Transaction> tds){
         ArrayList<Transaction> userTds = tds;

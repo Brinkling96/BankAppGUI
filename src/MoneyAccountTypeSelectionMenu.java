@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class MoneyAccountTypeSelectionMenu extends JDialog {
 
-    protected static final String[] accountTypes = new String[]{"Checking","Savings","Loan"};
+    protected static final String[] accountTypes = new String[]{"Checking","Savings","Loan","Security"};
     private Window window;
 
     private Bank bank;
@@ -75,6 +75,14 @@ public class MoneyAccountTypeSelectionMenu extends JDialog {
         else if(this.dropDownBox.getSelectedItem().toString()== this.accountTypes[2]){
             this.setVisible(false);
             AddAccountDialog d = new AddLoanAccountDialgo(window,user,bank);
+            if(d.getAccount() != null){
+                this.account = d.getAccount();
+            }
+        }
+
+        else if(this.dropDownBox.getSelectedItem().toString()== this.accountTypes[3]){
+            this.setVisible(false);
+            AddSecurityAccount d = new AddSecurityAccount(window,user,bank);
             if(d.getAccount() != null){
                 this.account = d.getAccount();
             }
