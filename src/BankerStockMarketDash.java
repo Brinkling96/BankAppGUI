@@ -22,8 +22,8 @@ public class BankerStockMarketDash extends BankDashboard {
 
 
 
-    public BankerStockMarketDash(Window window, Bank bank) {
-        super(window, bank);
+    public BankerStockMarketDash(Window window, Banker banker, Bank bank) {
+        super(window, banker, bank);
         //General Labels
         this.generalLabelsPanel.add(windowLabel);
 

@@ -50,8 +50,8 @@ public class UserStockMarketDash extends BankDashboard {
 
 
 
-    public UserStockMarketDash(Window window, Account account, Bank bank) {
-        super(window, bank);
+    public UserStockMarketDash(Window window,User user, Account account, Bank bank) {
+        super(window, user, bank);
 
         ///General Labels
         this.windowLabel = new JLabel("NULL"); //account.getUser().getUsername()

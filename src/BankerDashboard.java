@@ -20,8 +20,8 @@ public class BankerDashboard extends MainDashboard {
     //
     protected GUITable transactionTable;
 
-    public BankerDashboard(Window window, User user, Bank bank) {
-        super(window, user, bank);
+    public BankerDashboard(Window window, Banker banker, Bank bank) {
+        super(window, banker, bank);
 
 
         this.setTimeButton = new JButton("Set Time");
@@ -174,7 +174,7 @@ public class BankerDashboard extends MainDashboard {
     protected void stockMarketAction() {
         this.window.setVisible(false);
         this.window.remove(this);
-        this.window.add(new BankerStockMarketDash(window,bank));
+        this.window.add(new BankerStockMarketDash(window,(Banker) user,bank));
         this.window.setVisible(true);
     }
 

@@ -4,14 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public abstract class MainDashboard extends BankDashboard {
-    protected User user;
+
 
     protected JLabel usernameLabel;
 
     protected JButton stockMarketButton;
 
     public MainDashboard(Window window, User user, Bank bank) {
-        super(window, bank);
+        super(window, user, bank);
         this.user = user;
 
         ///generalLabel

@@ -9,6 +9,8 @@ public abstract class BankDashboard extends JPanel {
 
         protected Bank bank;
 
+        protected User user;
+
 
         //Dashboard Generals
 
@@ -19,7 +21,7 @@ public abstract class BankDashboard extends JPanel {
         protected JButton logoutButton;
 
 
-        public BankDashboard(Window window, Bank bank) {
+        public BankDashboard(Window window, User user, Bank bank) {
             super();
             this.window = window;
             this.bank = bank;
