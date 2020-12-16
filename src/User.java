@@ -31,9 +31,9 @@ public abstract class User {
         return this.lastLogin;
     }
 
-    public void logoff() {
+    public void logout() {
         this.lastLogin = this.currentLogin;
-        DataKeeper.updateUser(this, "logoff");
+        DataKeeper.updateUser(this, "logout");
     }
 
     public String getUsername() {

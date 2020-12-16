@@ -54,7 +54,7 @@ public class DataKeeper {
                     lines.remove(removeLine);
                     deleteDir(new File(directoryName));
                     break;
-                case "logoff":
+                case "logout":
                     for (int i = 0; i < lines.size(); i++) {
                         if (lines.get(i).split(",")[0].equals(user.getUserID())) {
                             lines.set(i, user.toString().replace("\n", ""));
