@@ -47,6 +47,10 @@ public abstract class Account implements AccountActions {
         this.balance = balance;
     }
 
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+    
     public Bank getBank() {
         return this.bank;
     }
