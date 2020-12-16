@@ -91,6 +91,24 @@ public class LoginScreen extends JPanel {
             this.window.remove(this);
             if(user instanceof CustomerUser) {
                 ((CustomerUser) user).loadAccounts(DataKeeper.getAccountsFromUser(user));
+                //update the savings accounts and loans with interest here
+                CustomerUser customerUser = (CustomerUser) user;
+                long days = Clock.getClock().daysElapsed(customerUser.getCurrentLogin(), customerUser.getLastLogin());
+                if(customerUser.getAccounts() != null){
+                    for(Account account: customerUser.getAccounts()) {
+                        if (account instanceof SavingsAccount && account.getBalance() >= bank.getHighValueBenchmark()) {
+                            ((SavingsAccount) account).accumulateInterest();
+                        }
+                    }
+                }
+
+                if(customerUser.getLoans() != null) {
+                    for(Loan loan: customerUser.getLoans()){
+                        //todo loan doesn't have an account associated with it, so no transaction for now
+                        loan.chargeInterest((int)days);
+                        //createTransaction(account, "interest payment", interestGained, "usd")
+                    }
+                }
                 this.window.add(new UserDashboard(window,(CustomerUser) user,bank));
             }
             else if(user instanceof Banker){

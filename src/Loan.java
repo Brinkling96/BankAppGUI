@@ -16,8 +16,9 @@ public class Loan{
         this.setCollateral(collateral);
     }
 
-    public void chargeInterest(){
-        this.setPrincipal((int)(this.getPrincipal()*(1 + this.getInterest())));
+    public void chargeInterest(int days){
+        int interestGained = (int)(this.getPrincipal()*Math.pow((1+(this.getInterest())), days));
+        this.setPrincipal(this.getPrincipal() + interestGained);
     }
 
     // Getters and setters

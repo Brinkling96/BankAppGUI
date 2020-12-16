@@ -57,6 +57,7 @@ public abstract class BankDashboard extends JPanel {
         }
 
         protected void logout() {
+            user.logout();
             this.window.setVisible(false);
             this.window.remove(this);
             this.window.add(new LoginScreen(window, bank));
