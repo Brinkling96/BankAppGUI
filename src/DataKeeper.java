@@ -9,6 +9,18 @@ public class DataKeeper {
     public static String USER_PATH = "./data/users/";
     public static String BANK_PATH = "./data/daily_reports/";
 
+    public static void deleteDir(File file) {
+        File[] contents = file.listFiles();
+        if (contents != null) {
+            for (File f : contents) {
+                if (! Files.isSymbolicLink(f.toPath())) {
+                    deleteDir(f);
+                }
+            }
+        }
+        file.delete();
+    }
+
     public static void updateUser(User user, String action) {
         String uid = user.getUserID();
         String directoryName = USER_PATH.concat(uid);
@@ -29,17 +41,18 @@ public class DataKeeper {
             ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
             switch (action) {
                 case "add":
-                    lines.add(user.toString());
+                    lines.add(user.toString().replace("\n", ""));
                     break;
                 case "remove":
-                    int index = 0;
+                    String removeLine = "";
                     for (int i = 0; i < lines.size(); i++) {
                         if (lines.get(i).split(",")[0].equals(user.getUserID())) {
-                            index = i;
+                            removeLine = lines.get(i);
                             break;
                         }
                     }
-                    lines.remove(index);
+                    lines.remove(removeLine);
+                    deleteDir(new File(directoryName));
                     break;
             }
             Files.write(filePath, lines, StandardCharsets.UTF_8);
@@ -66,14 +79,15 @@ public class DataKeeper {
                 File directory = new File(directoryName + "/" + aid);
                 directory.mkdir();
             } else if (type.equals("remove")) {
-                int index = 0;
+                String removeLine = "";
                 for (int i = 0; i < lines.size(); i++) {
                     if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
-                        index = i;
+                        removeLine = lines.get(i);
                         break;
                     }
-                    lines.remove(index);
                 }
+                lines.remove(removeLine);
+                deleteDir(new File(directoryName + "/" + aid));
             } else if (type.equals("deposit") || type.equals("withdraw")) {
                 for (int i = 0; i < lines.size(); i++) {
                     if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
@@ -82,7 +96,6 @@ public class DataKeeper {
                     }
                 }
             }
-            
             Files.write(filePath, lines, StandardCharsets.UTF_8);
         } catch (IOException e) {
             System.out.println("Unable to update account");

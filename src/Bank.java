@@ -19,6 +19,7 @@ public class Bank {
     	this.closureFee = 5;
     	this.creationFee = 5;
         this.dailyReport = new ArrayList<Transaction>();
+        this.userNumber = 0;
     }
 
     public User getUser(String username, char[] password){
@@ -52,9 +53,6 @@ public class Bank {
     public void removeUser(User user){
         this.users.remove(user);
     }
-
-    public int getUserNumber() { return this.userNumber + 1; }
-
 
     //The transaction serves as a receipt. Will have already been processed before this method is called.
     public void createTransaction(Account account, String type, int amount, String currency) {
@@ -124,5 +122,18 @@ public class Bank {
 
     public void setClosureFee(int closureFee) {
         this.closureFee = closureFee;
+    }
+
+    public int getUserNumber() { 
+        return this.userNumber + 1; 
+    }
+
+    public void setUserNumber() {
+        for (User user : users) {
+            int num = Integer.parseInt(user.getUserID().substring(2,4));
+            if (this.userNumber <= num) {
+                this.userNumber = num;
+            }
+        }
     }
 }
