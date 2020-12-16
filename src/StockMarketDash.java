@@ -11,8 +11,6 @@ public abstract class StockMarketDash extends BankDashboard{
     protected JButton backToMainDashButton = new JButton("Back to MainMenu");
 
     protected GUITable stockTable;
-    protected JLabel stockMarket = new JLabel("StockMarket");
-    protected JPanel stockList = new JPanel();
 
 
     protected JPanel actionTableButtons = new JPanel();
@@ -37,9 +35,8 @@ public abstract class StockMarketDash extends BankDashboard{
         //First table
         this.stockTable = new GUITable("Stock Market: ",createStockTData(),
                 new String[]{"Stock Name", "Stock Price","Avaliable Shares"},new Class[]{String.class,Integer.class,Integer.class});
-        this.stockList.add(stockMarket);
-        this.stockList.add(stockTable);
-        add(stockList);
+        add(Box.createVerticalGlue());
+        add(stockTable);
     }
 
     private Object[][] createStockTData(){

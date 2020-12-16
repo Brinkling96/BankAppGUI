@@ -26,7 +26,6 @@ public abstract class BankDashboard extends JPanel {
             this.window = window;
             this.bank = bank;
             this.user = user;
-            window.setMinimumSize(new Dimension(1200, 800));
             LayoutManager layoutManager = new BoxLayout(this, BoxLayout.Y_AXIS);
             this.setLayout(layoutManager);
             /////////////////////////////////////////////////////////////////////////////
@@ -52,7 +51,7 @@ public abstract class BankDashboard extends JPanel {
 
             this.generalActionsPanel.add(logoutButton);
 
-            add(Box.createVerticalBox());
+            add(Box.createVerticalGlue());
             add(generalActionsPanel);
 
         }
@@ -62,6 +61,7 @@ public abstract class BankDashboard extends JPanel {
             this.window.setVisible(false);
             this.window.remove(this);
             this.window.add(new LoginScreen(window, bank));
+            this.window.pack();
             this.window.setVisible(true);
         }
     }

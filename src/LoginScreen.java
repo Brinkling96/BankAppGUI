@@ -114,6 +114,7 @@ public class LoginScreen extends JPanel {
             else if(user instanceof Banker){
                 this.window.add(new BankerDashboard(window,(Banker) user,bank));
             }
+            this.window.pack();
             this.window.setVisible(true);
         }
         else{

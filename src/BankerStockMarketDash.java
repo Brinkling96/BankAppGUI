@@ -20,6 +20,7 @@ public class BankerStockMarketDash extends StockMarketDash {
     public BankerStockMarketDash(Window window, Banker banker, Bank bank) {
         super(window, banker, bank,"Banker Stock Market");
 
+
         //Table actions
         this.addStock.addActionListener(new ActionListener() {
             @Override
@@ -43,6 +44,7 @@ public class BankerStockMarketDash extends StockMarketDash {
         this.actionTableButtons.add(addStock);
         this.actionTableButtons.add(removeStock);
         this.actionTableButtons.add(editStock);
+        add(Box.createVerticalGlue());
         add(actionTableButtons);
 
     }
@@ -102,6 +104,7 @@ public class BankerStockMarketDash extends StockMarketDash {
         this.window.setVisible(false);
         this.window.remove(this);
         this.window.add(new BankerDashboard(window,(Banker) user,bank));
+        this.window.pack();
         this.window.setVisible(true);
     }
 }

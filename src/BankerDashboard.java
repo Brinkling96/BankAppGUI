@@ -175,6 +175,7 @@ public class BankerDashboard extends MainDashboard {
         this.window.setVisible(false);
         this.window.remove(this);
         this.window.add(new BankerStockMarketDash(window,(Banker) user,bank));
+        this.window.pack();
         this.window.setVisible(true);
     }
 
