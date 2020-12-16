@@ -82,11 +82,11 @@ public class DataKeeper {
             }
             Path filePath = Paths.get(directoryName + "/" + fileName);
             ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
-            if (type.equals("add")) {
+            if (type.equals("account creation fee")) {
                 lines.add(account.toString().replace("\n", ""));
                 File directory = new File(directoryName + "/" + aid);
                 directory.mkdir();
-            } else if (type.equals("remove")) {
+            } else if (type.equals("account removal fee")) {
                 String removeLine = "";
                 for (int i = 0; i < lines.size(); i++) {
                     if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
@@ -96,7 +96,7 @@ public class DataKeeper {
                 }
                 lines.remove(removeLine);
                 deleteDir(new File(directoryName + "/" + aid));
-            } else if (type.equals("deposit") || type.equals("withdraw")) {
+            } else if (type.equals("deposit fee") || type.equals("withdraw fee")) {
                 for (int i = 0; i < lines.size(); i++) {
                     if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
                         lines.set(i, account.toString().replace("\n", ""));
