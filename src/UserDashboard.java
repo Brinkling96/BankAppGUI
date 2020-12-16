@@ -219,10 +219,16 @@ public class UserDashboard extends MainDashboard {
         int selectedRow = this.moneyAccountTable.table.getSelectedRow();
         Account account = getSelectedAccount(selectedRow);
         if(account != null){
-             JDialog dWindow = new DepositMenu(window,account);
+            JDialog dWindow = new DepositMenu(window,account);
         }
-        Object[] input = new Object[]{account.accountID, account.balance};
-        this.moneyAccountTable.reloadRowData(selectedRow,input);
+        if (account instanceof LoanAccount) {
+            Object[] input = new Object[]{account.accountID, ((LoanAccount) account).getPrincipal()};
+            this.moneyAccountTable.reloadRowData(selectedRow,input);
+        } else {
+            Object[] input = new Object[]{account.accountID, account.balance};
+            this.moneyAccountTable.reloadRowData(selectedRow,input);
+        }
+        
     }
 
     public void withdraw(){

@@ -34,7 +34,7 @@ public class DepositMenu extends InputIntMenu {
                         if (amount <= ((LoanAccount) account).getPrincipal()) {
                             int result = JOptionPane.showConfirmDialog(this, "Pay $" + Integer.toString(amount) + " ?");
                             if (result == JOptionPane.OK_OPTION) {
-                                account.deposit(amount, "usd");
+                                ((LoanAccount) account).deposit(amount, "usd");
                                 this.dispose();
                             }
                         } else {
