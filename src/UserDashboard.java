@@ -204,8 +204,10 @@ public class UserDashboard extends MainDashboard {
         if (account != null) {
             transactions = DataKeeper.getTransactionsFromAccount(account);
             int num = this.transactionTable.tableModel.getRowCount();
-            for (int i = 0; i < num; i++) {
-                this.transactionTable.tableModel.removeRow(i);
+            if (num > 0) {
+                for (int i = num - 1; i >= 0; i--) {
+                    this.transactionTable.tableModel.removeRow(i);
+                }
             }
             for (Transaction transaction : transactions) {
                 Object[] newData = new Object[] {

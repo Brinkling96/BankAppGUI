@@ -75,7 +75,7 @@ public class AddSecurityAccount extends AddAccountDialog{
                 JOptionPane.showMessageDialog(this, warnings, "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 act.setBalance(act.getBalance() - balance);
-                System.out.println(act);
+                bank.createTransaction(act, "security acc transfer", -balance, "usd");
                 this.account = new SecurityAccount(balance, user, bank);
                 user.addAccount(account, this.bank);
                 this.dispose();
