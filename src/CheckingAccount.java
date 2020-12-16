@@ -6,8 +6,8 @@ public class CheckingAccount extends Account {
         super(balance, user, numAccounts, bank);
     }
 
-    public CheckingAccount(String accountID, String balance) {
-        super(accountID, balance);
+    public CheckingAccount(String accountID, String balance, String creationDate) {
+        super(accountID, balance, creationDate);
     }
 
 }

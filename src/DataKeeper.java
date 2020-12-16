@@ -192,11 +192,12 @@ public class DataKeeper {
                     String[] accountInfo = line.split(",");
                     String aid = accountInfo[0];
                     String balance = accountInfo[1];
+                    String date = accountInfo[2];
                     String type = aid.substring(aid.length()-2, aid.length());
                     if (type.equals("ck"))
-                        accounts.add(new CheckingAccount(aid, balance));
+                        accounts.add(new CheckingAccount(aid, balance, date));
                     else if (type.equals("sv"))
-                        accounts.add(new SavingsAccount(aid, balance));
+                        accounts.add(new SavingsAccount(aid, balance, date));
 
                 }
             } catch (IOException e) {

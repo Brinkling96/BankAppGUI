@@ -5,8 +5,8 @@ public class SavingsAccount extends Account{
         super(balance, user, numAccounts, bank);
     }
 
-    public SavingsAccount(String accountID, String balance) {
-        super(accountID, balance);
+    public SavingsAccount(String accountID, String balance, String creationDate) {
+        super(accountID, balance, creationDate);
     }
 
     public void accumulateInterest(){
