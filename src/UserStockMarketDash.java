@@ -19,8 +19,10 @@ public class UserStockMarketDash extends StockMarketDash {
     protected JLabel unrealizedProfitActual;
 
 
-    //General Actions
-    protected JButton backToUserDash = new JButton("Back to MainMenu");
+    //Stock Market Actions
+
+    protected JButton buyShares = new JButton("Buy Stock Shares");
+    protected JPanel smActionsPanel = new JPanel();
 
     //Current Positions
 
@@ -31,38 +33,34 @@ public class UserStockMarketDash extends StockMarketDash {
     protected JButton sellShares = new JButton("Sell Stock Shares");
     protected JPanel cpActionsPanel = new JPanel();
 
-    //Stock Market Table
 
-    protected GUITable stockMarketTable;
-    protected JLabel stockMarketLabel = new JLabel("Stock Market");
-    protected JPanel stockMarketPanel = new JPanel();
 
-    //Stock Market Actions
-
-    protected JButton buyShares = new JButton("Buy Stock Shares");
-    protected JPanel smActionsPanel = new JPanel();
 
     public UserStockMarketDash(Window window,User user, Account account, Bank bank) {
         super(window, user, bank, "Stock Market: ");//account.getUser().getUsername()
 
         ///General Labels
-        this.generalLabelsPanel.add(windowLabel);
+
+        JPanel accountLabels = new JPanel();
+
+        this.generalLabelsPanel.add(accountLabels);
+
 
         this.securityAccountIDActual = new JLabel(account.getAccountID());
-        this.generalLabelsPanel.add(securityAccountIDLabel);
-        this.generalLabelsPanel.add(securityAccountIDActual);
+        accountLabels.add(securityAccountIDLabel);
+        accountLabels.add(securityAccountIDActual);
 
         this.balanceActual = new JLabel(Integer.toString(account.getBalance()));
-        this.generalLabelsPanel.add(balanceLabel);
-        this.generalLabelsPanel.add(balanceActual);
+        accountLabels.add(balanceLabel);
+        accountLabels.add(balanceActual);
 
         this.realizedProfitActual = new JLabel("NULL");//todo
-        this.generalLabelsPanel.add(realizedProfitLabel);
-        this.generalLabelsPanel.add(realizedProfitActual);
+        accountLabels.add(realizedProfitLabel);
+        accountLabels.add(realizedProfitActual);
 
         this.unrealizedProfitActual = new JLabel("NULL");//todo
-        this.generalLabelsPanel.add(unrealizedProfitLabel);
-        this.generalLabelsPanel.add(unrealizedProfitActual);
+        accountLabels.add(unrealizedProfitLabel);
+        accountLabels.add(unrealizedProfitActual);
 
         //stock Market Action
 
@@ -106,10 +104,12 @@ public class UserStockMarketDash extends StockMarketDash {
 
     private void buySharesAction() {
         //todo
+        JOptionPane.showMessageDialog(this,"Unimplemented");
     }
 
     private void doSellSharesAction() {
         //todo
+        JOptionPane.showMessageDialog(this,"Uimplemented");
     }
 
     @Override

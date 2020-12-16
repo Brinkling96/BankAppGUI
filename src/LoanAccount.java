@@ -55,16 +55,16 @@ public class LoanAccount extends Account {
     @Override
     public boolean deposit(int amount, String currency) {
         System.out.println(bank);
-        switch (currency) {
-            case "usd" -> this.setPrincipal(this.getPrincipal() - amount);
-            case "yen" -> this.setPrincipal((int) (this.getPrincipal() - amount / bank.getYenConversionRate()));
-            case "euro" -> this.setPrincipal((int) (this.getPrincipal() - amount / bank.getEuroConversionRate()));
-            default -> {
-                System.out.println("Currency not supported.");
-                return false;
-            }
-        }
-
+        // switch (currency) {
+        //     case "usd" -> this.setPrincipal(this.getPrincipal() - amount);
+        //     case "yen" -> this.setPrincipal((int) (this.getPrincipal() - amount / bank.getYenConversionRate()));
+        //     case "euro" -> this.setPrincipal((int) (this.getPrincipal() - amount / bank.getEuroConversionRate()));
+        //     default -> {
+        //         System.out.println("Currency not supported.");
+        //         return false;
+        //     }
+        // }
+        this.setPrincipal((int) (this.getPrincipal() - amount/bank.getConversionRate(currency)));
         bank.createTransaction(this, "pay loan", amount, currency);
         return true;
     }

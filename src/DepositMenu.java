@@ -8,7 +8,7 @@ public class DepositMenu extends InputIntMenu {
     private Account account;
 
     public DepositMenu(Window owner, Account account) {
-        super(owner, "Deposit Menu", "Deposit Amount");
+        super(owner, "Deposit Menu", "Deposit Amount", "Currency");
 
         this.account = account;
 
@@ -24,35 +24,49 @@ public class DepositMenu extends InputIntMenu {
 
         if(intField.getText().isEmpty()){
             warning = "Deposit must be entered";
-        }
-        else{
-            try{
-                int amount = Integer.parseInt(intField.getText());
-                if(amount> 0) {
-                    if (account instanceof LoanAccount) {
-                        if (amount <= ((LoanAccount) account).getPrincipal()) {
-                            int result = JOptionPane.showConfirmDialog(this, "Pay $" + Integer.toString(amount) + " ?");
-                            if (result == JOptionPane.OK_OPTION) {
-                                ((LoanAccount) account).deposit(amount, "usd");
-                                this.dispose();
-                            }
-                        } else {
-                            warning = "Deposit amount is not valid";
-                        }
-                    } else {
-                        int result = JOptionPane.showConfirmDialog(this, "Deposit $" + Integer.toString(amount) + " ?");
-                        if (result == JOptionPane.OK_OPTION) {
-                            account.deposit(amount, "usd");
-                            this.dispose();
-                        }
+        } else {
+            if (currencyField.getText().isEmpty()) {
+                warning = "Currency must be entered";
+            } else {
+                boolean valid = false;
+                for (String str : Bank.VALID_CURRENCIES) {
+                    if (currencyField.getText().equals(str)) {
+                        valid = true;
+                        break;
                     }
                 }
-                else{
-                    warning = "Deposit amount is not valid";
+                if (valid) {
+                    try{
+                        int amount = Integer.parseInt(intField.getText());
+                        if(amount> 0) {
+                            if (account instanceof LoanAccount) {
+                                if (amount <= ((LoanAccount) account).getPrincipal()) {
+                                    int result = JOptionPane.showConfirmDialog(this, "Pay " + currencyField.getText() + " " + Integer.toString(amount) + " ?");
+                                    if (result == JOptionPane.OK_OPTION) {
+                                        ((LoanAccount) account).deposit(amount, currencyField.getText());
+                                        this.dispose();
+                                    }
+                                } else {
+                                    warning = "Deposit amount is not valid";
+                                }
+                            } else {
+                                int result = JOptionPane.showConfirmDialog(this, "Deposit "+ currencyField.getText() + " " + Integer.toString(amount) + " ?");
+                                if (result == JOptionPane.OK_OPTION) {
+                                    account.deposit(amount, currencyField.getText());
+                                    this.dispose();
+                                }
+                            }
+                        }
+                        else{
+                            warning = "Deposit amount is not valid";
+                        }
+        
+                    }catch (NumberFormatException err){
+                        warning = "Deposit a number";
+                    }
+                } else {
+                    warning = "Currency must be 'usd', 'euro' or 'yen'";
                 }
-
-            }catch (NumberFormatException err){
-                warning = "Deposit a number";
             }
         }
         if(warning != null){

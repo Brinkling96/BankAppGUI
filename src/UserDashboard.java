@@ -93,9 +93,8 @@ public class UserDashboard extends MainDashboard {
         tclasses[0] = String.class;
         tclasses[1] = String.class;
         tclasses[2] = String.class;
-        tclasses[3] = String.class;
-        tclasses[4] = Integer.class;
-        tclasses[5] = String.class;
+        tclasses[3] = Integer.class;
+        tclasses[4] = String.class;
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
         
         
@@ -206,7 +205,8 @@ public class UserDashboard extends MainDashboard {
                     transaction.getID(),
                     transaction.getTransactionType(),
                     transaction.getTime().toString(),
-                    transaction.getAmount()
+                    transaction.getAmount(),
+                    transaction.getCurrency()
                 };
                 this.transactionTable.addRowToTable(newData);
             }
