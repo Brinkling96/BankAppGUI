@@ -12,20 +12,19 @@ public abstract class Account implements AccountActions {
     protected Integer balance;
     private int numAccounts;
     private Bank bank;
-    private LocalDateTime creationDate;
+    private LocalDateTime lastLoginDate;
 
     public Account(Integer balance, User user, int numAccounts, Bank bank) {
         this.balance = balance;
         this.numAccounts = numAccounts;
         this.bank = bank;
-        this.creationDate = Clock.getClock().getTime();
+        this.lastLoginDate = Clock.getClock().getTime();
         this.setAccountID(user);
     }
 
     public Account(String accountID, String balance, String date) {
         this.accountID = accountID;
         this.balance = Integer.parseInt(balance);
-        this.creationDate = Clock.getClock().getLocalDateTimeFromString(date);
     }
 
     private void setAccountID(User user) {
@@ -56,11 +55,13 @@ public abstract class Account implements AccountActions {
         return this.bank;
     }
 
-    public LocalDateTime creationDate() {
-        return this.creationDate;
+    public LocalDateTime getLastLoginDate() {
+        return this.lastLoginDate;
     }
 
-
+    public void updateLoginDate() {
+        this.lastLoginDate = Clock.getClock().getTime();
+    }
     @Override
     public boolean deposit(int amount, String currency) {
         // Deposit correct amount depending on currency
@@ -115,7 +116,7 @@ public abstract class Account implements AccountActions {
         String out = "";
         out += getAccountID() + ",";
         out += getBalance() + ",";
-        out += Clock.getClock().getTimeAsString(creationDate) + "\n";
+        out += Clock.getClock().getTimeAsString(lastLoginDate) + "\n";
         return out;
     }
 }

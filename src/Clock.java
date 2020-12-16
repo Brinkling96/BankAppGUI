@@ -1,3 +1,4 @@
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -27,9 +28,11 @@ public class Clock {
         return Long.parseLong(time.format(f));
     }
 
-    //public int daysElapsed(LocalDateTime start, LocalDateTime end) {
-
-    //}
+    public long daysElapsed(LocalDateTime start, LocalDateTime end) {
+        Duration dur = Duration.between(start, end);
+        long days = dur.toDays();
+        return days;
+    }
 
     public LocalDateTime getLocalDateTimeFromString(String time) {
         return LocalDateTime.parse(time, formatter);
