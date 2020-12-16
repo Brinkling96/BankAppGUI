@@ -7,6 +7,8 @@ public class AddCheckingAccountDialog extends AddAccountDialog {
 
     public AddCheckingAccountDialog(Window owner, CustomerUser user, Bank bank) {
         super(owner, user, "Input Balance: ", bank);
+        this.pack();
+        this.setVisible(true);
     }
 
     protected void okButtonAction(ActionEvent e) {

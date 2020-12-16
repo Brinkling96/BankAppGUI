@@ -6,6 +6,8 @@ public class AddSavingsAccountDialog extends AddAccountDialog {
 
     public AddSavingsAccountDialog(Window owner, CustomerUser user, Bank bank) {
         super(owner, user, "Input Balance: ", bank);
+        this.pack();
+        this.setVisible(true);
     }
 
     @Override

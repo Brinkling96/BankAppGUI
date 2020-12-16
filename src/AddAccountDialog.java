@@ -8,12 +8,14 @@ public abstract class AddAccountDialog extends JDialog{
     protected Account account;
     protected Bank bank;
 
+    protected JPanel host = new JPanel();
 
-    protected JPanel panel = new JPanel();
+
+    protected JPanel bpanel = new JPanel();
     protected JLabel balanceLabel;
     protected JTextField balanceField;
 
-
+    protected JPanel buttonPanel = new JPanel();
     protected JButton okButton;
     protected JButton cancelButton;
 
@@ -35,11 +37,14 @@ public abstract class AddAccountDialog extends JDialog{
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Add Account Menu");
+        this.host.setLayout(new BoxLayout(this.host,BoxLayout.Y_AXIS));
 
-        panel.setLayout(new GridLayout(3,2,5,5));
+        bpanel.setLayout(new GridLayout(1,2));
 
-        panel.add(balanceLabel);
-        panel.add(balanceField);
+        bpanel.add(balanceLabel);
+        bpanel.add(balanceField);
+
+        this.host.add(bpanel);
 
 
         okButton.addActionListener(new ActionListener() {
@@ -57,13 +62,15 @@ public abstract class AddAccountDialog extends JDialog{
         });
 
 
-        panel.add(okButton);
-        panel.add(cancelButton);
-        this.add(panel);
+        buttonPanel.setLayout(new GridLayout(1,2));
+        buttonPanel.add(okButton);
+        buttonPanel.add(cancelButton);
+
+        this.host.add(buttonPanel);
 
 
-        pack();
-        setVisible(true);
+        this.add(host);
+
     }
 
     private void cancelButtonAction(ActionEvent e){

@@ -1,5 +1,7 @@
-public class Loan {
+public class Loan{
 
+    public static double INTEREST_RATE = 0.1;
+    public static double COLLATERAL_ORIGINIAL_VALUE = 0.1;
     private int originalValue;
     private int principal;
     // interest is in decimal form, should be < 1
