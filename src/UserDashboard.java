@@ -44,6 +44,7 @@ public class UserDashboard extends MainDashboard {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     addAccountButtonAction();
+                    reloadAccounts();
                 }
             });
 
@@ -117,7 +118,6 @@ public class UserDashboard extends MainDashboard {
             if (account instanceof LoanAccount) {
                 row[1] = ((LoanAccount)account).getPrincipal();
             }
-
         }
         return tableData;
     }
@@ -163,9 +163,9 @@ public class UserDashboard extends MainDashboard {
                 moneyAccountTable.addRowToTable(new Object[]{act.getAccountID(), ((LoanAccount)act).getPrincipal()});
             } else {
                 moneyAccountTable.addRowToTable(new Object[]{act.getAccountID(), act.getBalance()});
-
             }
         }
+
     }
 
     public void removeAccountButtonActionPerformed() {
@@ -195,6 +195,18 @@ public class UserDashboard extends MainDashboard {
             act = ((CustomerUser) user).getAccount(actnum);
         }
         return act;
+    }
+
+    private void reloadAccounts() {
+        int num = this.moneyAccountTable.tableModel.getRowCount();
+        if (num > 0) {
+            for (int i = num - 1; i >= 0; i--) {
+                this.moneyAccountTable.tableModel.removeRow(i);
+            }
+        }
+        for (Object[] row : createACTable()) {
+            this.moneyAccountTable.addRowToTable(row);
+        }
     }
 
     public void displayTransactions() {
