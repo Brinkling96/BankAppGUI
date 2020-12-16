@@ -20,6 +20,7 @@ public abstract class StockMarketDash extends BankDashboard{
         this.windowLabel =  new JLabel(windowLabelString);
 
         this.generalLabelsPanel.add(windowLabel);
+        this.generalLabelsPanel.setLayout(new GridLayout(2,1));
 
         //General Actions
         this.backToMainDashButton.addActionListener(new ActionListener() {
