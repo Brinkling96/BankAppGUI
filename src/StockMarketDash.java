@@ -59,6 +59,18 @@ public abstract class StockMarketDash extends BankDashboard{
         return returnlist;
     }
 
+    protected void reloadStockTable() {
+        int num = this.stockTable.tableModel.getRowCount();
+        if (num > 0) {
+            for (int i = num - 1; i >= 0; i--) {
+                this.stockTable.tableModel.removeRow(i);
+            }
+        }
+        for (Object[] row : createStockTData()) {
+            this.stockTable.addRowToTable(row);
+        }
+    }
+
     protected abstract void goBacktoMainMenu();
     public Stock getStockFromPile(int selectedRow){
         Stock stock = null;
