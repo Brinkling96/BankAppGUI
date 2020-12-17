@@ -27,6 +27,8 @@ public class SecurityAccount extends Account{
             this.stocks.add(stock);
         }
         DataKeeper.buySellStock((SecurityAccount) this, stock);
+        this.setBalance(this.getBalance() - (stock.getValue()*stock.getShares()));
+        bank.createTransaction(this, "stock purchase", -(stock.getValue()*stock.getShares()), "usd");
     }
 
     public void sellStock(Stock stock) {
