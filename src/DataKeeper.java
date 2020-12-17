@@ -210,7 +210,7 @@ public class DataKeeper {
         for (String line : lines) {
             String[] userInfo = line.split(",");
             
-            if (userInfo.length > 5) {
+            if (userInfo.length >= 5) {
                 String userID = userInfo[0];
                 String username = userInfo[1];
                 String password = userInfo[2];
