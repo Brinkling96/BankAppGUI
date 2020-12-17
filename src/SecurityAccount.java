@@ -16,15 +16,17 @@ public class SecurityAccount extends Account{
     }
 
     public void buyStock(Stock stock){
-        int balanceAfterPurchase = this.getBalance() - (int) stock.getValue()*stock.getShares();
-        if(balanceAfterPurchase < 0) {
-            System.out.println("Current balance is too low to purchase that amount.");
-        }else {
-            this.setBalance(balanceAfterPurchase);
-            this.getStocks().add(stock);
-            this.getBank().createTransaction(this, "stock purchase",
-                    -(stock.getValue()*stock.getShares()), "usd");
+        boolean exist = false;
+        for (Stock myStock : stocks) {
+            if (myStock.getName().equals(stock.getName())) {
+                myStock.setShares(stock.getShares() + myStock.getShares());
+                exist = true;
+            }
         }
+        if (!exist) {
+            this.stocks.add(stock);
+        }
+        DataKeeper.buySellStock((SecurityAccount) this, stock);  
     }
 
     public void sellStock(Stock stock) {
@@ -41,16 +43,5 @@ public class SecurityAccount extends Account{
 
     public void setStocks(ArrayList<Stock> stocks) {
         this.stocks = stocks;
-    }
-
-    public String toString() {
-        String out = "";
-        out += accountID + ",";
-        out += String.valueOf(balance) + ",";
-        for (Stock stock : stocks) {
-            out += stock.toString();
-        }
-        out += "\n";
-        return out;
     }
 }

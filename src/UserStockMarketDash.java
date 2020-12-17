@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 //Displays stock market features relevant to the user
 public class UserStockMarketDash extends StockMarketDash {
@@ -40,7 +41,7 @@ public class UserStockMarketDash extends StockMarketDash {
         super(window, user, bank, "Stock Market: ");//account.getUser().getUsername()
 
         ///General Labels
-
+        this.account = account;
         JPanel accountLabels = new JPanel();
 
         this.generalLabelsPanel.add(accountLabels);
@@ -77,8 +78,8 @@ public class UserStockMarketDash extends StockMarketDash {
 
 
         //cp table
-
-        this.currentPositionsTable = new GUITable("Current Positons: ",new Object[][]{{}},
+        ArrayList<Stock> stocks = account.getStocks();
+        this.currentPositionsTable = new GUITable("Current Positons: ",createCPTable(),
                 new String[]{"Stock Name","Stock Price","Bought at Price", "Shares"},
                 new Class[]{String.class,Integer.class,Integer.class,Integer.class});
         this.add(Box.createVerticalGlue());
@@ -102,10 +103,42 @@ public class UserStockMarketDash extends StockMarketDash {
 
     }
 
+    public Object[][] createCPTable() {
+        SecurityAccount account = (SecurityAccount) this.account;
+        Object[][] tableData = new Object[account.getStocks().size()][4];
+        for(int i = 0; i<account.getStocks().size(); i++){
+            Stock stock = account.getStocks().get(i);
+            Object[] row = tableData[i];
+            row[0] = stock.getName();
+            row[1] = stock.getValue();
+            row[2] = stock.getValue();
+            row[3] = stock.getShares();
+        }
+        return tableData;
+    }
+
+    private void reloadCurrentPostionTable() {
+        int num = this.currentPositionsTable.tableModel.getRowCount();
+        if (num > 0) {
+            for (int i = num - 1; i >= 0; i--) {
+                this.currentPositionsTable.tableModel.removeRow(i);
+            }
+        }
+        for (Object[] row : createCPTable()) {
+            this.currentPositionsTable.addRowToTable(row);
+        }
+    }
+
     private void buySharesAction() {
-        //todo
-       JOptionPane.showMessageDialog(this,"Unimplemented");
-       //Account act = getSelectedAccount()
+        //Account act = getSelectedAccount()
+        int selectedRow = this.stockTable.table.getSelectedRow();
+        if (selectedRow >=0 ) {
+            Stock stock = getStockFromPile(selectedRow);
+            if (stock != null) {
+                JDialog wWindow = new StockPurchaseMenu(window, account, this.bank, stock);
+            }
+            reloadCurrentPostionTable();
+        }
     }
 
 
