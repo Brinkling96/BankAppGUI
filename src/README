@@ -8,6 +8,10 @@ Run Command:
 javac *.java
 java Main
 
+You can create an account as a customer, but if you want to access the bank as the banker, use the login below:
+    username: admin
+    password: password
+
 CLASSES:
 
 Main: used to run the program

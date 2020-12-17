@@ -21,6 +21,8 @@ public class BankerDashboard extends MainDashboard {
     protected JButton viewDailyReportButton;
     protected JPanel userTableActionPanel;
     protected GUITable transactionTable;
+    protected JLabel profitLabel;
+    protected JPanel profitLabelPanel;
 
     public BankerDashboard(Window window, Banker banker, Bank bank) {
         super(window, banker, bank);
@@ -40,6 +42,11 @@ public class BankerDashboard extends MainDashboard {
             }
         });
         this.generalActionsPanel.add(viewDailyReportButton);
+
+        this.profitLabelPanel = new JPanel();
+        this.profitLabel = new JLabel("Profit: $" + bank.getProfit());
+        this.profitLabelPanel.add(profitLabel);
+        add(profitLabelPanel);
 
         //////////////////////////////////////////////////////////////////
         //User Account table

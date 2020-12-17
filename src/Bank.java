@@ -17,6 +17,7 @@ public class Bank {
     private int highValueBenchmark;
     private int userNumber;
     private ArrayList<Transaction> dailyReport;
+    private int profit;
     protected ArrayList<User> users;
 
     protected ArrayList<Stock> stocks = new ArrayList<>();
@@ -32,6 +33,7 @@ public class Bank {
     	this.creationFee = 5;
         this.dailyReport = new ArrayList<Transaction>();
         this.userNumber = 0;
+        this.profit = 0;
     }
 
     // Major methods
@@ -47,6 +49,13 @@ public class Bank {
 
     //The transaction serves as a receipt. Will have already been processed before this method is called.
     public void createTransaction(Account account, String type, int amount, String currency) {
+        switch (type){
+            case "withdraw fee":
+            case "interest payment":
+            case "account creation fee":
+            case "account removal fee":
+                this.setProfit(this.getProfit() - (int)(amount/getConversionRate(currency)));
+        }
         Transaction t = new Transaction(account, type, amount, currency);
         DataKeeper.newTransaction(t);
         DataKeeper.updateAccount(account, type);
@@ -156,6 +165,14 @@ public class Bank {
                 this.userNumber = num;
             }
         }
+    }
+
+    public int getProfit() {
+        return profit;
+    }
+
+    public void setProfit(int profit) {
+        this.profit = profit;
     }
 
     /**
