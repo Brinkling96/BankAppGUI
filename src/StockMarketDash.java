@@ -60,4 +60,12 @@ public abstract class StockMarketDash extends BankDashboard{
     }
 
     protected abstract void goBacktoMainMenu();
+    public Stock getStockFromPile(int selectedRow){
+        Stock stock = null;
+        if (selectedRow >= 0) {
+            String stockName = (String) this.stockTable.table.getValueAt(selectedRow, 0);
+            stock= bank.findStock(stockName);
+        }
+        return stock;
+    }
 }

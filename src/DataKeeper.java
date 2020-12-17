@@ -152,7 +152,35 @@ public class DataKeeper {
         } catch (IOException e) {
             System.err.println("Could not update stock");
         }
+    }
 
+    public static void buySellStock(SecurityAccount account, Stock stock) {
+        String uid = account.getAccountID().substring(0, 4);
+        String aid = account.getAccountID().substring(4, 10);
+        String directoryName = USER_PATH + uid + "/" + aid + "/" + "stocks.txt";
+        File file = new File(directoryName);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            Path path = Paths.get(directoryName);
+            ArrayList<String> lines = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
+            boolean found = false;
+            for (int i = 0; i < lines.size(); i++) {
+                String[] stockInfo = lines.get(i).split(",");
+                String name = stockInfo[0];
+                if (name.equals(stock.getName())) {
+                    lines.set(i, stock.toString().replace("\n", ""));
+                    found = true;
+                }
+            }
+            if (!found) {
+                lines.add(stock.toString().replace("\n", ""));
+            }
+            Files.write(path, lines, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+
+        }
     }
 
     public static void updateDailyReports(Transaction transaction) {
@@ -261,25 +289,17 @@ public class DataKeeper {
                     } else if (type.equals("sc")) {
                         String balance = accountInfo[1];
                         ArrayList<Stock> stocks = new ArrayList<Stock>();
-                        String name = "";
-                        String value = "";
-                        String shares = "";
-                        String stockType = "";
-                        int count = 1;
-                        for (int i = 2; i < accountInfo.length; i++) {
-                            if (count == 1) {
-                                name = accountInfo[i];
-                            } else if (count == 2) {
-                                value = accountInfo[i];
-                            } else if (count == 3) {
-                                shares = accountInfo[i];
-                            } else if (count == 4) {
-                                stockType = accountInfo[i];
-                                if (stockType.equals("nyse")) {
-                                    stocks.add(new NYSE_Stock(name,value,shares));
-                                }
-                                count = 1;
+                        File stockFile = new File(USER_PATH + uid + "/" + aid.replace(uid, "") + "/" + "stocks.txt");
+                        Path path = Paths.get(USER_PATH + uid + "/" + aid.replace(uid, "") + "/" + "stocks.txt");
+                        if (stockFile.exists()) {
+                            System.out.println("stock file");
+                            ArrayList<String> lines = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
+                            for (String stockLine : lines) {
+                                String[] stockInfo = stockLine.split(",");
+                                stocks.add(new NYSE_Stock(stockInfo[0], stockInfo[1], stockInfo[2]));
                             }
+                        } else {
+                            System.out.println("No stock file");
                         }
                         accounts.add(new SecurityAccount(aid,balance,stocks));
                     }
@@ -348,12 +368,14 @@ public class DataKeeper {
                 ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
                 for (String line : lines) {
                     String[] stockString = line.split(",");
-                    String name = stockString[0];
-                    String value = stockString[1];
-                    String shares = stockString[2];
-                    String type = stockString[3];
-                    if (type.equals("nyse")) {
-                        stocks.add(new NYSE_Stock(name, value, shares));
+                    if (stockString.length == 4) {
+                        String name = stockString[0];
+                        String value = stockString[1];
+                        String shares = stockString[2];
+                        String type = stockString[3];
+                        if (type.equals("nyse")) {
+                            stocks.add(new NYSE_Stock(name, value, shares));
+                        }
                     }
                 }
             }
