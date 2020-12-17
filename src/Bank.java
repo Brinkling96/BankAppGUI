@@ -195,8 +195,17 @@ public class Bank {
         this.stocks = stocks;
     }
 
-    public void addStock(Stock stock){
-        stocks.add(stock);
+    public void addStock(Stock newStock){
+        boolean exist = false;
+        for (Stock stock : stocks) {
+            if (stock.getName().equals(newStock.getName())) {
+                stock.setShares(stock.getShares() + newStock.getShares());
+                exist = true;
+            }
+        }
+        if (!exist) {
+            stocks.add(newStock);
+        }
     }
 
     public void removeStock(Stock stock){
