@@ -15,6 +15,30 @@ public class DataKeeper {
     public static String USER_PATH = "./data/users/";
     public static String BANK_PATH = "./data/daily_reports/";
 
+    public static ArrayList<String> readAllLines(String path) {
+        File file = new File(path);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            Path filePath = Paths.get(path);
+            return new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            System.out.println("File could not be created");
+        }
+        return null;
+    }
+
+    public static void writeAllLines(String filepath, ArrayList<String> lines) {
+        Path path = Paths.get(filepath);
+        try {
+            Files.write(path, lines, StandardCharsets.UTF_8);
+
+        } catch (IOException e) {
+            System.err.println("Could not write to file");
+        }
+    }
+
     public static void deleteDir(File file) {
         File[] contents = file.listFiles();
         if (contents != null) {
@@ -25,6 +49,21 @@ public class DataKeeper {
             }
         }
         file.delete();
+    }
+
+    public static void writeNewLineToFile(String directoryName, String fileName, String str) {
+        File directory = new File(directoryName);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        File file = new File(directoryName + "/" + fileName);
+        try (FileWriter fw = new FileWriter(file, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw)){
+            out.print(str);
+        } catch (IOException e) {
+            System.err.println("Could not write to file");
+        }
     }
 
     public static void updateUser(User user, String action) {
@@ -38,149 +77,114 @@ public class DataKeeper {
             directory.mkdirs();
         }
 
-        try {
-            File userDetailFile = new File(USER_PATH + "user_details.txt");
-            if (!userDetailFile.exists()) {
-                userDetailFile.createNewFile();
-            }
-            Path filePath = Paths.get(USER_PATH + fileName);
-            ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
-            switch (action) {
-                case "add":
-                    lines.add(user.toString().replace("\n", ""));
-                    break;
-                case "remove":
-                    String removeLine = "";
-                    for (int i = 0; i < lines.size(); i++) {
-                        if (lines.get(i).split(",")[0].equals(user.getUserID())) {
-                            removeLine = lines.get(i);
-                            break;
-                        }
+        String path = USER_PATH + fileName;
+        ArrayList<String> lines = readAllLines(path);
+        switch (action) {
+            case "add":
+                lines.add(user.toString().replace("\n", ""));
+                break;
+            case "remove":
+                String removeLine = "";
+                for (int i = 0; i < lines.size(); i++) {
+                    if (lines.get(i).split(",")[0].equals(user.getUserID())) {
+                        removeLine = lines.get(i);
+                        break;
                     }
-                    lines.remove(removeLine);
-                    deleteDir(new File(directoryName));
-                    break;
-                case "logout":
-                    for (int i = 0; i < lines.size(); i++) {
-                        if (lines.get(i).split(",")[0].equals(user.getUserID())) {
-                            lines.set(i, user.toString().replace("\n", ""));
-                            break;
-                        }
+                }
+                lines.remove(removeLine);
+                deleteDir(new File(directoryName));
+                break;
+            case "update":
+                for (int i = 0; i < lines.size(); i++) {
+                    if (lines.get(i).split(",")[0].equals(user.getUserID())) {
+                        lines.set(i, user.toString().replace("\n", ""));
+                        break;
                     }
-                    break;
-            }
-            Files.write(filePath, lines, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            System.err.println("File not found");
+                }
+                break;
         }
+        writeAllLines(path, lines);
     }
 
     public static void updateAccount(Account account, String type) {
         String uid = account.getAccountID().substring(0, 4);
         String aid = account.getAccountID().substring(4, 10);
         String directoryName = USER_PATH.concat(uid);
-
-        try {
-            String fileName = "account_details.txt";
-            File file = new File(directoryName + "/" + fileName);
-            if (!file.exists()) {
-                file.createNewFile();
+        String fileName = "account_details.txt";
+        String path = directoryName + "/" + fileName;
+        ArrayList<String> lines = readAllLines(path);
+        if (type.equals("account creation fee")) {
+            lines.add(account.toString().replace("\n", ""));
+            File directory = new File(directoryName + "/" + aid);
+            directory.mkdir();
+        } else if (type.equals("account removal fee")) {
+            String removeLine = "";
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
+                    removeLine = lines.get(i);
+                    break;
+                }
             }
-            Path filePath = Paths.get(directoryName + "/" + fileName);
-            ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
-            if (type.equals("account creation fee")) {
-                lines.add(account.toString().replace("\n", ""));
-                File directory = new File(directoryName + "/" + aid);
-                directory.mkdir();
-            } else if (type.equals("account removal fee")) {
+            lines.remove(removeLine);
+            deleteDir(new File(directoryName + "/" + aid));
+        } else {
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
+                    lines.set(i, account.toString().replace("\n", ""));
+                    break;
+                }
+            }
+        }
+        writeAllLines(path, lines);
+    }
+
+    public static void updateStocks(Stock stock, String action) {
+        String path = "./data/bank_stocks.txt";
+        ArrayList<String> lines = readAllLines(path);
+        switch (action) {
+            case "add":
+                lines.add(stock.toString().replace("\n", ""));
+                break;
+            case "remove":
                 String removeLine = "";
                 for (int i = 0; i < lines.size(); i++) {
-                    if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
+                    if (lines.get(i).split(",")[0].equals(stock.getName())) {
                         removeLine = lines.get(i);
                         break;
                     }
                 }
                 lines.remove(removeLine);
-                deleteDir(new File(directoryName + "/" + aid));
-            } else {
+                break;
+            case "update":
                 for (int i = 0; i < lines.size(); i++) {
-                    if (lines.get(i).split(",")[0].equals(account.getAccountID())) {
-                        lines.set(i, account.toString().replace("\n", ""));
+                    if (lines.get(i).split(",")[0].equals(stock.getName())) {
+                        lines.set(i, stock.toString().replace("\n", ""));
                         break;
                     }
                 }
-            }
-            Files.write(filePath, lines, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            System.out.println("Unable to update account");
+                break;
         }
-    }
-
-    public static void updateStocks(Stock stock, String action) {
-        String fileName = "./data/bank_stocks.txt";
-        File file = new File(fileName);
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            Path filePath = Paths.get(fileName);
-            ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
-            switch (action) {
-                case "add":
-                    lines.add(stock.toString().replace("\n", ""));
-                    break;
-                case "remove":
-                    String removeLine = "";
-                    for (int i = 0; i < lines.size(); i++) {
-                        if (lines.get(i).split(",")[0].equals(stock.getName())) {
-                            removeLine = lines.get(i);
-                            break;
-                        }
-                    }
-                    lines.remove(removeLine);
-                    break;
-                case "update":
-                    for (int i = 0; i < lines.size(); i++) {
-                        if (lines.get(i).split(",")[0].equals(stock.getName())) {
-                            lines.set(i, stock.toString().replace("\n", ""));
-                            break;
-                        }
-                    }
-                    break;
-            }
-            Files.write(filePath, lines, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            System.err.println("Could not update stock");
-        }
+        writeAllLines(path, lines);
     }
 
     public static void buySellStock(SecurityAccount account, Stock stock) {
         String uid = account.getAccountID().substring(0, 4);
         String aid = account.getAccountID().substring(4, 10);
-        String directoryName = USER_PATH + uid + "/" + aid + "/" + "stocks.txt";
-        File file = new File(directoryName);
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
+        String path = USER_PATH + uid + "/" + aid + "/" + "stocks.txt";
+        ArrayList<String> lines = readAllLines(path);
+        boolean found = false;
+        for (int i = 0; i < lines.size(); i++) {
+            String[] stockInfo = lines.get(i).split(",");
+            String name = stockInfo[0];
+            if (name.equals(stock.getName())) {
+                lines.set(i, stock.toString().replace("\n", ""));
+                found = true;
             }
-            Path path = Paths.get(directoryName);
-            ArrayList<String> lines = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
-            boolean found = false;
-            for (int i = 0; i < lines.size(); i++) {
-                String[] stockInfo = lines.get(i).split(",");
-                String name = stockInfo[0];
-                if (name.equals(stock.getName())) {
-                    lines.set(i, stock.toString().replace("\n", ""));
-                    found = true;
-                }
-            }
-            if (!found) {
-                lines.add(stock.toString().replace("\n", ""));
-            }
-            Files.write(path, lines, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-
         }
+        if (!found) {
+            lines.add(stock.toString().replace("\n", ""));
+        }
+        writeAllLines(path, lines);
     }
 
     public static void updateDailyReports(Transaction transaction) {
@@ -188,76 +192,43 @@ public class DataKeeper {
         String month = transactionTime.substring(0, 2);
         String date = transactionTime.substring(3, 5);
         String year = transactionTime.substring(6, 10);
-
-        String directoryName = BANK_PATH + year + "/" + month;
-        String fileName = date;
-        File directory = new File(directoryName);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-        File file = new File(directoryName + "/" + fileName);
-
-        try (FileWriter fw = new FileWriter(file, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw)){
-            
-            out.print(transaction.toString());
-        } catch (IOException e) {
-            System.err.println("Transaction could not be recorded");
-        }
+        writeNewLineToFile(BANK_PATH + year + "/" + month, date, transaction.toString());
     }
 
     public static void newTransaction(Transaction transaction) {
-        System.out.println(transaction);
         String uid = transaction.getID().substring(0, 4);
         String aid = transaction.getID().substring(4, 10);
-        String directoryName = USER_PATH + uid + "/" + aid + "/";
-        File accDir = new File(directoryName);
-        if (!accDir.exists()) {
-            accDir.mkdirs();
-        }
-        String fileName = "transactions.txt";
-        File file = new File(directoryName + "/" + fileName);
-        try (FileWriter fw = new FileWriter(file, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw);) {
-            out.print(transaction.toString());
-                
-        } catch (IOException e) {
-            System.err.println("Transaction could not be created");
-        }
+        writeNewLineToFile(USER_PATH + uid + "/" + aid + "/", "transactions.txt", transaction.toString());
     }
 
     public static Bank initBank() {
-        File file = new File(USER_PATH + "user_details.txt");
+        String profit = "";
+        ArrayList<String> lines = readAllLines(USER_PATH + "user_details.txt");
         Bank bank = null;
-        if (file.exists()) {
-            ArrayList<User> users = new ArrayList<User>();
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    String[] userInfo = line.split(",");
-                    if (userInfo.length == 5) {
-                        String userID = userInfo[0];
-                        String username = userInfo[1];
-                        String password = userInfo[2];
-                        String type = userInfo[3];
-                        String lastLogin = userInfo[4];
-                        if (type.equals("customer")) {
-                            users.add(new CustomerUser(username, password, userID, lastLogin));
-                        } else {
-                            users.add(new Banker(username, password, userID, lastLogin));
-                        }
-                    }
+        ArrayList<User> users = new ArrayList<User>();
+        for (String line : lines) {
+            String[] userInfo = line.split(",");
+            
+            if (userInfo.length > 5) {
+                String userID = userInfo[0];
+                String username = userInfo[1];
+                String password = userInfo[2];
+                String type = userInfo[3];
+                String lastLogin = userInfo[4];
+                if (type.equals("customer")) {
+                    users.add(new CustomerUser(username, password, userID, lastLogin));
+                } else {
+                    profit = userInfo[5];
+                    users.add(new Banker(username, password, userID, lastLogin));
                 }
-                bank = new Bank(users);
-                for (User user : users) {
-                    if (user instanceof Banker) {
-                        ((Banker) user).setBank(bank);
-                    }
-                }
-            } catch (IOException e) {
-                System.err.println("Bank file not found");
+            }
+        }
+        bank = new Bank(users);
+        for (User user : users) {
+            if (user instanceof Banker) {
+                ((Banker) user).setBank(bank);
+                bank.setBanker((Banker) user);
+                bank.setProfit(Integer.parseInt(profit));
             }
         }
         return bank;
@@ -265,47 +236,28 @@ public class DataKeeper {
 
     public static ArrayList<Account> getAccountsFromUser(User user) {
         String uid = user.getUserID();
+        ArrayList<String> lines = readAllLines(USER_PATH + uid + "/" + "account_details.txt");
         ArrayList<Account> accounts = new ArrayList<>();
-        File file = new File(USER_PATH + uid + "/" + "account_details.txt");
-        if (file.exists()) {
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    String[] accountInfo = line.split(",");
-                    String aid = accountInfo[0];
-                    String type = aid.substring(aid.length()-2, aid.length());
+        for (String line : lines) {
+            String[] accountInfo = line.split(",");
+            String aid = accountInfo[0];
+            String type = aid.substring(aid.length()-2, aid.length());
 
-                    if (type.equals("ck")) {
-                        String balance = accountInfo[1];
-                        accounts.add(new CheckingAccount(aid, balance));
-                    } else if (type.equals("sv")) {
-                        String balance = accountInfo[1];
-                        accounts.add(new SavingsAccount(aid, balance));
-                    } else if (type.equals("ln")) {
-                        String originalValue = accountInfo[1];
-                        String principal = accountInfo[2];
-                        Collateral c = new Collateral(accountInfo[3], accountInfo[4], Integer.parseInt(accountInfo[5]));
-                        accounts.add(new LoanAccount(aid, originalValue, principal, c));
-                    } else if (type.equals("sc")) {
-                        String balance = accountInfo[1];
-                        ArrayList<Stock> stocks = new ArrayList<Stock>();
-                        File stockFile = new File(USER_PATH + uid + "/" + aid.replace(uid, "") + "/" + "stocks.txt");
-                        Path path = Paths.get(USER_PATH + uid + "/" + aid.replace(uid, "") + "/" + "stocks.txt");
-                        if (stockFile.exists()) {
-                            System.out.println("stock file");
-                            ArrayList<String> lines = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
-                            for (String stockLine : lines) {
-                                String[] stockInfo = stockLine.split(",");
-                                stocks.add(new NYSE_Stock(stockInfo[0], stockInfo[1], stockInfo[2]));
-                            }
-                        } else {
-                            System.out.println("No stock file");
-                        }
-                        accounts.add(new SecurityAccount(aid,balance,stocks));
-                    }
-                }
-            } catch (IOException e) {
-                System.err.println("Account file not found");
+            if (type.equals("ck")) {
+                String balance = accountInfo[1];
+                accounts.add(new CheckingAccount(aid, balance));
+            } else if (type.equals("sv")) {
+                String balance = accountInfo[1];
+                accounts.add(new SavingsAccount(aid, balance));
+            } else if (type.equals("ln")) {
+                String originalValue = accountInfo[1];
+                String principal = accountInfo[2];
+                Collateral c = new Collateral(accountInfo[3], accountInfo[4], Integer.parseInt(accountInfo[5]));
+                accounts.add(new LoanAccount(aid, originalValue, principal, c));
+            } else if (type.equals("sc")) {
+                String balance = accountInfo[1];
+                ArrayList<Stock> stocks = getStocks(USER_PATH + uid + "/" + aid.replace(uid, "") + "/" + "stocks.txt");
+                accounts.add(new SecurityAccount(aid,balance,stocks));
             }
         }
         return accounts;
@@ -317,70 +269,54 @@ public class DataKeeper {
      * @return
      */
     public static ArrayList<Transaction> getDailyTransactions(String date) {
-        ArrayList<Transaction> transactions = new ArrayList<>();
         String month = date.substring(0,2);
         String day = date.substring(2,4);
         String year = date.substring(4, 8);
-        File file = new File(BANK_PATH + year + "/" + month + "/" + day);
-        if (file.exists()) {
-            transactions = DataKeeper.readTransactions(file);
-        }
-        return transactions;
+        String path = BANK_PATH + year + "/" + month + "/" + day;
+        return  DataKeeper.readTransactions(path);
     }
 
     public static ArrayList<Transaction> getTransactionsFromAccount(Account account) {
-        ArrayList<Transaction> transactions = new ArrayList<>();
         String uid = account.getAccountID().substring(0,4);
         String aid = account.getAccountID().substring(4,10);
-        File file = new File(USER_PATH + uid + "/" + aid + "/" + "transactions.txt");
-        if (file.exists()) {
-            transactions = DataKeeper.readTransactions(file);
-        }
-        return transactions;
+        String path = USER_PATH + uid + "/" + aid + "/" + "transactions.txt"; 
+        return DataKeeper.readTransactions(path);
     }
 
-    public static ArrayList<Transaction> readTransactions(File file) {
+    public static ArrayList<Transaction> readTransactions(String path) {
+        ArrayList<String> lines = readAllLines(path);
         ArrayList<Transaction> transactions = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] transaction = line.split(",");
-                String tid = transaction[0];
-                String type = transaction[1];
-                String amount = transaction[2];
-                String currency = transaction[3];
-                String time = transaction[4];
-                transactions.add(new Transaction(tid, type, currency, amount, time));
-            }
-        } catch (IOException e) {
-            System.err.println("Could not read transactions");
+        for (String line : lines) {
+            String[] transaction = line.split(",");
+            String tid = transaction[0];
+            String type = transaction[1];
+            String amount = transaction[2];
+            String currency = transaction[3];
+            String time = transaction[4];
+            transactions.add(new Transaction(tid, type, currency, amount, time));
         }
         return transactions;
     }
 
     public static ArrayList<Stock> loadStocks() {
-        String fileName = "./data/bank_stocks.txt";
+        String path = "./data/bank_stocks.txt";
+        return getStocks(path);
+    }
+
+    public static ArrayList<Stock> getStocks(String path) {
+        ArrayList<String> lines = readAllLines(path);
         ArrayList<Stock> stocks = new ArrayList<Stock>();
-        File file = new File(fileName);
-        try {
-            if (file.exists()) {
-                Path filePath = Paths.get(fileName);
-                ArrayList<String> lines = new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
-                for (String line : lines) {
-                    String[] stockString = line.split(",");
-                    if (stockString.length == 4) {
-                        String name = stockString[0];
-                        String value = stockString[1];
-                        String shares = stockString[2];
-                        String type = stockString[3];
-                        if (type.equals("nyse")) {
-                            stocks.add(new NYSE_Stock(name, value, shares));
-                        }
-                    }
+        for (String line : lines) {
+            String[] stockString = line.split(",");
+            if (stockString.length == 4) {
+                String name = stockString[0];
+                String value = stockString[1];
+                String shares = stockString[2];
+                String type = stockString[3];
+                if (type.equals("nyse")) {
+                    stocks.add(new NYSE_Stock(name, value, shares));
                 }
             }
-        } catch (IOException e){
-
         }
         return stocks;
     }

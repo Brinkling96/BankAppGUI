@@ -19,6 +19,7 @@ public class Bank {
     private ArrayList<Transaction> dailyReport;
     private int profit;
     protected ArrayList<User> users;
+    private Banker banker;
 
     protected ArrayList<Stock> stocks = new ArrayList<>();
 
@@ -56,9 +57,12 @@ public class Bank {
             case "account removal fee":
                 this.setProfit(this.getProfit() - (int)(amount/getConversionRate(currency)));
         }
+
         Transaction t = new Transaction(account, type, amount, currency);
+        
         DataKeeper.newTransaction(t);
         DataKeeper.updateAccount(account, type);
+        DataKeeper.updateUser(banker, "update");
         DataKeeper.updateDailyReports(t);
     }
 
@@ -175,6 +179,14 @@ public class Bank {
         this.profit = profit;
     }
 
+    public void setBanker(Banker banker) {
+        this.banker = banker;
+    }
+
+    public User getBanker() {
+        return this.banker;
+    }
+
     /**
      * Stock methods
      */
@@ -183,8 +195,17 @@ public class Bank {
         this.stocks = stocks;
     }
 
-    public void addStock(Stock stock){
-        stocks.add(stock);
+    public void addStock(Stock newStock){
+        boolean exist = false;
+        for (Stock stock : stocks) {
+            if (stock.getName().equals(newStock.getName())) {
+                stock.setShares(stock.getShares() + newStock.getShares());
+                exist = true;
+            }
+        }
+        if (!exist) {
+            stocks.add(newStock);
+        }
     }
 
     public void removeStock(Stock stock){

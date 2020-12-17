@@ -39,4 +39,16 @@ public class Banker extends User{
         this.bank.setInterestRate(interestRate);
         this.bank.setHighValueBenchmark(highValueBenchmark);
     }
+    @Override
+    public String toString() {
+        String out = "";
+        out += getUserID() + ",";
+        out += getUsername() + ",";
+        out += String.valueOf(getPassword()) + ",";
+        out += "banker" + ",";
+        out += Clock.getClock().getTimeAsString(this.getCurrentLogin()) + ",";
+        out += bank.getProfit() + ",";
+        out += "\n";
+        return out;
+    }
 }
