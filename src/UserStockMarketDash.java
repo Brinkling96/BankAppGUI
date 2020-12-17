@@ -33,7 +33,7 @@ public class UserStockMarketDash extends StockMarketDash {
 
     protected JButton sellShares = new JButton("Sell Stock Shares");
     protected JPanel cpActionsPanel = new JPanel();
-
+    protected JPanel accountLabels = new JPanel();
 
 
 
@@ -42,26 +42,10 @@ public class UserStockMarketDash extends StockMarketDash {
 
         ///General Labels
         this.account = account;
-        JPanel accountLabels = new JPanel();
-
         this.generalLabelsPanel.add(accountLabels);
 
+        updateLabels();
 
-        this.securityAccountIDActual = new JLabel(account.getAccountID());
-        accountLabels.add(securityAccountIDLabel);
-        accountLabels.add(securityAccountIDActual);
-
-        this.balanceActual = new JLabel(Integer.toString(account.getBalance()));
-        accountLabels.add(balanceLabel);
-        accountLabels.add(balanceActual);
-
-        this.realizedProfitActual = new JLabel("NULL");//todo
-        accountLabels.add(realizedProfitLabel);
-        accountLabels.add(realizedProfitActual);
-
-        this.unrealizedProfitActual = new JLabel("NULL");//todo
-        accountLabels.add(unrealizedProfitLabel);
-        accountLabels.add(unrealizedProfitActual);
 
         //stock Market Action
 
@@ -98,9 +82,6 @@ public class UserStockMarketDash extends StockMarketDash {
         this.add(Box.createVerticalGlue());
         this.add(cpActionsPanel);
 
-
-
-
     }
 
     public Object[][] createCPTable() {
@@ -115,6 +96,26 @@ public class UserStockMarketDash extends StockMarketDash {
             row[3] = stock.getShares();
         }
         return tableData;
+    }
+
+    private void updateLabels(){
+        accountLabels.removeAll();
+        this.securityAccountIDActual = new JLabel(account.getAccountID());
+        accountLabels.add(securityAccountIDLabel);
+        accountLabels.add(securityAccountIDActual);
+
+        this.balanceActual = new JLabel(Integer.toString(account.getBalance()));
+        accountLabels.add(balanceLabel);
+        accountLabels.add(balanceActual);
+
+        this.realizedProfitActual = new JLabel("NULL");//todo
+        accountLabels.add(realizedProfitLabel);
+        accountLabels.add(realizedProfitActual);
+
+        this.unrealizedProfitActual = new JLabel("NULL");//todo
+        accountLabels.add(unrealizedProfitLabel);
+        accountLabels.add(unrealizedProfitActual);
+        accountLabels.validate();
     }
 
     private void reloadCurrentPostionTable() {
@@ -140,6 +141,7 @@ public class UserStockMarketDash extends StockMarketDash {
             }
             reloadCurrentPostionTable();
             reloadStockTable();
+            updateLabels();
         }
     }
 
@@ -149,6 +151,7 @@ public class UserStockMarketDash extends StockMarketDash {
         //todo
         JOptionPane.showMessageDialog(this,"Uimplemented");
         reloadStockTable();
+        updateLabels();
     }
 
     @Override
