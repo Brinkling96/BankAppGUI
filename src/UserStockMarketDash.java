@@ -129,6 +129,7 @@ public class UserStockMarketDash extends StockMarketDash {
         }
     }
 
+
     private void buySharesAction() {
         //Account act = getSelectedAccount()
         int selectedRow = this.stockTable.table.getSelectedRow();
@@ -138,6 +139,7 @@ public class UserStockMarketDash extends StockMarketDash {
                 JDialog wWindow = new StockPurchaseMenu(window, account, this.bank, stock);
             }
             reloadCurrentPostionTable();
+            reloadStockTable();
         }
     }
 
@@ -146,6 +148,7 @@ public class UserStockMarketDash extends StockMarketDash {
     private void doSellSharesAction() {
         //todo
         JOptionPane.showMessageDialog(this,"Uimplemented");
+        reloadStockTable();
     }
 
     @Override
