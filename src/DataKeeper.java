@@ -94,7 +94,7 @@ public class DataKeeper {
                 lines.remove(removeLine);
                 deleteDir(new File(directoryName));
                 break;
-            case "logout":
+            case "update":
                 for (int i = 0; i < lines.size(); i++) {
                     if (lines.get(i).split(",")[0].equals(user.getUserID())) {
                         lines.set(i, user.toString().replace("\n", ""));
@@ -103,7 +103,6 @@ public class DataKeeper {
                 }
                 break;
         }
-
         writeAllLines(path, lines);
     }
 
@@ -203,11 +202,13 @@ public class DataKeeper {
     }
 
     public static Bank initBank() {
+        String profit = "";
         ArrayList<String> lines = readAllLines(USER_PATH + "user_details.txt");
         Bank bank = null;
         ArrayList<User> users = new ArrayList<User>();
         for (String line : lines) {
             String[] userInfo = line.split(",");
+            
             if (userInfo.length == 5) {
                 String userID = userInfo[0];
                 String username = userInfo[1];
@@ -217,6 +218,7 @@ public class DataKeeper {
                 if (type.equals("customer")) {
                     users.add(new CustomerUser(username, password, userID, lastLogin));
                 } else {
+                    profit = userInfo[5];
                     users.add(new Banker(username, password, userID, lastLogin));
                 }
             }
@@ -225,6 +227,8 @@ public class DataKeeper {
         for (User user : users) {
             if (user instanceof Banker) {
                 ((Banker) user).setBank(bank);
+                bank.setBanker((Banker) user);
+                bank.setProfit(Integer.parseInt(profit));
             }
         }
         return bank;
