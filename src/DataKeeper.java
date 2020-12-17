@@ -16,17 +16,18 @@ public class DataKeeper {
     public static String BANK_PATH = "./data/daily_reports/";
 
     public static ArrayList<String> readAllLines(String path) {
+        ArrayList<String> lines = new ArrayList<String>();
         File file = new File(path);
         try {
             if (!file.exists()) {
                 file.createNewFile();
             }
             Path filePath = Paths.get(path);
-            return new ArrayList<>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
+            lines = new ArrayList<String>(Files.readAllLines(filePath, StandardCharsets.UTF_8));
         } catch (IOException e) {
             System.out.println("File could not be created");
         }
-        return null;
+        return lines;
     }
 
     public static void writeAllLines(String filepath, ArrayList<String> lines) {
@@ -285,15 +286,17 @@ public class DataKeeper {
 
     public static ArrayList<Transaction> readTransactions(String path) {
         ArrayList<String> lines = readAllLines(path);
-        ArrayList<Transaction> transactions = new ArrayList<>();
-        for (String line : lines) {
-            String[] transaction = line.split(",");
-            String tid = transaction[0];
-            String type = transaction[1];
-            String amount = transaction[2];
-            String currency = transaction[3];
-            String time = transaction[4];
-            transactions.add(new Transaction(tid, type, currency, amount, time));
+        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+        if (lines.size() > 0) {
+            for (String line : lines) {
+                String[] transaction = line.split(",");
+                String tid = transaction[0];
+                String type = transaction[1];
+                String amount = transaction[2];
+                String currency = transaction[3];
+                String time = transaction[4];
+                transactions.add(new Transaction(tid, type, currency, amount, time));
+            }
         }
         return transactions;
     }
