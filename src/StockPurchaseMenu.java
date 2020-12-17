@@ -46,7 +46,6 @@ public class StockPurchaseMenu extends InputIntMenu {
                                 }
                                 stock.setShares(stock.getShares() - shares);
                                 DataKeeper.updateStocks(stock, "update");
-                                bank.createTransaction(account, "stock purchase", amount, "usd");
                                 this.dispose();
                             }
                 } else {
