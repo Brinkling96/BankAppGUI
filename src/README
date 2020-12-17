@@ -23,7 +23,8 @@ Account (abstract): implements AccountActions and contains all functions and att
     SecurityAccount: type of account that handles stocks
     LoanAccount: type of account that handles loans
 
-    note: Relevant interests charge/payments are calculated at each user/banker's login
+    note: Relevant interests charge/payments are calculated at each user/banker's login, where the compound interests
+    are calculated by the days elapsed since last login
 
 
 User (abstract): contains all necessary features of a user
