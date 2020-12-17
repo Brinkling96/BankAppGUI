@@ -289,12 +289,18 @@ public class DataKeeper {
                     } else if (type.equals("sc")) {
                         String balance = accountInfo[1];
                         ArrayList<Stock> stocks = new ArrayList<Stock>();
-                        String name = "";
-                        String value = "";
-                        String shares = "";
-                        String stockType = "";
-                        int count = 1;
-                        
+                        File stockFile = new File(USER_PATH + uid + "/" + aid.replace(uid, "") + "/" + "stocks.txt");
+                        Path path = Paths.get(USER_PATH + uid + "/" + aid.replace(uid, "") + "/" + "stocks.txt");
+                        if (stockFile.exists()) {
+                            System.out.println("stock file");
+                            ArrayList<String> lines = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
+                            for (String stockLine : lines) {
+                                String[] stockInfo = stockLine.split(",");
+                                stocks.add(new NYSE_Stock(stockInfo[0], stockInfo[1], stockInfo[2]));
+                            }
+                        } else {
+                            System.out.println("No stock file");
+                        }
                         accounts.add(new SecurityAccount(aid,balance,stocks));
                     }
                 }

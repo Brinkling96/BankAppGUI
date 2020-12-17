@@ -26,7 +26,7 @@ public class SecurityAccount extends Account{
         if (!exist) {
             this.stocks.add(stock);
         }
-        DataKeeper.buySellStock((SecurityAccount) this, stock);  
+        DataKeeper.buySellStock((SecurityAccount) this, stock);
     }
 
     public void sellStock(Stock stock) {
