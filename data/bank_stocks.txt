@@ -1,2 +1,3 @@
-AMZN,1000,953,nyse,
-TESLA,1000,980,nyse,
+AMZN,1000,951,nyse,
+TESLA,1000,942,nyse,
+MCD,213,998,nyse,
