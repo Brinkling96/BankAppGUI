@@ -45,7 +45,7 @@ public class Banker extends User{
         out += getUserID() + ",";
         out += getUsername() + ",";
         out += String.valueOf(getPassword()) + ",";
-        out += "banker";
+        out += "banker" + ",";
         out += Clock.getClock().getTimeAsString(this.getCurrentLogin()) + ",";
         out += bank.getProfit() + ",";
         out += "\n";
