@@ -306,15 +306,17 @@ public class DataKeeper {
     public static ArrayList<Stock> getStocks(String path) {
         ArrayList<String> lines = readAllLines(path);
         ArrayList<Stock> stocks = new ArrayList<Stock>();
-        for (String line : lines) {
-            String[] stockString = line.split(",");
-            if (stockString.length == 4) {
-                String name = stockString[0];
-                String value = stockString[1];
-                String shares = stockString[2];
-                String type = stockString[3];
-                if (type.equals("nyse")) {
-                    stocks.add(new NYSE_Stock(name, value, shares));
+        if (lines.size() > 0) {
+            for (String line : lines) {
+                String[] stockString = line.split(",");
+                if (stockString.length == 4) {
+                    String name = stockString[0];
+                    String value = stockString[1];
+                    String shares = stockString[2];
+                    String type = stockString[3];
+                    if (type.equals("nyse")) {
+                        stocks.add(new NYSE_Stock(name, value, shares));
+                    }
                 }
             }
         }
