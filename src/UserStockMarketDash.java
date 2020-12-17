@@ -147,8 +147,26 @@ public class UserStockMarketDash extends StockMarketDash {
 
     private void doSellSharesAction() {
         //todo
-        JOptionPane.showMessageDialog(this,"Uimplemented");
+        //Account act = getSelectedAccount()
+        int selectedRow = this.currentPositionsTable.table.getSelectedRow();
+        if (selectedRow >=0 ) {
+            Stock stock = getStockFromAccount(selectedRow);
+            if (stock != null) {
+                JDialog wWindow = new StockSaleMenu(window, account, this.bank, stock);
+            }
+            reloadCurrentPostionTable();
+            reloadStockTable();
+        }
         reloadStockTable();
+    }
+
+    private Stock getStockFromAccount(int selectedRow){
+        Stock stock = null;
+        if (selectedRow >= 0) {
+            String stockName = (String) this.currentPositionsTable.table.getValueAt(selectedRow, 0);
+            stock= bank.findStock(stockName);
+        }
+        return stock;
     }
 
     @Override

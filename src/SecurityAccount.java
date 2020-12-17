@@ -32,8 +32,13 @@ public class SecurityAccount extends Account{
     }
 
     public void sellStock(Stock stock) {
+        boolean empty = false;
         this.setBalance(this.getBalance() + (stock.getValue()*stock.getShares()));
-        this.getStocks().add(stock);
+        for (Stock myStock : stocks) {
+            if (myStock.getName().equals(stock.getName())) {
+                myStock.setShares(stock.getShares() - myStock.getShares());
+            }
+        }
         this.getBank().createTransaction(this, "stock sold", (stock.getValue()*stock.getShares()), "usd");
 
     }
